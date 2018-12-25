@@ -2,25 +2,18 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
 import CardFlip from 'react-native-card-flip';
-// import CircleMenu from '@ramotion/react-native-circle-menu'
 
 
 const API_KEY = '61ffab023e612aa11ca364354a4c0e6b';
 const mainURL = "https://api.themoviedb.org/3/"
 const ImageURL = "https://image.tmdb.org/t/p/w500"
 
-// class Filter extends Component {
-//     state = {
-
-//     }
-// }
-
 
 export default class Main extends Component {
     state = {
         isLoaded: false,
         error: null,
-        category: 'top_rated',
+        category: null,
         latest: 'latest',
         random: 338952,
         title: null,
@@ -72,7 +65,7 @@ export default class Main extends Component {
 
                 {/* CARD */}
                 <View style={styles.cardBox}>
-                    <CardFlip duration = {1000} style={styles.cardBox2} ref={(card) => this.card = card}>
+                    <CardFlip duration = {800} style={styles.cardBox2} ref={(card) => this.card = card}>
                         <TouchableOpacity 
                             style={styles.cardBox3}
                             activeOpacity= {1}

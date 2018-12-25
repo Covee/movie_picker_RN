@@ -1,0 +1,27 @@
+
+
+필터기능 func.
+    mainURL + 'discover/movie?api_key=' + API_KEY + '&language=ko-KR&include_adult=true&include_video=false'
+
+    * 성인 영화 포함(bool)
+    &include_adult=true
+
+    * 비디오를 포함하고 있는것만 찾을 것인가? (NO = flase)
+    &include_video=false
+
+
+* 평점 ()점 이상 = (int)
+&vote_average.gte=5
+
+* 장르 (string)
+&with_genres=comedy
+
+* 국내영화 검색, 해외영화 검색 = 국내는 ko, 해외영화는 ko가 아니면 모두.
+&with_original_language=ko
+
+
+1. 국내 or 해외 or 모두 옵션 만들기 (default=모두)
+
+2. 장르 선택 (default=모두)
+
+3. 평점 몇점 이상 (default = 5)
