@@ -17,9 +17,7 @@ export default class Main extends Component {
         super(props);
         this.state = {
             isLoaded: false,
-            error: '',
             category: null,
-            latest: 'latest',
             random: 434119,
             title: null,
             year: null,
@@ -27,63 +25,49 @@ export default class Main extends Component {
             runtime: null,
             income: null,
             story: null,
-            country: null,
+            country: 'ko',
             isVisible: false,
             pickedId: null,
             randNumA: null,
             randNumB: Math.floor(Math.random() * 19),
-            randStart: -1,
         }
     }
 
     _filter() {
 
-        fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language=ko&page=').then(response => response.json())
+        fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language='+ this.state.country +'&page=').then(response => response.json())
         .then(json => {
             this.setState({
                 randNumA: Math.floor((Math.random() * json.total_pages))
             })
         })
         .then(
-            fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language=ko&page=' + this.state.randNumA).then(response => response.json())
+            fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA).then(response => response.json())
             .then(json => {
                 this.setState({
                     pickedId: json.results[this.state.randNumB].id
                 })
-                console.log(this.state.pickedId)
             })
         )
-            // .then(json => {
-            //     if (typeof(json.results[this.state.randNumB].poster_path && json.results[this.state.randNumB].title) != "undefined"){
-            //         this.setState({
-            //             pickedId: json.results[this.state.randNumB].id
-            //             // randNumA: Math.floor((Math.random() * json.total_pages))
-            //         })
-            //     } else {
-            //         this.setState({
-            //             randNumB: this.state.randStart + 1
-            //         })
-            //         this.setState({
-            //             pickedId: json.results[this.state.randNumB].id
-            //             // randNumA: Math.floor((Math.random() * json.total_pages))
-            //         })
-            //     }         
-            //     console.log(this.state.pickedId)
-            // })
         .then(
             fetch(mainURL + 'movie/' + this.state.pickedId + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
             .then(json => {
-                this.setState({
-                    isLoaded: true,
-                    title: json.title,
-                    year: json.release_date,
-                    rating: json.vote_average,
-                    runtime: json.runtime,
-                    income: json.revenue,
-                    story: json.overview,
-                    poster: json.poster_path,
-                    country: json.original_language,
-                })
+                if (!json.title || !json.poster_path) {
+                    console.log("mix again")
+                    this._filter()
+                } else {
+                    this.setState({
+                        isLoaded: true,
+                        title: json.title,
+                        year: json.release_date,
+                        rating: json.vote_average,
+                        runtime: json.runtime,
+                        income: json.revenue,
+                        story: json.overview,
+                        poster: json.poster_path,
+                        country: json.original_language,
+                    })
+                }
             })
         )
     }
