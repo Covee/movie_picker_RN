@@ -29,23 +29,63 @@ export default class Main extends Component {
             story: null,
             country: null,
             isVisible: false,
+            pickedId: null,
+            randNumA: null,
+            randNumB: Math.floor(Math.random() * 19),
+            randStart: -1,
         }
     }
-    
-    _filterFunction = () => {
-        <Modal isVisible={true}>
-            <View style={{ flex: 1 }}>
-            <Text>I am the modal content!</Text>
-            </View>
-        </Modal>
-    }
 
-    _randomNumber = () => {
-        const min = 1;
-        const recent = fetch(mainURL + 'movie/' + this.state.latest + '?api_key=' + API_KEY + '&language=ko-KR')
-        const max = this.setState({latest: recent.state.latest})
-        const random = min + Math.random() * (max - min);
-        this.setState({ random: this.state.random + random });     
+    _filter() {
+
+        fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language=ko&page=').then(response => response.json())
+        .then(json => {
+            this.setState({
+                randNumA: Math.floor((Math.random() * json.total_pages))
+            })
+        })
+        .then(
+            fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language=ko&page=' + this.state.randNumA).then(response => response.json())
+            .then(json => {
+                this.setState({
+                    pickedId: json.results[this.state.randNumB].id
+                })
+                console.log(this.state.pickedId)
+            })
+        )
+            // .then(json => {
+            //     if (typeof(json.results[this.state.randNumB].poster_path && json.results[this.state.randNumB].title) != "undefined"){
+            //         this.setState({
+            //             pickedId: json.results[this.state.randNumB].id
+            //             // randNumA: Math.floor((Math.random() * json.total_pages))
+            //         })
+            //     } else {
+            //         this.setState({
+            //             randNumB: this.state.randStart + 1
+            //         })
+            //         this.setState({
+            //             pickedId: json.results[this.state.randNumB].id
+            //             // randNumA: Math.floor((Math.random() * json.total_pages))
+            //         })
+            //     }         
+            //     console.log(this.state.pickedId)
+            // })
+        .then(
+            fetch(mainURL + 'movie/' + this.state.pickedId + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
+            .then(json => {
+                this.setState({
+                    isLoaded: true,
+                    title: json.title,
+                    year: json.release_date,
+                    rating: json.vote_average,
+                    runtime: json.runtime,
+                    income: json.revenue,
+                    story: json.overview,
+                    poster: json.poster_path,
+                    country: json.original_language,
+                })
+            })
+        )
     }
 
     componentDidMount() {
@@ -178,7 +218,7 @@ export default class Main extends Component {
                     {/* <View style={{alignContent:'flex-end'}}> */}
                         <TouchableOpacity 
                             style={styles.buttonMix}
-                            // onPress={}    
+                            onPress={() => {this._filter()}}    
                         >
                             <Icon name="ios-heart" style={styles.actionButtonIcon2} />
                         </TouchableOpacity>
@@ -191,7 +231,6 @@ export default class Main extends Component {
                                 buttonColor='#9b59b6' 
                                 title="New Task" 
                                 onPress={() => this.setState({isVisible: true}) }
-                                // onPress={() => {Alert.alert("dfdfd")}}
                             >
                                 
                                 <Icon name="ios-funnel" style={styles.actionButtonIcon} />
@@ -211,14 +250,6 @@ export default class Main extends Component {
                         </ActionButton>
                     </View>
 
-                    {/* <View style={styles.buttonBurger}>
-                        <TouchableOpacity
-                            // onPress={}
-                        
-                        >
-                        <Text>Hamburger</Text>
-                        </TouchableOpacity>
-                    </View> */}
                     <View>
                         <Modal 
                             isVisible={this.state.isVisible}
@@ -231,9 +262,6 @@ export default class Main extends Component {
                         </Modal>
                     </View>
                     
-
-
-
 
                 </View>
 
