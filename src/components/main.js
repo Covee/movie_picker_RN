@@ -28,32 +28,34 @@ export default class Main extends Component {
             country: 'ko',
             isVisible: false,
             pickedId: null,
-            randNumA: null,
-            randNumB: Math.floor(Math.random() * 19),
+            randNumA: 217,
+            randNumB: null,
         }
     }
 
     _filter() {
-
         fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language='+ this.state.country +'&page=').then(response => response.json())
         .then(json => {
             this.setState({
-                randNumA: Math.floor((Math.random() * json.total_pages))
+                randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
+                randNumB: Math.floor(Math.random() * 20),
             })
         })
         .then(
             fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA).then(response => response.json())
             .then(json => {
+                let id = json.results[this.state.randNumB].id
                 this.setState({
-                    pickedId: json.results[this.state.randNumB].id
+                    pickedId: id
                 })
+                console.log("page=" + this.state.randNumA, "arrayNum=" + this.state.randNumB, "ID=" + this.state.pickedId)
             })
         )
         .then(
             fetch(mainURL + 'movie/' + this.state.pickedId + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
             .then(json => {
                 if (!json.title || !json.poster_path) {
-                    console.log("mix again")
+                    console.log("no title || poster : mix again")
                     this._filter()
                 } else {
                     this.setState({
@@ -65,82 +67,56 @@ export default class Main extends Component {
                         income: json.revenue,
                         story: json.overview,
                         poster: json.poster_path,
-                        country: json.original_language,
-                    })
+                    })   
+                }
+                if (this.state.country == 'ko') {
+                    this.setState({randNumA: Math.floor(Math.random() * 217)+1})
+                } else {
+                    this.setState({randNumA: Math.floor(Math.random() * 1000)+1})
                 }
             })
         )
     }
 
+    _changeCountry = (e) => {
+        if (this.state.country == 'ko') {
+            this.setState({country: 'en', randNumA: Math.floor(Math.random() * 1000)+1})
+        } 
+        // else if (this.state.country == '') {
+        //     this.setState({country: 'en', randNumA: Math.floor(Math.random() * 1000)+1})
+        // }
+        else {
+            this.setState({country: 'ko', randNumA: Math.floor(Math.random() * 217)+1})
+        }
+        
+        // console.log(this.state.country)
+        // this._filter()
+    }
+
+    // _log = () => {
+    //     console.log(this.state.country)
+    // }
+
     componentDidMount() {
-        // let page = 1;
-        // let ratingAbove, genreId = null;
-        let data = fetch(mainURL + 'movie/' + this.state.random + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
-        .then(json => {
+        // let data = fetch(mainURL + 'movie/' + this.state.random + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
+        // .then(json => {
             
-          this.setState({
-            isLoaded: true,
-            title: json.title,
-            year: json.release_date,
-            rating: json.vote_average,
-            runtime: json.runtime,
-            income: json.revenue,
-            story: json.overview,
-            poster: json.poster_path,
-            country: json.original_language,
-          })
-        })
+        //   this.setState({
+        //     isLoaded: true,
+        //     title: json.title,
+        //     year: json.release_date,
+        //     rating: json.vote_average,
+        //     runtime: json.runtime,
+        //     income: json.revenue,
+        //     story: json.overview,
+        //     poster: json.poster_path,
+        //     country: json.original_language,
+        //   })
+        // })
+        this._filter()
         
     }
 
-    // _filter(lang) {
-    //     // if (this.state.country == 'ko'){
-    //     //     Alert.alert(this.state.country)
-    //     //     this.setState({country: 'en'})
-    //     // } else {
-    //     //     this.setState({country: 'en'})
-    //     // }
-    //     // this.setState({country: 'en'})
-    //     console.log(lang)
-    //     fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language=' + lang).then(response => response.json())
-    //     .then(json => {
-    //         this.setState({
-    //         //   isLoaded: true,
-    //         //   title: json.title,
-    //         //   year: json.release_date,
-    //         //   rating: json.vote_average,
-    //         //   runtime: json.runtime,
-    //         //   income: json.revenue,
-    //         //   story: json.overview,
-    //           poster: json.results[0].poster_path,
-    //           country: json.results[0].original_language,
-    //         })
-    //         console.log(this.state.country + "1")
-
-    //       })
-    //     console.log(this.state.country + "2")
-    // }
-        
-
-    // let plain = fetch(mainURL + 'discover/movie?api_key=' + API_KEY + '&language=ko-KR&page=' + page + '&vote_average.gte=' + ratingAbove + '&with_genres=' + genreId + '&with_original_language=' + this.state.country).then(response => response.json())
-
-    // let data = fetch(mainURL + 'movie/' + this.state.random + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
-
-
-    //     let plain = fetch(mainURL + 'discover/movie?api_key=' + API_KEY + '&language=ko-KR&page=' + page + '&vote_average.gte=' + ratingAbove + '&with_genres=' + genreId + '&with_original_language=' + country).then(response => response.json())
-    //     .then(json => {
-    //       this.setState({
-    //         isLoaded: true,
-    //         title: json.title,
-    //         year: json.release_date,
-    //         rating: json.vote_average,
-    //         runtime: json.runtime,
-    //         income: json.revenue,
-    //         story: json.overview,
-    //         poster: json.poster_path,
-    //       })
-    //     })
-    // }
 
     render() {
         const { title, year, rating, runtime, income, story, poster } = this.state;
@@ -220,7 +196,11 @@ export default class Main extends Component {
                                 <Icon name="ios-funnel" style={styles.actionButtonIcon} />
                                 
                             </ActionButton.Item>
-                            <ActionButton.Item buttonColor='#ff3881' title="All Tasks" onPress={() => {Alert.alert("dfdfd")}}>
+                            <ActionButton.Item 
+                                buttonColor='#ff3881' 
+                                title="All Tasks" 
+                                onPress={(e) => this._changeCountry()}
+                            >
                                 <Icon name="ios-heart" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
                             <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {Alert.alert("dfdfd")}}>
