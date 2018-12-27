@@ -142,7 +142,7 @@ export default class Main extends Component {
                             {/* <View style={styles.posterBox}> */}
                                 <Image
                                     source={{uri: ImageURL + poster}}
-                                    style={{flex: 1}}
+                                    style={{flex: 1, borderRadius: 15,}}
                                 />
                             {/* </View> */}
                         </TouchableOpacity>
@@ -175,35 +175,39 @@ export default class Main extends Component {
                 
                 {/* BUTTONS */}
                 <View style={styles.buttonBox}>
-                    <TouchableOpacity 
-                        style={styles.buttonMix}
-                        // onPress={}    
-                    >
-                        <Text>추천</Text>
-                    </TouchableOpacity>
-
+                    {/* <View style={{alignContent:'flex-end'}}> */}
+                        <TouchableOpacity 
+                            style={styles.buttonMix}
+                            // onPress={}    
+                        >
+                            <Icon name="ios-heart" style={styles.actionButtonIcon2} />
+                        </TouchableOpacity>
+                    {/* </View> */}
                     <View style={styles.buttonFilter}>
                         {/*Rest of App come ABOVE the action button component!*/}
-                        <ActionButton buttonColor="rgba(231,76,60,1)" radius={110} outRangeScale={1.4} degrees={300} position={'right'}>
+                        <ActionButton buttonColor="rgba(231,76,60,1)" radius={90} outRangeScale={0.7} degrees={405} position={'right'}>
 
                             <ActionButton.Item 
                                 buttonColor='#9b59b6' 
                                 title="New Task" 
-                                onPress={() => this.setState({isVisible: true}) } >
+                                onPress={() => this.setState({isVisible: true}) }
+                                // onPress={() => {Alert.alert("dfdfd")}}
+                            >
                                 
                                 <Icon name="ios-funnel" style={styles.actionButtonIcon} />
                                 
                             </ActionButton.Item>
-                            <ActionButton.Item buttonColor='#ff3881' title="All Tasks" onPress={() => {}}>
+                            <ActionButton.Item buttonColor='#ff3881' title="All Tasks" onPress={() => {Alert.alert("dfdfd")}}>
                                 <Icon name="ios-heart" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
-                            <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>
+                            <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {Alert.alert("dfdfd")}}>
                                 <Icon name="ios-eye" style={styles.actionButtonIcon} />
                                 
                             </ActionButton.Item>                            
-                            <ActionButton.Item buttonColor='gray' title="All Tasks" onPress={() => {}}>
+                            <ActionButton.Item buttonColor='gray' title="All Tasks" onPress={() => {Alert.alert("dfdfd")}}>
                                 <Icon name="ios-settings" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
+
                         </ActionButton>
                     </View>
 
@@ -251,25 +255,27 @@ const styles = StyleSheet.create({
 
   cardBox: {
     flex: 6,
-    backgroundColor: 'blue',
+    backgroundColor: '#fffcfd',
+    position: 'relative',
     },
     cardBox2: {
         flex: 1,
         width: '90%',
         alignSelf: 'center',
-        marginTop: 10,
+        marginTop: 20,
         paddingTop: 20,
         paddingBottom: 20,
-        // backgroundColor: 'yellow',
         },
         cardBox3: {
             flex: 1,
             width: '100%',
             alignSelf: 'center',
-            marginTop: 10,
-            // paddingTop: 5,
-            paddingBottom: 20,
+            // marginTop: 5,
             backgroundColor: 'lightblue',
+            borderRadius: 15,
+            shadowOffset: { width: 4, height: 5 },
+            shadowOpacity: 0.8,
+            shadowRadius: 2,
 
             },
             posterBox: {
@@ -304,27 +310,34 @@ const styles = StyleSheet.create({
             },
 
   buttonBox: {
-    flex: 1,
-    backgroundColor: '#daf7d7',
+    flex: 1.4,
+    backgroundColor: '#fffcfd',
+    // backgroundColor: '#0061ff',
     flexDirection: 'row',
     paddingLeft: 10,
     paddingRight: 10,
+    // zIndex: 2000,
     },
     buttonMix: {
-        flex: 2,
+        flex: 1,
         backgroundColor: '#1abc9c',
         borderColor: '#1abc9c',
         borderWidth: 2,
-        borderRadius: 5,
-        padding: 10,
-        alignSelf: 'center',
-        alignItems: 'center',     
+        borderRadius: 10,
+        padding: 20,
+        alignSelf: 'flex-end',
+        alignItems: 'center', 
+        position: 'relative',
+        marginLeft: 20,
+        marginBottom: 15
     },
     buttonFilter: {
         flex: 1,
         alignItems: 'center',
         backgroundColor: 'transparent',
-        marginBottom: 10,
+        marginBottom: 2,
+        marginRight: 5,
+        
     },
     buttonBurger: {
         flex: 1,
@@ -333,9 +346,18 @@ const styles = StyleSheet.create({
 
     },
     actionButtonIcon: {
-        fontSize: 20,
-        height: 22,
+        fontSize: 25.5,
+        height: 23,
         color: 'white',
+        marginBottom: 5
+      },
+
+
+      actionButtonIcon2: {
+        fontSize: 35,
+        height: 32,
+        color: 'white',
+        marginBottom: 5,
       },
 
 });
