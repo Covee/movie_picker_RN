@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, Button, Alert } from 'react-native';
+import { 
+        StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput,
+        TouchableHighlight, Image, Alert 
+    } from 'react-native';
+import { Card, ListItem, Button} from 'react-native-elements'
 import Filter from './filter';
+import Cards from './card';
+
 
 import CardFlip from 'react-native-card-flip';
 import ActionButton from 'react-native-circular-action-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
 
-
 const API_KEY = '61ffab023e612aa11ca364354a4c0e6b';
 const mainURL = "https://api.themoviedb.org/3/"
 const ImageURL = "https://image.tmdb.org/t/p/w500"
+const discoverURL = "https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b"
+
 
 export default class Main extends Component {
     constructor(props) {
@@ -30,11 +37,13 @@ export default class Main extends Component {
             pickedId: null,
             randNumA: 217,
             randNumB: null,
+            genre: [],
+            // cast: [],
         }
     }
 
     _filter() {
-        fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language='+ this.state.country +'&page=').then(response => response.json())
+        fetch (discoverURL + '&language=ko-KR&with_original_language='+ this.state.country +'&page=').then(response => response.json())
         .then(json => {
             this.setState({
                 randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
@@ -42,7 +51,7 @@ export default class Main extends Component {
             })
         })
         .then(
-            fetch ('https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA).then(response => response.json())
+            fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA).then(response => response.json())
             .then(json => {
                 let id = json.results[this.state.randNumB].id
                 this.setState({
@@ -54,20 +63,36 @@ export default class Main extends Component {
         .then(
             fetch(mainURL + 'movie/' + this.state.pickedId + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
             .then(json => {
-                if (!json.title || !json.poster_path) {
+                if (!json.title || !json.poster_path || (json.genres[0]==undefined) ) {
                     console.log("no title || poster : mix again")
                     this._filter()
                 } else {
-                    this.setState({
-                        isLoaded: true,
-                        title: json.title,
-                        year: json.release_date,
-                        rating: json.vote_average,
-                        runtime: json.runtime,
-                        income: json.revenue,
-                        story: json.overview,
-                        poster: json.poster_path,
-                    })   
+                    if (json.genres[1]) {
+                        this.setState({
+                            isLoaded: true,
+                            title: json.title,
+                            year: json.release_date,
+                            rating: json.vote_average,
+                            runtime: json.runtime,
+                            income: json.revenue,
+                            story: json.overview,
+                            poster: json.poster_path,
+                            genre: [json.genres[0].name + ", " + json.genres[1].name],
+                        })  
+                    } else {
+                        this.setState({
+                            isLoaded: true,
+                            title: json.title,
+                            year: json.release_date,
+                            rating: json.vote_average,
+                            runtime: json.runtime,
+                            income: json.revenue,
+                            story: json.overview,
+                            poster: json.poster_path,
+                            genre: json.genres[0].name,
+                        })
+                    }
+                    
                 }
                 if (this.state.country == 'ko') {
                     this.setState({randNumA: Math.floor(Math.random() * 217)+1})
@@ -75,7 +100,27 @@ export default class Main extends Component {
                     this.setState({randNumA: Math.floor(Math.random() * 1000)+1})
                 }
             })
+            // .then(
+            //     fetch(mainURL + 'movie/' + this.state.pickedId + '/credits?api_key=' + API_KEY)
+            //     .then(response => response.json()
+            //         .then(json => {
+            //             let start = 0
+            //             let numCast = json.cast.length()
+            //             let arr = []
+            //             while (start >= numCast) {
+            //                 arr.concat(json.cast[start])
+            //                 start = start + 1
+            //             }
+            //             this.setState({
+            //                 cast: arr,
+            //             })
+                        
+            //             console.log("cast>>> " + this.state.cast)
+            //         })
+            //     )
+            // )
         )
+        
     }
 
     _changeCountry = (e) => {
@@ -97,6 +142,7 @@ export default class Main extends Component {
     //     console.log(this.state.country)
     // }
 
+
     componentDidMount() {
         // let data = fetch(mainURL + 'movie/' + this.state.random + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
         // .then(json => {
@@ -117,10 +163,9 @@ export default class Main extends Component {
         
     }
 
-
+    
     render() {
-        const { title, year, rating, runtime, income, story, poster } = this.state;
-        
+        const { title, year, rating, runtime, income, story, poster, genre } = this.state;
         return (
             <View style={styles.container}>
 
@@ -134,6 +179,7 @@ export default class Main extends Component {
                 {/* CARD */}
                 <View style={styles.cardBox}>
                     <CardFlip duration = {800} style={styles.cardBox2} ref={(card) => this.card = card}>
+                        
                         <TouchableOpacity 
                             style={styles.cardBox3}
                             activeOpacity= {1}
@@ -152,20 +198,37 @@ export default class Main extends Component {
                             onPress={() => this.card.flip()}
                         >
                             <View style={styles.box1}>
-                                <Text>{title}[{year}]</Text>
-                                <Text>평점: {rating}</Text>
+                                <Text style={{fontSize:20, fontWeight:'700'}}>{title}</Text>
+                                <Text style={{}}>[{year}]</Text>
+                                <Text style={{}}>평점: {rating}</Text>
                             </View>
                             <View style={styles.box2}>
                                 <Text>상영시간: {runtime}분</Text>
+                                <Text>장르: {genre}</Text>
                                 <Text>수입: $ {income}</Text>
                             </View>
                             <View style={styles.box3}>
-                                <Text>Castings</Text>
+                                <View>
+                                    <Text style={{fontSize:20, fontWeight:'600'}}>Castings</Text>
+                                </View>
+
+        <Cards id={this.state.pickedId} />
+                                
+                                
                             </View>
+
                             <View style={styles.box4}>
-                                <Text>줄거리</Text>
-                                <Text>{story}</Text>
+                                <ScrollView style={styles.box4}>
+                                    <Text style={{fontSize:20, fontWeight:'600'}}>줄거리</Text>
+                                    <TouchableOpacity 
+                                        style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}
+                                        activeOpacity= {1}
+                                    >
+                                        <Text style={{height: '100%', width: '100%', paddingLeft: -1, paddingRight: 2, paddingTop: 4,}}>{story}</Text>
+                                    </TouchableOpacity>     
+                                </ScrollView>
                             </View>
+
                             <View style={styles.box5}>
                                 <Text>Videos</Text>
                             </View>
@@ -173,6 +236,8 @@ export default class Main extends Component {
                     </CardFlip>
                 </View>
                 
+
+
                 {/* BUTTONS */}
                 <View style={styles.buttonBox}>
                     {/* <View style={{alignContent:'flex-end'}}> */}
@@ -180,7 +245,7 @@ export default class Main extends Component {
                             style={styles.buttonMix}
                             onPress={() => {this._filter()}}    
                         >
-                            <Icon name="ios-heart" style={styles.actionButtonIcon2} />
+                            <Icon name="ios-shuffle" style={styles.actionButtonIcon2} />
                         </TouchableOpacity>
                     {/* </View> */}
                     <View style={styles.buttonFilter}>
@@ -278,27 +343,31 @@ const styles = StyleSheet.create({
                 flex: 1,
                 flexDirection: 'row',
                 backgroundColor: 'white',
-                marginBottom: 10,
+                marginBottom: 5,
+                alignItems: 'center',
             },
             box2: {
                 flex: 2,
                 backgroundColor: 'white',
-                marginBottom: 10,
+                marginBottom: 5,
             },
             box3: {
-                flex: 3,
+                flex: 4,
                 backgroundColor: 'white',
-                marginBottom: 10,
+                marginBottom: 5,
             },
             box4: {
                 flex: 3,
                 backgroundColor: 'white',
-                marginBottom: 10,
+                marginBottom: 5,
+                elevation: 5,
+                zIndex: 2000,
+                
             },
             box5: {
                 flex: 3,
                 backgroundColor: 'white',
-                marginBottom: 10,
+                marginBottom: 5,
             },
 
   buttonBox: {
