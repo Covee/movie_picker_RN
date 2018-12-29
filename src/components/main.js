@@ -37,8 +37,10 @@ export default class Main extends Component {
             pickedId: null,
             randNumA: 217,
             randNumB: null,
-            genre: [],
-            // cast: [],
+            genre: null,
+            cast: [],
+            castImage: [],
+            castChar: [],
         }
     }
 
@@ -55,7 +57,7 @@ export default class Main extends Component {
             .then(json => {
                 let id = json.results[this.state.randNumB].id
                 this.setState({
-                    pickedId: id
+                    pickedId: id,
                 })
                 console.log("page=" + this.state.randNumA, "arrayNum=" + this.state.randNumB, "ID=" + this.state.pickedId)
             })
@@ -100,27 +102,55 @@ export default class Main extends Component {
                     this.setState({randNumA: Math.floor(Math.random() * 1000)+1})
                 }
             })
-            // .then(
-            //     fetch(mainURL + 'movie/' + this.state.pickedId + '/credits?api_key=' + API_KEY)
-            //     .then(response => response.json()
-            //         .then(json => {
-            //             let start = 0
-            //             let numCast = json.cast.length()
-            //             let arr = []
-            //             while (start >= numCast) {
-            //                 arr.concat(json.cast[start])
-            //                 start = start + 1
-            //             }
-            //             this.setState({
-            //                 cast: arr,
-            //             })
-                        
-            //             console.log("cast>>> " + this.state.cast)
-            //         })
-            //     )
-            // )
+            
+        )
+        .then(
+            this._cast()
         )
         
+    }
+
+    _cast = () => {
+        let arr1 = [];
+        let arr2 = [];
+        let arr3 = [];
+
+        fetch(mainURL + 'movie/' + this.state.pickedId + '/credits?api_key=' + API_KEY + '&language=ko-KR')
+        .then(response => response.json()
+            .then(json => {
+                if (json.cast[0].name) {
+                    for (let i = 0; i < json.cast.length; i++) {
+                    
+                        arr1.push([json.cast[i].name])
+                        arr2.push([json.cast[i].profile_path]),
+                        arr3.push([json.cast[i].character])
+                        // arr.push([json.cast[i].profile_path, json.cast[i].character, json.cast[i].name])
+                    }
+                    // for () {
+                        if (json.cast[0] == null) {
+                            this.setState({
+                                cast: ['없음'],
+                                // castImage: [arr2[0], arr2[1]],
+                            })
+                        } else {
+                            this.setState({
+                                cast: [arr1[0], arr1[1], arr1[2], arr1[3], arr1[4]],
+                                castImage: [arr2[0], arr2[1], arr2[2], arr2[3], arr2[4]],
+                                castChar: [arr3[0], arr3[1], arr3[2], arr3[3], arr3[4]], 
+                            })
+                        }
+
+
+                        // console.log(this.state.castImage)
+                    // }
+                    
+
+                    // console.log("cast>>> " + json.cast[i].profile_path)
+                }
+        
+                
+            })
+        )
     }
 
     _changeCountry = (e) => {
@@ -165,7 +195,8 @@ export default class Main extends Component {
 
     
     render() {
-        const { title, year, rating, runtime, income, story, poster, genre } = this.state;
+        
+        const { title, year, rating, runtime, income, story, poster, genre, cast, castImage, castChar } = this.state;
         return (
             <View style={styles.container}>
 
@@ -198,28 +229,115 @@ export default class Main extends Component {
                             onPress={() => this.card.flip()}
                         >
                             <View style={styles.box1}>
-                                <Text style={{fontSize:20, fontWeight:'700'}}>{title}</Text>
-                                <Text style={{}}>[{year}]</Text>
-                                <Text style={{}}>평점: {rating}</Text>
+                                <View style={styles.box1_in1}>
+                                    <Text style={{fontSize:25, fontWeight:'700'}}>{title}</Text>
+                                </View>
+                                <View style={styles.box1_in2}>
+                                        <Image 
+                                            source={require('../images/star.png')} style={{width:30, height:30,}}>
+                                        </Image>
+                                    <Text style={{fontSize: 21, fontWeight:'600', alignSelf: 'center', marginTop: 1,}}> {rating}</Text>
+                                </View>
                             </View>
                             <View style={styles.box2}>
-                                <Text>상영시간: {runtime}분</Text>
-                                <Text>장르: {genre}</Text>
-                                <Text>수입: $ {income}</Text>
+                                <View style={styles.box2_in1}>
+                                    <Text style={{}}>개봉일: [{year}]</Text>
+                                    <Text>상영시간: {runtime}분</Text>
+                                </View>
+                                <View style={styles.box2_in2}>
+                                    <Text>장르: {genre}</Text>
+                                    <Text>수입: $ {income}</Text>
+                                </View>
                             </View>
                             <View style={styles.box3}>
-                                <View>
-                                    <Text style={{fontSize:20, fontWeight:'600'}}>Castings</Text>
+                                <View style={styles.box3_in1}>
+                                    <Text style={{fontSize:17, fontWeight:'600'}}>출연진</Text>
                                 </View>
 
-        <Cards id={this.state.pickedId} />
-                                
+        <ScrollView 
+                horizontal={true} style={styles.box3_in2}
+                contentContainerStyle={{alignItems: 'center'}}    
+            >
+                <TouchableOpacity activeOpacity= {1}>
+                    <View style={{flex:1, flexDirection:'row'}}>
+                    
+                        {/* <Cards id={this.state.pickedId} /> */}
+
+                        <Card
+                            containerStyle={{height:'100%'}}
+                            image={{uri: ImageURL + '/' + castImage[0]}}
+                            imageStyle={{height:'73%',}}
+                            // title={cast[0]}
+                        >
+                            <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
+                                [{castChar[0]}] 역
+                            </Text>
+                            <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
+                                {cast[0]}
+                            </Text>
+                        </Card>
+                        <Card
+                            containerStyle={{height:'100%'}}
+                            image={{uri: ImageURL + '/' + castImage[1]}}
+                            imageStyle={{height:'73%',}}
+                            // title={cast[1]}
+                        >
+                            <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
+                                [{castChar[1]}] 역
+                            </Text>
+                            <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
+                                {cast[1]}
+                            </Text>
+                        </Card>
+                        <Card
+                            containerStyle={{height:'100%'}}
+                            image={{uri: ImageURL + '/' + castImage[2]}}
+                            imageStyle={{height:'73%',}}
+                            // title={cast[2]}
+                        >
+                            <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
+                                [{castChar[2]}] 역
+                            </Text>
+                            <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
+                                {cast[2]}
+                            </Text>
+                        </Card>
+                        <Card
+                            containerStyle={{height:'100%'}}
+                            image={{uri: ImageURL + '/' + castImage[3]}}
+                            imageStyle={{height:'73%',}}
+                            // title={cast[2]}
+                        >
+                            <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
+                                [{castChar[3]}] 역
+                            </Text>
+                            <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
+                                {cast[3]}
+                            </Text>
+                        </Card>
+                        <Card
+                            containerStyle={{height:'100%'}}
+                            image={{uri: ImageURL + '/' + castImage[4]}}
+                            imageStyle={{height:'73%',}}
+                            // title={cast[2]}
+                        >
+                            <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
+                                [{castChar[4]}] 역
+                            </Text>
+                            <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
+                                {cast[4]}
+                            </Text>
+                        </Card>
+
+                    </View>
+                </TouchableOpacity>
+            </ScrollView>
                                 
                             </View>
 
                             <View style={styles.box4}>
                                 <ScrollView style={styles.box4}>
-                                    <Text style={{fontSize:20, fontWeight:'600'}}>줄거리</Text>
+                                    <Text style={{fontSize:17, fontWeight:'600'}}>줄거리</Text>
                                     <TouchableOpacity 
                                         style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}
                                         activeOpacity= {1}
@@ -230,7 +348,7 @@ export default class Main extends Component {
                             </View>
 
                             <View style={styles.box5}>
-                                <Text>Videos</Text>
+                                <Text style={{fontSize:17, fontWeight:'600'}}>비디오</Text>
                             </View>
                         </TouchableOpacity>
                     </CardFlip>
@@ -345,24 +463,51 @@ const styles = StyleSheet.create({
                 backgroundColor: 'white',
                 marginBottom: 5,
                 alignItems: 'center',
-            },
+                },
+                box1_in1: {
+                    flex: 4,
+                },
+                box1_in2: {
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    paddingRight: 2,
+                },
             box2: {
-                flex: 2,
+                flex: 1.3,
                 backgroundColor: 'white',
                 marginBottom: 5,
-            },
+                flexDirection: 'row'
+                },
+                box2_in1: {
+                    flex: 1,
+                },
+                box2_in2: {
+                    flex: 1,
+                },
             box3: {
-                flex: 4,
+                flex: 6,
                 backgroundColor: 'white',
                 marginBottom: 5,
-            },
+                flexDirection: 'column',
+                },
+                box3_in1: {
+
+                },
+                box3_in2: {
+                    flexDirection: 'row', 
+                    marginBottom: 5, 
+                    marginLeft: -10,
+                    // backgroundColor: 'green',
+                    marginTop: -13,
+                    
+                },
             box4: {
                 flex: 3,
                 backgroundColor: 'white',
                 marginBottom: 5,
-                elevation: 5,
-                zIndex: 2000,
-                
+                // elevation: 5,
+                // zIndex: 2000,
             },
             box5: {
                 flex: 3,

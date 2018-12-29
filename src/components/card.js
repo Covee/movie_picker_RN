@@ -20,31 +20,41 @@ export default class Cards extends Component {
         };
     }
     state = {
-        cast: null,
+        cast: [],
     };
     
+    _arrCast = () => {
+        let numCast = 0
+        let arr = []
+
+        for (let i = 0; i < numCast; i++) {
+            arr.push()
+        }
+    }
+
+
     _cast = () => {
-        // let start = 0
-        // let numCast = json.cast.length()
-        // let arr = []
-    
+        let arr = [];
+
         fetch(mainURL + 'movie/' + this.props.id + '/credits?api_key=' + API_KEY + '&language=ko-KR')
         .then(response => response.json()
             .then(json => {
-                // while (start >= numCast) {
-                //     arr.concat(json.cast[start])
-                //     start = start + 1
-                // }
+                for (let i = 0; i < json.cast.length; i++) {
+                    arr.push([json.cast[i].profile_path, json.cast[i].character, json.cast[i].name])
+                }
+
                 this.setState({
-                    cast: json.cast[0]
+                    cast: json.cast[0].name,
                 })
                 
-                console.log("cast>>> " + this.state.cast)
+                // console.log("cast>>> " + this.state.cast)
             })
         )
     }
 
+
     componentDidMount() {
+        this.props.filter()
         this._cast()
     }
 
