@@ -118,37 +118,41 @@ export default class Main extends Component {
         fetch(mainURL + 'movie/' + this.state.pickedId + '/credits?api_key=' + API_KEY + '&language=ko-KR')
         .then(response => response.json()
             .then(json => {
-                if (json.cast[0].name) {
+                if (json.cast[0].name != null) {
                     for (let i = 0; i < json.cast.length; i++) {
                     
-                        arr1.push([json.cast[i].name])
-                        arr2.push([json.cast[i].profile_path]),
-                        arr3.push([json.cast[i].character])
-                        // arr.push([json.cast[i].profile_path, json.cast[i].character, json.cast[i].name])
+                        // arr1.push([json.cast[i].name])
+                        // arr2.push([json.cast[i].profile_path]),
+                        // arr3.push([json.cast[i].character])
+                        arr1.push([json.cast[i].name, json.cast[i].profile_path, json.cast[i].character])
                     }
-                    // for () {
-                        if (json.cast[0] == null) {
-                            this.setState({
-                                cast: ['없음'],
-                                // castImage: [arr2[0], arr2[1]],
-                            })
-                        } else {
-                            this.setState({
-                                cast: [arr1[0], arr1[1], arr1[2], arr1[3], arr1[4]],
-                                castImage: [arr2[0], arr2[1], arr2[2], arr2[3], arr2[4]],
-                                castChar: [arr3[0], arr3[1], arr3[2], arr3[3], arr3[4]], 
-                            })
-                        }
-
-
-                        // console.log(this.state.castImage)
-                    // }
                     
-
-                    // console.log("cast>>> " + json.cast[i].profile_path)
+                    // if (json.cast[0] == null) {
+                    //     this.setState({
+                    //         cast: ['없음'],
+                    //         // castImage: [arr2[0], arr2[1]],
+                    //     })
+                    // } else {
+                        let newArr = []
+                        for (i=0; i < json.cast.length; i++){
+                            newArr.push(arr1[i])
+                        }
+                        
+                        this.setState({
+                            cast: newArr
+                        })
+                        // this.setState({
+                        //     cast: [arr1[i]],
+                            // cast: [arr1[0], arr1[1], arr1[2], arr1[3], arr1[4]],
+                            // castImage: [arr2[0], arr2[1], arr2[2], arr2[3], arr2[4]],
+                            // castChar: [arr3[0], arr3[1], arr3[2], arr3[3], arr3[4]], 
+                        // })
+                        console.log("dddd>>> " + this.state.cast[0][1])
+                    // }
+                } else {
+                    console.log("cast가 null임")
                 }
-        
-                
+                        
             })
         )
     }
@@ -260,74 +264,18 @@ export default class Main extends Component {
             >
                 <TouchableOpacity activeOpacity= {1}>
                     <View style={{flex:1, flexDirection:'row'}}>
-                    
-                        {/* <Cards id={this.state.pickedId} /> */}
-
-                        <Card
-                            containerStyle={{height:'100%'}}
-                            image={{uri: ImageURL + '/' + castImage[0]}}
-                            imageStyle={{height:'73%',}}
-                            // title={cast[0]}
-                        >
-                            <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
-                                [{castChar[0]}] 역
-                            </Text>
-                            <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
-                                {cast[0]}
-                            </Text>
-                        </Card>
-                        <Card
-                            containerStyle={{height:'100%'}}
-                            image={{uri: ImageURL + '/' + castImage[1]}}
-                            imageStyle={{height:'73%',}}
-                            // title={cast[1]}
-                        >
-                            <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
-                                [{castChar[1]}] 역
-                            </Text>
-                            <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
-                                {cast[1]}
-                            </Text>
-                        </Card>
-                        <Card
-                            containerStyle={{height:'100%'}}
-                            image={{uri: ImageURL + '/' + castImage[2]}}
-                            imageStyle={{height:'73%',}}
-                            // title={cast[2]}
-                        >
-                            <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
-                                [{castChar[2]}] 역
-                            </Text>
-                            <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
-                                {cast[2]}
-                            </Text>
-                        </Card>
-                        <Card
-                            containerStyle={{height:'100%'}}
-                            image={{uri: ImageURL + '/' + castImage[3]}}
-                            imageStyle={{height:'73%',}}
-                            // title={cast[2]}
-                        >
-                            <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
-                                [{castChar[3]}] 역
-                            </Text>
-                            <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
-                                {cast[3]}
-                            </Text>
-                        </Card>
-                        <Card
-                            containerStyle={{height:'100%'}}
-                            image={{uri: ImageURL + '/' + castImage[4]}}
-                            imageStyle={{height:'73%',}}
-                            // title={cast[2]}
-                        >
-                            <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
-                                [{castChar[4]}] 역
-                            </Text>
-                            <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
-                                {cast[4]}
-                            </Text>
-                        </Card>
+                        {
+                            cast.map((casts) => {
+                                return (
+                                    <CardInfo 
+                                        name={casts[0]}
+                                        image={casts[1]}
+                                        char={casts[2]}
+                                    />
+                                    
+                                );
+                            })
+                        }
 
                     </View>
                 </TouchableOpacity>
@@ -416,6 +364,26 @@ export default class Main extends Component {
         );
     }
 }
+
+class CardInfo extends Component {
+    render () {
+        return (
+            <Card
+                containerStyle={{height:'100%'}}
+                image={{uri: ImageURL + '/' + this.props.image}}
+                imageStyle={{height:'73%',}}
+            >
+                <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
+                    [{this.props.char}] 역
+                </Text>
+                <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
+                    {this.props.name}
+                </Text>
+            </Card>
+        )
+    }
+}
+
 
 
 const styles = StyleSheet.create({

@@ -7,75 +7,95 @@ import Modal from "react-native-modal";
 const API_KEY = '61ffab023e612aa11ca364354a4c0e6b';
 const mainURL = "https://api.themoviedb.org/3/"
 const ImageURL = "https://image.tmdb.org/t/p/w500"
-const discoverURL = "https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b"
-
-
 
 
 export default class Cards extends Component {
     constructor(props) {
-		super(props);
-		this.state = {
-            // cast: null,
+        super(props);
+        this.state = {
+            casting: []
         };
     }
-    state = {
-        cast: [],
-    };
-    
-    _arrCast = () => {
-        let numCast = 0
-        let arr = []
-
-        for (let i = 0; i < numCast; i++) {
-            arr.push()
-        }
-    }
-
-
-    _cast = () => {
-        let arr = [];
-
-        fetch(mainURL + 'movie/' + this.props.id + '/credits?api_key=' + API_KEY + '&language=ko-KR')
-        .then(response => response.json()
-            .then(json => {
-                for (let i = 0; i < json.cast.length; i++) {
-                    arr.push([json.cast[i].profile_path, json.cast[i].character, json.cast[i].name])
-                }
-
-                this.setState({
-                    cast: json.cast[0].name,
-                })
-                
-                // console.log("cast>>> " + this.state.cast)
-            })
-        )
-    }
-
 
     componentDidMount() {
-        this.props.filter()
-        this._cast()
+        
+        // this.setState({casting: this.props.cast})
     }
 
     render() {
-        const { cast } = this.state;
-        return (
-            <ScrollView 
-                horizontal={true} style={{flex:1, flexDirection: 'row'}}
-                contentContainerStyle={{alignItems: 'center'}}    
-            >
-                <TouchableOpacity activeOpacity= {1}>
-                    <View style={{flex:1, flexDirection:'row'}}>
+        
+        
+        let aaa = []
+        aaa = this.props.cast[0]
 
-                        <Card
-                            // image={require()}
-                            title={cast}
-                        >
-                        </Card>
-                    </View>
-                </TouchableOpacity>
-            </ScrollView>
+        console.log("여기 카드다>>" + aaa)
+        return (
+            <View></View>
+        )
+        // return (
+        //     <Cardarr bbb={aaa} />
+        // )
+    }
+}
+
+
+class Cardarr extends Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         cast1: this.props.cast
+    //     };
+    // }
+    // state = {
+    //    cast1: [],
+    // }
+    render () {
+        // let aaa =[]
+        // aaa = this.props.bbb
+        // console.log("동작되니?" + aaa)
+        return (
+            
+            <View>
+                {/* <CardInfo name={aaa[[0][1]]} image={aaa[1]} char={aaa[2]} /> */}
+                {/* {
+                    aaa.map((cc, i) => {
+                        return (
+                            <CardInfo 
+                                name={cc[0]}
+                                image={cc[1]}
+                                char={cc[2]}
+                                key={i}
+                            />
+                            
+                        );
+                    })
+                } */}
+            </View>
         )
     }
 }
+
+
+class CardInfo extends Component {
+    render () {
+        return (
+            <Card
+                containerStyle={{height:'100%'}}
+                image={{uri: ImageURL + '/' + this.props.image}}
+                imageStyle={{height:'73%',}}
+            >
+                <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
+                    [{this.props.char}] 역
+                </Text>
+                <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
+                    {this.props.name}
+                </Text>
+            </Card>
+        )
+    }
+}
+
+
+
+
+
