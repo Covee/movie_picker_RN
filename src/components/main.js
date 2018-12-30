@@ -50,6 +50,7 @@ export default class Main extends Component {
             this.setState({
                 randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
                 randNumB: Math.floor(Math.random() * 20),
+                cast: []
             })
         })
         .then(
