@@ -33,7 +33,9 @@ export default class Main extends Component {
             income: null,
             story: null,
             country: 'ko',
-            isVisible: false,
+            isVisibleFilter: false,
+            isVisibleWishList: false,
+            isVisibleHaveSeen: false,
             pickedId: null,
             randNumA: 217,
             randNumB: null,
@@ -173,27 +175,8 @@ export default class Main extends Component {
         // this._filter()
     }
 
-    // _log = () => {
-    //     console.log(this.state.country)
-    // }
-
 
     componentDidMount() {
-        // let data = fetch(mainURL + 'movie/' + this.state.random + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
-        // .then(json => {
-            
-        //   this.setState({
-        //     isLoaded: true,
-        //     title: json.title,
-        //     year: json.release_date,
-        //     rating: json.vote_average,
-        //     runtime: json.runtime,
-        //     income: json.revenue,
-        //     story: json.overview,
-        //     poster: json.poster_path,
-        //     country: json.original_language,
-        //   })
-        // })
         this._filter()
         
     }
@@ -201,20 +184,22 @@ export default class Main extends Component {
     
     render() {
         
-        const { title, year, rating, runtime, income, story, poster, genre, cast, castImage, castChar } = this.state;
+        const { 
+            title, year, rating, runtime, income, story, poster, genre, cast 
+        } = this.state;
         return (
             <View style={styles.container}>
 
                 {/* AD */}
                 <View style={styles.adBox}>
-                    <View>
+                    <View style={{flex:1, alignItems:'center', justifyContent: 'center'}}>
                         <Text>AD</Text>
                     </View>
                 </View>
 
                 {/* CARD */}
                 <View style={styles.cardBox}>
-                    <CardFlip duration = {800} style={styles.cardBox2} ref={(card) => this.card = card}>
+                    <CardFlip duration={800} style={styles.cardBox2} ref={(card) => this.card = card}>
                         
                         <TouchableOpacity 
                             style={styles.cardBox3}
@@ -259,34 +244,33 @@ export default class Main extends Component {
                                     <Text style={{fontSize:17, fontWeight:'600'}}>출연진</Text>
                                 </View>
 
-        <ScrollView 
-                horizontal={true} style={styles.box3_in2}
-                contentContainerStyle={{alignItems: 'center'}}    
-            >
-                <TouchableOpacity activeOpacity= {1}>
-                    <View style={{flex:1, flexDirection:'row'}}>
-                        {
-                            cast.map((casts) => {
-                                return (
-                                    <CardInfo 
-                                        name={casts[0]}
-                                        image={casts[1]}
-                                        char={casts[2]}
-                                    />
-                                    
-                                );
-                            })
-                        }
+                                <ScrollView 
+                                    horizontal={true} style={styles.box3_in2}
+                                    contentContainerStyle={{alignItems: 'center'}}    
+                                >
+                                    <TouchableOpacity activeOpacity= {1}>
+                                        <View style={{flex:1, flexDirection:'row'}}>
+                                            {
+                                                cast.map((casts) => {
+                                                    return (
+                                                        <CardInfo 
+                                                            name={casts[0]}
+                                                            image={casts[1]}
+                                                            char={casts[2]}
+                                                        />
+                                                    );
+                                                })
+                                            }
 
-                    </View>
-                </TouchableOpacity>
-            </ScrollView>
+                                        </View>
+                                    </TouchableOpacity>
+                                </ScrollView>
                                 
                             </View>
 
                             <View style={styles.box4}>
                                 <ScrollView style={styles.box4}>
-                                    <Text style={{fontSize:17, fontWeight:'600'}}>줄거리</Text>
+                                    <Text style={{fontSize:17, fontWeight:'600', marginBottom: -2,}}>줄거리</Text>
                                     <TouchableOpacity 
                                         style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}
                                         activeOpacity= {1}
@@ -296,8 +280,13 @@ export default class Main extends Component {
                                 </ScrollView>
                             </View>
 
-                            <View style={styles.box5}>
-                                <Text style={{fontSize:17, fontWeight:'600'}}>비디오</Text>
+                            <View style={styles.box6}>
+                                <TouchableOpacity style={styles.box6_wishlist}>
+                                    <Text style={{fontSize:20, fontWeight:'700'}}>WishList</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.box6_haveseen}>
+                                    <Text style={{fontSize:20, fontWeight:'700'}}>HaveSeen</Text>
+                                </TouchableOpacity>
                             </View>
                         </TouchableOpacity>
                     </CardFlip>
@@ -317,17 +306,18 @@ export default class Main extends Component {
                     {/* </View> */}
                     <View style={styles.buttonFilter}>
                         {/*Rest of App come ABOVE the action button component!*/}
-                        <ActionButton buttonColor="rgba(231,76,60,1)" radius={90} outRangeScale={0.7} degrees={405} position={'right'}>
+                        <ActionButton buttonColor="rgba(231,76,60,1)" radius={88} outRangeScale={0.74} degrees={405} position={'right'}>
 
                             <ActionButton.Item 
                                 buttonColor='#9b59b6' 
                                 title="New Task" 
-                                onPress={() => this.setState({isVisible: true}) }
+                                onPress={() => this.setState({isVisibleFilter: true}) }
                             >
                                 
                                 <Icon name="ios-funnel" style={styles.actionButtonIcon} />
                                 
                             </ActionButton.Item>
+
                             <ActionButton.Item 
                                 buttonColor='#ff3881' 
                                 title="All Tasks" 
@@ -335,24 +325,64 @@ export default class Main extends Component {
                             >
                                 <Icon name="ios-heart" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
-                            <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {Alert.alert("dfdfd")}}>
+
+                            <ActionButton.Item 
+                                buttonColor='#3498db' 
+                                title="Notifications" 
+                                onPress={() => this.setState({isVisibleHaveSeen: true})}
+                            >
                                 <Icon name="ios-eye" style={styles.actionButtonIcon} />
                                 
-                            </ActionButton.Item>                            
-                            <ActionButton.Item buttonColor='gray' title="All Tasks" onPress={() => {Alert.alert("dfdfd")}}>
+                            </ActionButton.Item>    
+
+                            <ActionButton.Item 
+                                buttonColor='gray' 
+                                title="All Tasks" 
+                                onPress={() => {Alert.alert("dfdfd")}}
+                            >
                                 <Icon name="ios-settings" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
 
                         </ActionButton>
                     </View>
 
+
+
+                    {/* Modals */}
                     <View>
                         <Modal 
-                            isVisible={this.state.isVisible}
-                            onSwipe={() => this.setState({ isVisible: false })}
+                            isVisible={this.state.isVisibleFilter}
+                            onSwipe={() => this.setState({ isVisibleFilter: false })}
                             swipeDirection="right"
                         >
                             <View style={{ flex: 1, justifyContent:'center'}}>
+                                <Text style={{ textAlign:'center', color: 'white',}}>This is Filter Page</Text>
+                                <Text style={{ textAlign:'center', color: 'white',}}>Swipe right to close</Text>
+                            </View>
+                        </Modal>
+                    </View>
+
+                    <View>
+                        <Modal 
+                            isVisible={this.state.isVisibleWishList}
+                            onSwipe={() => this.setState({ isVisibleWishList: false })}
+                            swipeDirection="right"
+                        >
+                            <View style={{ flex: 1, justifyContent:'center'}}>
+                                <Text style={{ textAlign:'center', color: 'white',}}>This is WishList Page</Text>
+                                <Text style={{ textAlign:'center', color: 'white',}}>Swipe right to close</Text>
+                            </View>
+                        </Modal>
+                    </View>
+
+                    <View>
+                        <Modal 
+                            isVisible={this.state.isVisibleHaveSeen}
+                            onSwipe={() => this.setState({ isVisibleHaveSeen: false })}
+                            swipeDirection="right"
+                        >
+                            <View style={{ flex: 1, justifyContent:'center'}}>
+                                <Text style={{ textAlign:'center', color: 'white',}}>This is HaveSeen Page</Text>
                                 <Text style={{ textAlign:'center', color: 'white',}}>Swipe right to close</Text>
                             </View>
                         </Modal>
@@ -370,14 +400,14 @@ class CardInfo extends Component {
     render () {
         return (
             <Card
-                containerStyle={{height:'100%'}}
+                containerStyle={{height:'91%', marginLeft: -1}}
                 image={{uri: ImageURL + '/' + this.props.image}}
-                imageStyle={{height:'73%',}}
+                imageStyle={{height:'72%', verticalAlign: 'top'}}
             >
                 <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
                     [{this.props.char}] 역
                 </Text>
-                <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center'}}>
+                <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center', marginTop: -2}}>
                     {this.props.name}
                 </Text>
             </Card>
@@ -399,7 +429,7 @@ const styles = StyleSheet.create({
 
   cardBox: {
     flex: 6,
-    backgroundColor: '#fffcfd',
+    backgroundColor: '#F062A2',
     position: 'relative',
     },
     cardBox2: {
@@ -407,6 +437,7 @@ const styles = StyleSheet.create({
         width: '90%',
         alignSelf: 'center',
         marginTop: 20,
+        marginBottom: 10,
         paddingTop: 20,
         paddingBottom: 20,
         },
@@ -415,23 +446,29 @@ const styles = StyleSheet.create({
             width: '100%',
             alignSelf: 'center',
             // marginTop: 5,
-            backgroundColor: 'lightblue',
+            // backgroundColor: 'lightblue',
+            borderWidth: 0.5,
+            borderColor: 'transparent',
             borderRadius: 15,
             shadowOffset: { width: 4, height: 5 },
             shadowOpacity: 0.8,
             shadowRadius: 2,
-
             },
             posterBox: {
                 flex: 1,
                 backgroundColor: 'white',
             },
             box1: {
-                flex: 1,
+                flex: 2,
                 flexDirection: 'row',
                 backgroundColor: 'white',
-                marginBottom: 5,
+                // marginBottom: 5,
                 alignItems: 'center',
+                paddingBottom: 3,
+                borderTopRightRadius: 15,
+                borderTopLeftRadius: 15,
+                paddingLeft: 3,
+                paddingRight: 3,
                 },
                 box1_in1: {
                     flex: 4,
@@ -440,13 +477,14 @@ const styles = StyleSheet.create({
                     flex: 1,
                     flexDirection: 'row',
                     justifyContent: 'center',
-                    paddingRight: 2,
                 },
             box2: {
                 flex: 1.3,
                 backgroundColor: 'white',
-                marginBottom: 5,
-                flexDirection: 'row'
+                // marginBottom: 5,
+                flexDirection: 'row',
+                paddingLeft: 3,
+                paddingRight: 3,
                 },
                 box2_in1: {
                     flex: 1,
@@ -455,38 +493,56 @@ const styles = StyleSheet.create({
                     flex: 1,
                 },
             box3: {
-                flex: 6,
+                flex: 5.5,
                 backgroundColor: 'white',
-                marginBottom: 5,
+                // marginBottom: 5,
                 flexDirection: 'column',
                 },
                 box3_in1: {
-
+                    paddingLeft: 3,
+                    paddingRight: 3,
                 },
                 box3_in2: {
                     flexDirection: 'row', 
                     marginBottom: 5, 
-                    marginLeft: -10,
+                    // marginLeft: -13,
                     // backgroundColor: 'green',
                     marginTop: -13,
-                    
+                    paddingLeft: 3,
+
                 },
             box4: {
                 flex: 3,
                 backgroundColor: 'white',
-                marginBottom: 5,
-                // elevation: 5,
+                paddingBottom: 3,
+                paddingLeft: 2,
+                paddingRight: 3,
+                // marginBottom: 5,
+                // elevation: 1,
                 // zIndex: 2000,
+                marginBottom: -0.5,
             },
-            box5: {
+            box6: {
                 flex: 3,
                 backgroundColor: 'white',
-                marginBottom: 5,
-            },
+                // marginBottom: 5,
+                borderBottomRightRadius: 15,
+                borderBottomLeftRadius: 15,
+                paddingLeft: 3,
+                paddingRight: 3,
+                flexDirection: 'row',
+                alignItems: 'center',
+                },
+                box6_wishlist: {
+                    flex: 1,
+                },
+                box6_haveseen: {
+                    flex: 1,
+                },
 
   buttonBox: {
-    flex: 1.4,
-    backgroundColor: '#fffcfd',
+    flex: 1.3,
+    backgroundColor: '#F062A2',
     // backgroundColor: '#0061ff',
     flexDirection: 'row',
     paddingLeft: 10,
