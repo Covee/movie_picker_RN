@@ -6,6 +6,9 @@ import {
 import { Card, ListItem, Button} from 'react-native-elements'
 import Filter from './filter';
 import Cards from './card';
+import WishList from './wishList';
+import HaveSeen from './haveSeen';
+
 
 
 import CardFlip from 'react-native-card-flip';
@@ -175,6 +178,16 @@ export default class Main extends Component {
         // this._filter()
     }
 
+    _wishList() {
+        Alert.alert("added in your WishList")
+        // pickedId를 로컬에 array로 save해뒀다가 modal버튼(wishlist) onPress 시 로컬array에 있는 아이디들을 차례로 fetch해서 넣고 보여준다.
+    }
+
+    _haveSeen() {
+        Alert.alert("added in your HaveSeen List")
+
+    }
+
 
     componentDidMount() {
         this._filter()
@@ -281,13 +294,23 @@ export default class Main extends Component {
                             </View>
 
                             <View style={styles.box6}>
-                                <TouchableOpacity style={styles.box6_wishlist}>
-                                    <Text style={{fontSize:20, fontWeight:'700'}}>WishList</Text>
+                                    <View style={{flex:1}} />
+                                <TouchableOpacity 
+                                    style={styles.box6_wishlist}
+                                    onPress={()=>this._wishList()}
+                                >
+                                    <Icon name="ios-heart" style={{fontSize:30, color:'white', fontWeight:'700', paddingTop: 5}} />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.box6_haveseen}>
-                                    <Text style={{fontSize:20, fontWeight:'700'}}>HaveSeen</Text>
+                                    <View style={{flex:1}} />
+                                <TouchableOpacity 
+                                    style={styles.box6_haveseen}
+                                    onPress={()=>this._haveSeen()}
+                                >
+                                    <Icon name="ios-eye" style={{fontSize:30, color:'white', fontWeight:'700', paddingTop: 5}} />
                                 </TouchableOpacity>
+                                    <View style={{flex:1}} />
                             </View>
+
                         </TouchableOpacity>
                     </CardFlip>
                 </View>
@@ -348,7 +371,7 @@ export default class Main extends Component {
 
 
 
-                    {/* Modals */}
+            {/* Modals */}
                     <View>
                         <Modal 
                             isVisible={this.state.isVisibleFilter}
@@ -368,10 +391,7 @@ export default class Main extends Component {
                             onSwipe={() => this.setState({ isVisibleWishList: false })}
                             swipeDirection="right"
                         >
-                            <View style={{ flex: 1, justifyContent:'center'}}>
-                                <Text style={{ textAlign:'center', color: 'white',}}>This is WishList Page</Text>
-                                <Text style={{ textAlign:'center', color: 'white',}}>Swipe right to close</Text>
-                            </View>
+                            <WishList />
                         </Modal>
                     </View>
 
@@ -381,10 +401,7 @@ export default class Main extends Component {
                             onSwipe={() => this.setState({ isVisibleHaveSeen: false })}
                             swipeDirection="right"
                         >
-                            <View style={{ flex: 1, justifyContent:'center'}}>
-                                <Text style={{ textAlign:'center', color: 'white',}}>This is HaveSeen Page</Text>
-                                <Text style={{ textAlign:'center', color: 'white',}}>Swipe right to close</Text>
-                            </View>
+                            <HaveSeen />
                         </Modal>
                     </View>
                     
@@ -402,7 +419,7 @@ class CardInfo extends Component {
             <Card
                 containerStyle={{height:'91%', marginLeft: -1}}
                 image={{uri: ImageURL + '/' + this.props.image}}
-                imageStyle={{height:'72%', verticalAlign: 'top'}}
+                imageStyle={{height:'72%'}}
             >
                 <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
                     [{this.props.char}] 역
@@ -425,6 +442,7 @@ const styles = StyleSheet.create({
   adBox: {
     flex: 1,
     backgroundColor: 'red',
+    alignItems: 'flex-end'
     },
 
   cardBox: {
@@ -534,10 +552,25 @@ const styles = StyleSheet.create({
                 alignItems: 'center',
                 },
                 box6_wishlist: {
-                    flex: 1,
+                    flex: 3,
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    backgroundColor: 'brown',
+                    borderColor: 'brown',
+                    borderRadius: 10,
+                    width: 80,
+                    height: 40,
                 },
                 box6_haveseen: {
-                    flex: 1,
+                    flex: 3,
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    backgroundColor: 'brown',
+                    borderColor: 'brown',
+                    borderRadius: 10,
+                    width: 80,
+                    height: 40,
+                    
                 },
 
   buttonBox: {
