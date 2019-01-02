@@ -20,19 +20,21 @@ export default class HaveSeen extends Component {
                     <Text style={{fontSize:24, textAlign:'center', color: 'white',}}>This is HaveSeen Page</Text>
                 </View>
                 <View style={styles.flex_2}>
+                
                     <TouchableOpacity style={styles.items}>
-                        <View style={{flex:4}}>
-                            <Text style={{fontWeight:'600',}}>TITLE (years) </Text>
+                        <View style={{flex:4, alignSelf: 'center'}}>
+                            <Text style={{fontWeight:'600', marginLeft: 5}}>TITLE (years) </Text>
                         </View>
-                        <View style={{flex:1}}>
+                        <View style={{flex:1, alignSelf: 'center'}}>
                             <Text> Rating</Text>
                         </View>
                     </TouchableOpacity>
+
                     <TouchableOpacity style={styles.items}>
-                        <View style={{flex:4}}>
-                            <Text>TITLE (years) </Text>
+                        <View style={{flex:4, alignSelf: 'center'}}>
+                            <Text style={{fontWeight:'600', marginLeft: 5}}>TITLE (years) </Text>
                         </View>
-                        <View style={{flex:1}}>
+                        <View style={{flex:1, alignSelf: 'center'}}>
                             <Text> Rating</Text>
                         </View>
                     </TouchableOpacity>
@@ -73,7 +75,6 @@ const styles = StyleSheet.create({
                 width: '95%',
                 height: 30,
                 alignSelf: 'center',
-
                 marginTop: 5,
 
             },

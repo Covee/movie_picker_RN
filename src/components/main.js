@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { 
         StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput,
-        TouchableHighlight, Image, Alert 
+        TouchableHighlight, Image, Alert, AsyncStorage 
     } from 'react-native';
 import { Card, ListItem, Button} from 'react-native-elements'
 import Filter from './filter';
@@ -21,6 +21,8 @@ const mainURL = "https://api.themoviedb.org/3/"
 const ImageURL = "https://image.tmdb.org/t/p/w500"
 const discoverURL = "https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b"
 
+const arrWishlist = []
+const arrHaveSeen = []
 
 export default class Main extends Component {
     constructor(props) {
@@ -179,12 +181,45 @@ export default class Main extends Component {
     }
 
     _wishList() {
-        Alert.alert("added in your WishList")
+        let a = true
         // pickedId를 로컬에 array로 save해뒀다가 modal버튼(wishlist) onPress 시 로컬array에 있는 아이디들을 차례로 fetch해서 넣고 보여준다.
+        
+        for(i=0; i<arrWishlist.length; i++){
+            if (this.state.pickedId == arrWishlist[i]) {
+                Alert.alert("This movie is already in your WishList!")
+                a = false
+                break;
+            }
+        }
+        
+        if (a == true){
+            arrWishlist.push(this.state.pickedId)
+            Alert.alert("added in your WishList")
+        }
+        
+        console.log(arrWishlist)
+        
     }
 
     _haveSeen() {
-        Alert.alert("added in your HaveSeen List")
+        
+        let a = true
+        // pickedId를 로컬에 array로 save해뒀다가 modal버튼(haveSeen) onPress 시 로컬array에 있는 아이디들을 차례로 fetch해서 넣고 보여준다.
+        
+        for(i=0; i<arrHaveSeen.length; i++){
+            if (this.state.pickedId == arrWishlist[i]) {
+                Alert.alert("This movie is already in your WishList!")
+                a = false
+                break;
+            }
+        }
+        
+        if (a == true){
+            arrHaveSeen.push(this.state.pickedId)
+            Alert.alert("added in your HaveSeen List")
+        }
+        
+        console.log(arrHaveSeen)
 
     }
 
