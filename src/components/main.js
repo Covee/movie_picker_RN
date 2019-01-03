@@ -48,6 +48,8 @@ export default class Main extends Component {
             cast: [],
             castImage: [],
             castChar: [],
+            HaveSeenId:[],
+            WishListId:[],
         }
     }
 
@@ -199,6 +201,8 @@ export default class Main extends Component {
         
         console.log(arrWishlist)
         
+
+        
     }
 
     _haveSeen() {
@@ -219,8 +223,17 @@ export default class Main extends Component {
             Alert.alert("added in your HaveSeen List")
         }
         
-        console.log(arrHaveSeen)
+        
+        // this._saveHaveSeen()
+        AsyncStorage.setItem('id', JSON.stringify(arrHaveSeen))
+        const data = AsyncStorage.getItem('id')
+        this.setState({HaveSeenId: data})
 
+        // console.log(AsyncStorage.getItem(arrHaveSeen))
+    }
+
+    _actionHaveSeen = () => {
+        this.setState({isVisibleHaveSeen: true})
     }
 
 
@@ -387,7 +400,9 @@ export default class Main extends Component {
                             <ActionButton.Item 
                                 buttonColor='#3498db' 
                                 title="Notifications" 
-                                onPress={() => this.setState({isVisibleHaveSeen: true})}
+                                onPress={() => 
+                                    this._actionHaveSeen()
+                                }
                             >
                                 <Icon name="ios-eye" style={styles.actionButtonIcon} />
                                 
@@ -436,7 +451,7 @@ export default class Main extends Component {
                             onSwipe={() => this.setState({ isVisibleHaveSeen: false })}
                             swipeDirection="right"
                         >
-                            <HaveSeen />
+                            <HaveSeen haveSeenId={this.state.HaveSeenId} />
                         </Modal>
                     </View>
                     
