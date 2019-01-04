@@ -76,7 +76,7 @@ export default class Main extends Component {
             fetch(mainURL + 'movie/' + this.state.pickedId + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
             .then(json => {
                 if (!json.title || !json.poster_path || (json.genres[0]==undefined) ) {
-                    console.log("no title || poster : mix again")
+                    // console.log("no title || poster : mix again")
                     this._filter()
                 } else {
                     if (json.genres[1]) {
@@ -157,7 +157,7 @@ export default class Main extends Component {
                             // castImage: [arr2[0], arr2[1], arr2[2], arr2[3], arr2[4]],
                             // castChar: [arr3[0], arr3[1], arr3[2], arr3[3], arr3[4]], 
                         // })
-                        console.log("dddd>>> " + this.state.cast[0][1])
+                        // console.log("dddd>>> " + this.state.cast[0][1])
                     // }
                 } else {
                     console.log("cast가 null임")
@@ -211,7 +211,7 @@ export default class Main extends Component {
         // pickedId를 로컬에 array로 save해뒀다가 modal버튼(haveSeen) onPress 시 로컬array에 있는 아이디들을 차례로 fetch해서 넣고 보여준다.
         
         for(i=0; i<arrHaveSeen.length; i++){
-            if (this.state.pickedId == arrWishlist[i]) {
+            if (this.state.pickedId == arrHaveSeen[i]) {
                 Alert.alert("This movie is already in your WishList!")
                 a = false
                 break;
@@ -221,15 +221,22 @@ export default class Main extends Component {
         if (a == true){
             arrHaveSeen.push(this.state.pickedId)
             Alert.alert("added in your HaveSeen List")
+            this._saveHaveSeen()
         }
         
-        
-        // this._saveHaveSeen()
-        AsyncStorage.setItem('id', JSON.stringify(arrHaveSeen))
-        const data = AsyncStorage.getItem('id')
-        this.setState({HaveSeenId: data})
 
-        // console.log(AsyncStorage.getItem(arrHaveSeen))
+        // console.log(this.state.HaveSeenId)
+    }
+
+    _saveHaveSeen = async () => {
+        await AsyncStorage.setItem('id', JSON.stringify(arrHaveSeen))
+        const data = await AsyncStorage.getItem('id')
+        
+        // console.log(data)
+        this.setState({HaveSeenId: data})
+        // console.log(this.state.HaveSeenId)
+
+        
     }
 
     _actionHaveSeen = () => {
@@ -451,7 +458,7 @@ export default class Main extends Component {
                             onSwipe={() => this.setState({ isVisibleHaveSeen: false })}
                             swipeDirection="right"
                         >
-                            <HaveSeen haveSeenId={this.state.HaveSeenId} />
+                            <HaveSeen haveSeenId={[this.state.HaveSeenId]} />
                         </Modal>
                     </View>
                     

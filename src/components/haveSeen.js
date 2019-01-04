@@ -4,40 +4,47 @@ import { Card, ListItem} from 'react-native-elements'
 
 import Modal from "react-native-modal";
 
+const API_KEY = '61ffab023e612aa11ca364354a4c0e6b';
+const mainURL = "https://api.themoviedb.org/3/"
+const ImageURL = "https://image.tmdb.org/t/p/w500"
+const discoverURL = "https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b"
 
 
 export default class HaveSeen extends Component {
     constructor(props) {
 		super(props);
 		this.state = {
-            title: null,
-            year: null,
-            rating: null,
+            title: [],
+            year: [],
+            rating: [],
         };
     }
 
+
     _showHaveSeen = async () => {
-        let ids = this.props.haveSeenId
+        let ids = []
+        ids = this.props.haveSeenId
+        console.log(ids[0])
         try {
             idArr = []
             for(i=0; i<ids.length; i++) {
-                fetch(mainURL + 'movie/' + ids[i][0] + '?api_key=' + API_KEY + '&language=ko-KR')
+                fetch(mainURL + 'movie/' + ids[i] + '?api_key=' + API_KEY + '&language=ko-KR')
                 .then(response => response.json())
                 .then(json => {
-                    idArr.push([[json.title],[json.release_date],[json.vote_average]])
+                    idArr.push(json.title)
                 })
             }
 
-            this.setState({
-                title: idArr[0][0],
-                year: idArr[0][1],
-                rating: idArr[0][2],
-            })
-
-            console.log("제목: " +this.state.title + " (" + this.state.year + ") 평점:" + this.state.rating)
+            // this.setState({
+            //     title: idArr,
+            //     year: idArr[0][1],
+            //     rating: idArr[0][2],
+            // })
+            // console.log(idArr)
+            // console.log("제목: " +this.state.title + " (" + this.state.year + ") 평점:" + this.state.rating)
             
         } catch(error) {
-            alert(error)
+            alert(error.message)
         }
     }
 
