@@ -201,8 +201,6 @@ export default class Main extends Component {
         
         console.log(arrWishlist)
         
-
-        
     }
 
     _haveSeen() {
@@ -212,7 +210,7 @@ export default class Main extends Component {
         
         for(i=0; i<arrHaveSeen.length; i++){
             if (this.state.pickedId == arrHaveSeen[i]) {
-                Alert.alert("This movie is already in your WishList!")
+                Alert.alert("This movie is already in your HaveSeen List!")
                 a = false
                 break;
             }
@@ -230,10 +228,11 @@ export default class Main extends Component {
 
     _saveHaveSeen = async () => {
         await AsyncStorage.setItem('id', JSON.stringify(arrHaveSeen))
-        const data = await AsyncStorage.getItem('id')
+        // const data = await AsyncStorage.getItem('id')
+        // let pData = JSON.parse(data)
         
-        // console.log(data)
-        this.setState({HaveSeenId: data})
+        // console.log(pData)
+        // this.setState({HaveSeenId: pData})
         // console.log(this.state.HaveSeenId)
 
         

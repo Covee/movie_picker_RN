@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, AsyncStorage } from 'react-native';
 import { Card, ListItem} from 'react-native-elements'
 
 import Modal from "react-native-modal";
@@ -22,9 +22,10 @@ export default class HaveSeen extends Component {
 
 
     _showHaveSeen = async () => {
-        let ids = []
-        ids = this.props.haveSeenId
-        console.log(ids[0])
+        let data = await AsyncStorage.getItem('id')
+        let ids = JSON.parse(data)
+
+        // console.log("이거다" + ids[0], ids[1], ids[2])
         try {
             idArr = []
             for(i=0; i<ids.length; i++) {
@@ -32,8 +33,10 @@ export default class HaveSeen extends Component {
                 .then(response => response.json())
                 .then(json => {
                     idArr.push(json.title)
+                    console.log("lalala" + idArr[0])
                 })
             }
+            // console.log(idArr)
 
             // this.setState({
             //     title: idArr,
