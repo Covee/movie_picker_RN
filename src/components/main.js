@@ -10,7 +10,6 @@ import WishList from './wishList';
 import HaveSeen from './haveSeen';
 
 
-
 import CardFlip from 'react-native-card-flip';
 import ActionButton from 'react-native-circular-action-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -22,7 +21,12 @@ const ImageURL = "https://image.tmdb.org/t/p/w500"
 const discoverURL = "https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b"
 
 const arrWishlist = []
+
 const arrHaveSeen = []
+let seenTitle = []
+let seenYear = []
+let seenRating = []
+
 
 export default class Main extends Component {
     constructor(props) {
@@ -218,6 +222,10 @@ export default class Main extends Component {
         
         if (a == true){
             arrHaveSeen.push(this.state.pickedId)
+            seenTitle.push(this.state.title)
+            seenYear.push(this.state.year)
+            seenRating.push(this.state.rating)
+
             Alert.alert("added in your HaveSeen List")
             this._saveHaveSeen()
         }
@@ -228,6 +236,10 @@ export default class Main extends Component {
 
     _saveHaveSeen = async () => {
         await AsyncStorage.setItem('id', JSON.stringify(arrHaveSeen))
+        await AsyncStorage.setItem('title', JSON.stringify(seenTitle))
+        await AsyncStorage.setItem('year', JSON.stringify(seenYear))
+        await AsyncStorage.setItem('rating', JSON.stringify(seenRating))
+
         // const data = await AsyncStorage.getItem('id')
         // let pData = JSON.parse(data)
         

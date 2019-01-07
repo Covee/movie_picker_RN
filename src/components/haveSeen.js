@@ -14,41 +14,34 @@ export default class HaveSeen extends Component {
     constructor(props) {
 		super(props);
 		this.state = {
-            title: [],
-            year: [],
-            rating: [],
+            arrM: [],
         };
     }
 
 
     _showHaveSeen = async () => {
-        let data = await AsyncStorage.getItem('id')
-        let ids = JSON.parse(data)
+        let ids = await AsyncStorage.getItem('id')
+        let titles = await AsyncStorage.getItem('title')
+        let years = await AsyncStorage.getItem('year')
+        let ratings = await AsyncStorage.getItem('rating')
+        let arrIds = JSON.parse(ids)
+        let arrTitles = JSON.parse(titles)
+        let arrYears = JSON.parse(years)
+        let arrRatings = JSON.parse(ratings)
+        let arrM = []
 
-        // console.log("이거다" + ids[0], ids[1], ids[2])
         try {
-            idArr = []
-            for(i=0; i<ids.length; i++) {
-                fetch(mainURL + 'movie/' + ids[i] + '?api_key=' + API_KEY + '&language=ko-KR')
-                .then(response => response.json())
-                .then(json => {
-                    idArr.push(json.title)
-                    console.log("lalala" + idArr[0])
-                })
+            for(i=0; i<arrIds.length; i++) {
+                // console.log("ID>>>>" + arrIds[i])
+                arrM.push([arrIds[i],arrTitles[i],arrYears[i],arrRatings[i]])
             }
-            // console.log(idArr)
-
-            // this.setState({
-            //     title: idArr,
-            //     year: idArr[0][1],
-            //     rating: idArr[0][2],
-            // })
-            // console.log(idArr)
-            // console.log("제목: " +this.state.title + " (" + this.state.year + ") 평점:" + this.state.rating)
-            
+            this.setState({
+                arrM: arrM
+            })
         } catch(error) {
             alert(error.message)
         }
+
     }
 
     render() {
@@ -60,8 +53,17 @@ export default class HaveSeen extends Component {
                 </View>
                 <View style={styles.flex_2}>
 
-
-                    {/* <HaveSeenDetail /> */}
+                    {
+                        this.state.arrM.map((index) => {
+                            return(
+                                <HaveSeenDetail 
+                                    title={index[1]}
+                                    year={index[2]}
+                                    rating={index[3]}
+                                />
+                            )
+                        })
+                    }
 
                 </View>
                 <View style={styles.flex_3}>
@@ -82,10 +84,10 @@ class HaveSeenDetail extends Component {
         return (
             <TouchableOpacity style={styles.items}>
                 <View style={{flex:4, alignSelf: 'center'}}>
-                    <Text style={{fontWeight:'600', marginLeft: 5}}>TITLE (years) </Text>
+                    <Text style={{fontWeight:'600', marginLeft: 5}}>{this.props.title} ({this.props.year}) </Text>
                 </View>
                 <View style={{flex:1, alignSelf: 'center'}}>
-                    <Text> Rating</Text>
+                    <Text> 평점: {this.props.rating}</Text>
                 </View>
             </TouchableOpacity>
         )
