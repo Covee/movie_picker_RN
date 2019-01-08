@@ -22,7 +22,7 @@ const discoverURL = "https://api.themoviedb.org/3/discover/movie?api_key=61ffab0
 
 const arrWishlist = []
 
-const arrHaveSeen = []
+let arrHaveSeen = []
 let seenTitle = []
 let seenYear = []
 let seenRating = []
@@ -207,14 +207,22 @@ export default class Main extends Component {
         
     }
 
-    _haveSeen() {
-        
+    async _haveSeen() {
+        arrHaveSeen = await AsyncStorage.getItem('id')
+        arrHaveSeen = JSON.parse(arrHaveSeen)
+        seenTitle = await AsyncStorage.getItem('title')
+        seenTitle = JSON.parse(seenTitle)
+        seenYear = await AsyncStorage.getItem('year')
+        seenYear = JSON.parse(seenYear)
+        seenRating = await AsyncStorage.getItem('rating')
+        seenRating = JSON.parse(seenRating)
+
         let a = true
         // pickedId를 로컬에 array로 save해뒀다가 modal버튼(haveSeen) onPress 시 로컬array에 있는 아이디들을 차례로 fetch해서 넣고 보여준다.
         
         for(i=0; i<arrHaveSeen.length; i++){
             if (this.state.pickedId == arrHaveSeen[i]) {
-                Alert.alert("This movie is already in your HaveSeen List!")
+                Alert.alert("이미 리스트에 추가되어 있습니다!")
                 a = false
                 break;
             }
@@ -226,12 +234,10 @@ export default class Main extends Component {
             seenYear.push(this.state.year)
             seenRating.push(this.state.rating)
 
-            Alert.alert("added in your HaveSeen List")
+            Alert.alert("이미 본 영화 리스트에 추가되었습니다!")
             this._saveHaveSeen()
         }
         
-
-        // console.log(this.state.HaveSeenId)
     }
 
     _saveHaveSeen = async () => {
@@ -239,15 +245,6 @@ export default class Main extends Component {
         await AsyncStorage.setItem('title', JSON.stringify(seenTitle))
         await AsyncStorage.setItem('year', JSON.stringify(seenYear))
         await AsyncStorage.setItem('rating', JSON.stringify(seenRating))
-
-        // const data = await AsyncStorage.getItem('id')
-        // let pData = JSON.parse(data)
-        
-        // console.log(pData)
-        // this.setState({HaveSeenId: pData})
-        // console.log(this.state.HaveSeenId)
-
-        
     }
 
     _actionHaveSeen = () => {

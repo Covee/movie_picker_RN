@@ -39,80 +39,79 @@ export default class HaveSeen extends Component {
                 arrM: arrM
             })
         } catch(error) {
-            alert(error.message)
+            console.log(error.message)
         }
     }
 
     _deleteHaveSeen = async(id) => {
-        // Alert.alert(
-        //     this.props.title,
-        //     '목록에서 제거하시겠습니까?',
-        //     [
-        //       {text: '제거', onPress: () => console.log('제거됨')},
-        //       {text: '취소', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        //     ],
-        //     { cancelable: false }
-        // )
+        
+        Alert.alert(
+            this.props.title,
+            '목록에서 제거하시겠습니까?',
+            [
+              {text: '제거', onPress: async () => {
+                let num = this.state.arrM
+                let abc = []
+                for(i=0; i<num.length; i++){
+                    abc.push(num[i][0])
+                }
+                let findIndex = abc.indexOf(id)
+                // console.log(findIndex)
+        
+                let ids = await AsyncStorage.getItem('id')
+                let titles = await AsyncStorage.getItem('title')
+                let years = await AsyncStorage.getItem('year')
+                let ratings = await AsyncStorage.getItem('rating')
+                let arrIds = JSON.parse(ids)
+                let arrTitles = JSON.parse(titles)
+                let arrYears = JSON.parse(years)
+                let arrRatings = JSON.parse(ratings)
+        
+                arrIds.splice(findIndex, 1)
+                arrTitles.splice(findIndex, 1)
+                arrYears.splice(findIndex, 1)
+                arrRatings.splice(findIndex, 1)
 
-        let num = this.state.arrM
-        let abc = []
-        for(i=0; i<num.length; i++){
-            abc.push(num[i][0])
-        }
-        let findIndex = abc.indexOf(this.props.id)
-        console.log(findIndex)
+                await AsyncStorage.removeItem('id')
+                await AsyncStorage.removeItem('title')
+                await AsyncStorage.removeItem('year')
+                await AsyncStorage.removeItem('rating')
+                await AsyncStorage.setItem('id', JSON.stringify(arrIds))
+                await AsyncStorage.setItem('title', JSON.stringify(arrTitles))
+                await AsyncStorage.setItem('year', JSON.stringify(arrYears))
+                await AsyncStorage.setItem('rating', JSON.stringify(arrRatings))
+        
+                ids = await AsyncStorage.getItem('id')
+                titles = await AsyncStorage.getItem('title')
+                years = await AsyncStorage.getItem('year')
+                ratings = await AsyncStorage.getItem('rating')
+                arrIds = JSON.parse(ids)
+                arrTitles = JSON.parse(titles)
+                arrYears = JSON.parse(years)
+                arrRatings = JSON.parse(ratings)
+                arrM = []
+        
+                try {
+                    for(i=0; i<arrIds.length; i++) {
+                        arrM.push([arrIds[i],arrTitles[i],arrYears[i],arrRatings[i]])
+                    }
+                    this.setState({
+                        arrM: arrM
+                    })
+                } catch(error) {
+                    console.log(error.message)
+                }
+                Alert.alert("제거했습니다.")
+                // let test1 = await AsyncStorage.getItem('id')
+                // let testa = JSON.parse(test1)
+                // console.log("값>>" + testa)
+              }},
+              {text: '취소', onPress: () => console.log('그대로'), style: 'cancel'},
+            ],
+            { cancelable: false }
+        )
 
-        let ids = await AsyncStorage.getItem('id')
-        let titles = await AsyncStorage.getItem('title')
-        let years = await AsyncStorage.getItem('year')
-        let ratings = await AsyncStorage.getItem('rating')
-        let arrIds = JSON.parse(ids)
-        let arrTitles = JSON.parse(titles)
-        let arrYears = JSON.parse(years)
-        let arrRatings = JSON.parse(ratings)
-
-        console.log("이건 스토리지 안>>" + arrIds + arrTitles + arrYears + arrRatings)
-        arrIds.splice(findIndex, 1)
-        arrTitles.splice(findIndex, 1)
-        arrYears.splice(findIndex, 1)
-        arrRatings.splice(findIndex, 1)
-        // console.log("newids>>" + arrIds)
-        await AsyncStorage.removeItem('id')
-        await AsyncStorage.removeItem('title')
-        await AsyncStorage.removeItem('year')
-        await AsyncStorage.removeItem('rating')
-        await AsyncStorage.setItem('id', JSON.stringify(arrIds))
-        await AsyncStorage.setItem('title', JSON.stringify(arrTitles))
-        await AsyncStorage.setItem('year', JSON.stringify(arrYears))
-        await AsyncStorage.setItem('rating', JSON.stringify(arrRatings))
-
-        // ids = await AsyncStorage.getItem('id')
-        // titles = await AsyncStorage.getItem('title')
-        // years = await AsyncStorage.getItem('year')
-        // ratings = await AsyncStorage.getItem('rating')
-        // arrIds = JSON.parse(ids)
-        // arrTitles = JSON.parse(titles)
-        // arrYears = JSON.parse(years)
-        // arrRatings = JSON.parse(ratings)
-
-        try {
-            for(i=0; i<arrIds.length; i++) {
-                // console.log("ID>>>>" + arrIds[i])
-                arrM.push([arrIds[i],arrTitles[i],arrYears[i],arrRatings[i]])
-            }
-            this.setState({
-                arrM: arrM
-            })
-        } catch(error) {
-            alert(error.message)
-        }
-
-        // this.props.show
-
-        // let test1 = await AsyncStorage.getItem('id')
-        // let testa = JSON.parse(test1)
-        // console.log("값>>" + testa)
-        // await AsyncStorage.removeItem()
+        
     }
 
 
@@ -122,7 +121,7 @@ export default class HaveSeen extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.flex_1}>
-                    <Text style={{fontSize:24, textAlign:'center', color: 'white',}}>This is HaveSeen Page</Text>
+                    <Text style={{fontSize:24, textAlign:'center', color: 'white',}}>HaveSeen List</Text>
                 </View>
                 <View style={styles.flex_2}>
 
@@ -135,7 +134,7 @@ export default class HaveSeen extends Component {
                                     year={index[2]}
                                     rating={index[3]}
                                     arrM={this.state.arrM}
-                                    delete={this._deleteHaveSeen().bind(this)}
+                                    delete={this._deleteHaveSeen.bind(this)}
                                 />
                             )
                         })
