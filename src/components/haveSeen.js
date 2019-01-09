@@ -76,6 +76,8 @@ export default class HaveSeen extends Component {
                 await AsyncStorage.removeItem('title')
                 await AsyncStorage.removeItem('year')
                 await AsyncStorage.removeItem('rating')
+                // await AsyncStorage.clear()  이건 데이터 전체 지우는 코드
+
                 await AsyncStorage.setItem('id', JSON.stringify(arrIds))
                 await AsyncStorage.setItem('title', JSON.stringify(arrTitles))
                 await AsyncStorage.setItem('year', JSON.stringify(arrYears))
@@ -110,10 +112,7 @@ export default class HaveSeen extends Component {
             ],
             { cancelable: false }
         )
-
-        
     }
-
 
 
     render() {
@@ -135,6 +134,7 @@ export default class HaveSeen extends Component {
                                     rating={index[3]}
                                     arrM={this.state.arrM}
                                     delete={this._deleteHaveSeen.bind(this)}
+                                    select={this.props.select.bind(this)}
                                 />
                             )
                         })
@@ -144,8 +144,6 @@ export default class HaveSeen extends Component {
                 <View style={styles.flex_3}>
 
                 </View>
-                
-
                 
                 <Text style={{ textAlign:'center', color: 'white',}}>Swipe right to close</Text>
             </View>
@@ -162,84 +160,12 @@ class HaveSeenDetail extends Component {
         };
     }
 
-    _deleteHaveSeen = async (id) => {
-
-        // Alert.alert(
-        //     this.props.title,
-        //     '목록에서 제거하시겠습니까?',
-        //     [
-        //       {text: '제거', onPress: () => console.log('제거됨')},
-        //       {text: '취소', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        //     ],
-        //     { cancelable: false }
-        // )
-
-        let num = this.state.arrM
-        let abc = []
-        for(i=0; i<num.length; i++){
-            abc.push(num[i][0])
-        }
-        let findIndex = abc.indexOf(this.props.id)
-        console.log(findIndex)
-
-        let ids = await AsyncStorage.getItem('id')
-        let titles = await AsyncStorage.getItem('title')
-        let years = await AsyncStorage.getItem('year')
-        let ratings = await AsyncStorage.getItem('rating')
-        let arrIds = JSON.parse(ids)
-        let arrTitles = JSON.parse(titles)
-        let arrYears = JSON.parse(years)
-        let arrRatings = JSON.parse(ratings)
-
-        console.log("이건 스토리지 안>>" + arrIds + arrTitles + arrYears + arrRatings)
-        arrIds.splice(findIndex, 1)
-        arrTitles.splice(findIndex, 1)
-        arrYears.splice(findIndex, 1)
-        arrRatings.splice(findIndex, 1)
-        // console.log("newids>>" + arrIds)
-        await AsyncStorage.removeItem('id')
-        await AsyncStorage.removeItem('title')
-        await AsyncStorage.removeItem('year')
-        await AsyncStorage.removeItem('rating')
-        await AsyncStorage.setItem('id', JSON.stringify(arrIds))
-        await AsyncStorage.setItem('title', JSON.stringify(arrTitles))
-        await AsyncStorage.setItem('year', JSON.stringify(arrYears))
-        await AsyncStorage.setItem('rating', JSON.stringify(arrRatings))
-
-        // ids = await AsyncStorage.getItem('id')
-        // titles = await AsyncStorage.getItem('title')
-        // years = await AsyncStorage.getItem('year')
-        // ratings = await AsyncStorage.getItem('rating')
-        // arrIds = JSON.parse(ids)
-        // arrTitles = JSON.parse(titles)
-        // arrYears = JSON.parse(years)
-        // arrRatings = JSON.parse(ratings)
-
-        try {
-            for(i=0; i<arrIds.length; i++) {
-                // console.log("ID>>>>" + arrIds[i])
-                arrM.push([arrIds[i],arrTitles[i],arrYears[i],arrRatings[i]])
-            }
-            this.setState({
-                arrM: arrM
-            })
-        } catch(error) {
-            alert(error.message)
-        }
-
-        // this.props.show
-
-        // let test1 = await AsyncStorage.getItem('id')
-        // let testa = JSON.parse(test1)
-        // console.log("값>>" + testa)
-        // await AsyncStorage.removeItem()
-    }
-
     render () {
         return (
             <TouchableOpacity 
                 style={styles.items}
                 onLongPress={() => this.props.delete(this.props.id)}
+                onPress={() => this.props.select(this.props.id)}
                 >
                 <View style={{flex:4, alignSelf: 'center'}}>
                     <Text style={{fontWeight:'600', marginLeft: 5}}>{this.props.title} ({this.props.year}) </Text>

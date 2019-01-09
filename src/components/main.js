@@ -251,6 +251,10 @@ export default class Main extends Component {
         this.setState({isVisibleHaveSeen: true})
     }
 
+    _selectHaveSeen = (id) => {
+        console.log("나옵니다~~!!")
+    }
+
 
     componentDidMount() {
         this._filter()
@@ -466,7 +470,10 @@ export default class Main extends Component {
                             onSwipe={() => this.setState({ isVisibleHaveSeen: false })}
                             swipeDirection="right"
                         >
-                            <HaveSeen haveSeenId={[this.state.HaveSeenId]} />
+                            <HaveSeen 
+                                haveSeenId={[this.state.HaveSeenId]}
+                                select={this._selectHaveSeen.bind(this)} 
+                            />
                         </Modal>
                     </View>
                     
