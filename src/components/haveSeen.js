@@ -44,7 +44,7 @@ export default class HaveSeen extends Component {
     }
 
     _deleteHaveSeen = async(id) => {
-        
+        console.log("선택>>>" + id)
         Alert.alert(
             this.props.title,
             '목록에서 제거하시겠습니까?',

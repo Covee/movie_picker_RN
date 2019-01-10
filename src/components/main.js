@@ -57,70 +57,74 @@ export default class Main extends Component {
         }
     }
 
-    _filter() {
-        fetch (discoverURL + '&language=ko-KR&with_original_language='+ this.state.country +'&page=').then(response => response.json())
-        .then(json => {
-            this.setState({
-                randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
-                randNumB: Math.floor(Math.random() * 20),
-                cast: []
-            })
+    _filter = () => {
+        console.log("-----filter함수 시작됩니다----")
+        this.setState({
+            randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
+            randNumB: Math.floor(Math.random() * 20),
+            cast: []
         })
-        .then(
-            fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA).then(response => response.json())
+        console.log("1>>1번 fetch 실행됨: " + this.state.randNumA + this.state.randNumB)
+        fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA).then(response => response.json())
             .then(json => {
                 let id = json.results[this.state.randNumB].id
+                console.log("2>>id값은? " + id)
                 this.setState({
                     pickedId: id,
                 })
-                console.log("page=" + this.state.randNumA, "arrayNum=" + this.state.randNumB, "ID=" + this.state.pickedId)
-            })
-        )
-        .then(
-            fetch(mainURL + 'movie/' + this.state.pickedId + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
-            .then(json => {
-                if (!json.title || !json.poster_path || (json.genres[0]==undefined) ) {
-                    // console.log("no title || poster : mix again")
-                    this._filter()
-                } else {
-                    if (json.genres[1]) {
-                        this.setState({
-                            isLoaded: true,
-                            title: json.title,
-                            year: json.release_date,
-                            rating: json.vote_average,
-                            runtime: json.runtime,
-                            income: json.revenue,
-                            story: json.overview,
-                            poster: json.poster_path,
-                            genre: [json.genres[0].name + ", " + json.genres[1].name],
-                        })  
+                console.log("3>>2번 fetch 실행됨: randNumA=" + this.state.randNumA, "randNumB=" + this.state.randNumB, "pickedId=" + this.state.pickedId)
+
+
+                fetch(mainURL + 'movie/' + this.state.pickedId + '?api_key=' + API_KEY + '&language=ko-KR')
+                .then(response => response.json())
+                .then(json => {
+                    console.log("4>>3번 fetch 하고 난 직후 if문 직전 콘솔결과임 pickedId" + this.state.pickedId);
+                    console.log(json.title + "...." + json.id + "___picked: "+ this.state.pickedId);
+                    if (json.title==undefined || json.poster_path==undefined || json.genres[0]==undefined) {
+                        console.log("5>>if문 실행됨, filter함수 다시 call")
+                        this._filter()
                     } else {
-                        this.setState({
-                            isLoaded: true,
-                            title: json.title,
-                            year: json.release_date,
-                            rating: json.vote_average,
-                            runtime: json.runtime,
-                            income: json.revenue,
-                            story: json.overview,
-                            poster: json.poster_path,
-                            genre: json.genres[0].name,
-                        })
+                        console.log("6>>else문 실행됨")
+                        if (json.genres[1]) {
+                            this.setState({
+                                isLoaded: true,
+                                title: json.title,
+                                year: json.release_date,
+                                rating: json.vote_average,
+                                runtime: json.runtime,
+                                income: json.revenue,
+                                story: json.overview,
+                                poster: json.poster_path,
+                                genre: [json.genres[0].name + ", " + json.genres[1].name],
+                                pickedId: json.id,
+                            })
+                            this._cast()
+                            console.log(this.state.pickedId + "<< 지금 보이는 영화임(current pickedId)")
+                        } else {
+                            this.setState({
+                                isLoaded: true,
+                                title: json.title,
+                                year: json.release_date,
+                                rating: json.vote_average,
+                                runtime: json.runtime,
+                                income: json.revenue,
+                                story: json.overview,
+                                poster: json.poster_path,
+                                genre: json.genres[0].name,
+                                pickedId: json.id,
+                            })
+                            this._cast()
+                            console.log(this.state.pickedId + "<< 지금 보이는 영화임(current pickedId)")
+                        }
+                        
                     }
-                    
-                }
-                if (this.state.country == 'ko') {
-                    this.setState({randNumA: Math.floor(Math.random() * 217)+1})
-                } else {
-                    this.setState({randNumA: Math.floor(Math.random() * 1000)+1})
-                }
+                    if (this.state.country == 'ko') {
+                        this.setState({randNumA: Math.floor(Math.random() * 217)+1})
+                    } else {
+                        this.setState({randNumA: Math.floor(Math.random() * 1000)+1})
+                    }
+                })
             })
-            
-        )
-        .then(
-            this._cast()
-        )
         
     }
 
@@ -128,16 +132,12 @@ export default class Main extends Component {
         let arr1 = [];
         let arr2 = [];
         let arr3 = [];
-
+        console.log("7>>_cast() 실행됨, pickedId" + this.state.pickedId)
         fetch(mainURL + 'movie/' + this.state.pickedId + '/credits?api_key=' + API_KEY + '&language=ko-KR')
         .then(response => response.json()
             .then(json => {
                 if (json.cast[0].name != null) {
                     for (let i = 0; i < json.cast.length; i++) {
-                    
-                        // arr1.push([json.cast[i].name])
-                        // arr2.push([json.cast[i].profile_path]),
-                        // arr3.push([json.cast[i].character])
                         arr1.push([json.cast[i].name, json.cast[i].profile_path, json.cast[i].character])
                     }
                     
@@ -252,20 +252,56 @@ export default class Main extends Component {
     }
 
     _selectHaveSeen = (id) => {
-        console.log("나옵니다~~!!")
+        console.log("선택한 영화 나옵니다~~!! >> " + id)
+        this.setState({
+            pickedId: id
+        })
+        fetch(mainURL + 'movie/' + id + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
+        .then(json => {
+            if (json.genres[1]) {
+                this.setState({
+                    isLoaded: true,
+                    title: json.title,
+                    year: json.release_date,
+                    rating: json.vote_average,
+                    runtime: json.runtime,
+                    income: json.revenue,
+                    story: json.overview,
+                    poster: json.poster_path,
+                    genre: [json.genres[0].name + ", " + json.genres[1].name],
+                    // pickedId: id
+                    isVisibleHaveSeen: false,
+                })
+                this._cast()
+            } else {
+                this.setState({
+                    isLoaded: true,
+                    title: json.title,
+                    year: json.release_date,
+                    rating: json.vote_average,
+                    runtime: json.runtime,
+                    income: json.revenue,
+                    story: json.overview,
+                    poster: json.poster_path,
+                    genre: json.genres[0].name,
+                    // pickedId: id
+                    isVisibleHaveSeen: false,
+                })
+                this._cast()
+            }
+        })
     }
 
 
-    componentDidMount() {
+    componentWillMount() {
         this._filter()
-        
     }
 
     
     render() {
         
         const { 
-            title, year, rating, runtime, income, story, poster, genre, cast 
+            title, year, rating, runtime, income, story, poster, genre, cast, pickedId 
         } = this.state;
         return (
             <View style={styles.container}>
@@ -273,7 +309,7 @@ export default class Main extends Component {
                 {/* AD */}
                 <View style={styles.adBox}>
                     <View style={{flex:1, alignItems:'center', justifyContent: 'center'}}>
-                        <Text>AD</Text>
+                        <Text>pickedId: {pickedId}</Text>
                     </View>
                 </View>
 
