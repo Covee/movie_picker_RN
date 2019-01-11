@@ -123,6 +123,7 @@ export default class HaveSeen extends Component {
                     <Text style={{fontSize:24, textAlign:'center', color: 'white',}}>HaveSeen List</Text>
                 </View>
                 <View style={styles.flex_2}>
+                    <ScrollView style={styles.flex_2_scroll}>
 
                     {
                         this.state.arrM.map((index) => {
@@ -140,6 +141,7 @@ export default class HaveSeen extends Component {
                         })
                     }
 
+                    </ScrollView>
                 </View>
                 <View style={styles.flex_3}>
 
@@ -168,10 +170,22 @@ class HaveSeenDetail extends Component {
                 onPress={() => this.props.select(this.props.id)}
                 >
                 <View style={{flex:4, alignSelf: 'center'}}>
-                    <Text style={{fontWeight:'600', marginLeft: 5}}>{this.props.title} ({this.props.year}) </Text>
+                    <Text style={{
+                        fontWeight:'600', 
+                        marginLeft: 5, 
+                        color: '#fbf9fa', 
+                        fontSize: 14
+                    }}>
+                        {this.props.title} ({this.props.year})
+                    </Text>
                 </View>
                 <View style={{flex:1, alignSelf: 'center'}}>
-                    <Text> 평점: {this.props.rating}</Text>
+                    <Text style={{
+                        color: '#fbf9fa',
+                        fontSize: 13,
+                    }}>
+                         평점: {this.props.rating}
+                    </Text>
                 </View>
             </TouchableOpacity>
         )
@@ -189,22 +203,27 @@ const styles = StyleSheet.create({
             paddingBottom: 5,
         },
         flex_2: {
-            flex: 9,
-            borderRadius: 5,
-            borderColor: 'black',
-            borderWidth: 2,
-            backgroundColor: 'lightgreen',
+            flex: 10,
+            // borderRadius: 5,
+            // borderColor: 'black',
+            // borderWidth: 2,
+            backgroundColor: 'transparent',
 
             },
-            items: {
-                flexDirection:'row',
-                backgroundColor: 'yellow',
-                width: '95%',
-                height: 30,
-                alignSelf: 'center',
-                marginTop: 5,
+            flex_2_scroll: {
+                flex: 1,
+                // backgroundColor: 'white',
+                },
+                items: {
+                    flexDirection:'row',
+                    backgroundColor: '#a80038',
+                    borderRadius: 10,
+                    width: '95%',
+                    height: 40,
+                    alignSelf: 'center',
+                    marginTop: 5,
 
-            },
+                },
         flex_3: {
             flex: 1,
         },

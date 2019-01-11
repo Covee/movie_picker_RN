@@ -64,27 +64,22 @@ export default class Main extends Component {
             randNumB: Math.floor(Math.random() * 20),
             cast: []
         })
-        console.log("1>>1번 fetch 실행됨: " + this.state.randNumA + this.state.randNumB)
         fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA).then(response => response.json())
             .then(json => {
                 let id = json.results[this.state.randNumB].id
-                console.log("2>>id값은? " + id)
                 this.setState({
                     pickedId: id,
                 })
-                console.log("3>>2번 fetch 실행됨: randNumA=" + this.state.randNumA, "randNumB=" + this.state.randNumB, "pickedId=" + this.state.pickedId)
-
+                console.log("randNumA=" + this.state.randNumA, "randNumB=" + this.state.randNumB, "pickedId=" + this.state.pickedId)
 
                 fetch(mainURL + 'movie/' + this.state.pickedId + '?api_key=' + API_KEY + '&language=ko-KR')
                 .then(response => response.json())
                 .then(json => {
-                    console.log("4>>3번 fetch 하고 난 직후 if문 직전 콘솔결과임 pickedId" + this.state.pickedId);
-                    console.log(json.title + "...." + json.id + "___picked: "+ this.state.pickedId);
                     if (json.title==undefined || json.poster_path==undefined || json.genres[0]==undefined) {
-                        console.log("5>>if문 실행됨, filter함수 다시 call")
+                        // console.log("5>>if문 실행됨, filter함수 다시 call")
                         this._filter()
                     } else {
-                        console.log("6>>else문 실행됨")
+                        // console.log("6>>else문 실행됨")
                         if (json.genres[1]) {
                             this.setState({
                                 isLoaded: true,
@@ -99,7 +94,6 @@ export default class Main extends Component {
                                 pickedId: json.id,
                             })
                             this._cast()
-                            console.log(this.state.pickedId + "<< 지금 보이는 영화임(current pickedId)")
                         } else {
                             this.setState({
                                 isLoaded: true,
@@ -114,7 +108,6 @@ export default class Main extends Component {
                                 pickedId: json.id,
                             })
                             this._cast()
-                            console.log(this.state.pickedId + "<< 지금 보이는 영화임(current pickedId)")
                         }
                         
                     }
@@ -130,9 +123,7 @@ export default class Main extends Component {
 
     _cast = () => {
         let arr1 = [];
-        let arr2 = [];
-        let arr3 = [];
-        console.log("7>>_cast() 실행됨, pickedId" + this.state.pickedId)
+        // console.log("7>>_cast() 실행됨, pickedId" + this.state.pickedId)
         fetch(mainURL + 'movie/' + this.state.pickedId + '/credits?api_key=' + API_KEY + '&language=ko-KR')
         .then(response => response.json()
             .then(json => {
@@ -161,7 +152,6 @@ export default class Main extends Component {
                             // castImage: [arr2[0], arr2[1], arr2[2], arr2[3], arr2[4]],
                             // castChar: [arr3[0], arr3[1], arr3[2], arr3[3], arr3[4]], 
                         // })
-                        // console.log("dddd>>> " + this.state.cast[0][1])
                     // }
                 } else {
                     console.log("cast가 null임")
@@ -181,9 +171,6 @@ export default class Main extends Component {
         else {
             this.setState({country: 'ko', randNumA: Math.floor(Math.random() * 217)+1})
         }
-        
-        // console.log(this.state.country)
-        // this._filter()
     }
 
     _wishList() {
@@ -249,6 +236,10 @@ export default class Main extends Component {
 
     _actionHaveSeen = () => {
         this.setState({isVisibleHaveSeen: true})
+    }
+
+    _actionWishList = () => {
+        this.setState({isVisibleWishList: true})
     }
 
     _selectHaveSeen = (id) => {
@@ -402,14 +393,14 @@ export default class Main extends Component {
                                     style={styles.box6_wishlist}
                                     onPress={()=>this._wishList()}
                                 >
-                                    <Icon name="ios-heart" style={{fontSize:30, color:'white', fontWeight:'700', paddingTop: 5}} />
+                                    <Icon name="ios-heart" style={{fontSize:30, color:'#fbf9fa', fontWeight:'700', paddingTop: 5}} />
                                 </TouchableOpacity>
                                     <View style={{flex:1}} />
                                 <TouchableOpacity 
                                     style={styles.box6_haveseen}
                                     onPress={()=>this._haveSeen()}
                                 >
-                                    <Icon name="ios-eye" style={{fontSize:30, color:'white', fontWeight:'700', paddingTop: 5}} />
+                                    <Icon name="ios-eye" style={{fontSize:30, color:'#fbf9fa', fontWeight:'700', paddingTop: 5}} />
                                 </TouchableOpacity>
                                     <View style={{flex:1}} />
                             </View>
@@ -432,7 +423,7 @@ export default class Main extends Component {
                     {/* </View> */}
                     <View style={styles.buttonFilter}>
                         {/*Rest of App come ABOVE the action button component!*/}
-                        <ActionButton buttonColor="rgba(231,76,60,1)" radius={88} outRangeScale={0.74} degrees={405} position={'right'}>
+                        <ActionButton buttonColor="#a80038" radius={88} outRangeScale={0.74} degrees={405} position={'right'}>
 
                             <ActionButton.Item 
                                 buttonColor='#9b59b6' 
@@ -447,7 +438,9 @@ export default class Main extends Component {
                             <ActionButton.Item 
                                 buttonColor='#ff3881' 
                                 title="All Tasks" 
-                                onPress={(e) => this._changeCountry()}
+                                onPress={() =>
+                                    this._actionWishList()
+                                }
                             >
                                 <Icon name="ios-heart" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
@@ -466,7 +459,7 @@ export default class Main extends Component {
                             <ActionButton.Item 
                                 buttonColor='gray' 
                                 title="All Tasks" 
-                                onPress={() => {Alert.alert("dfdfd")}}
+                                onPress={(e) => this._changeCountry()}
                             >
                                 <Icon name="ios-settings" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
@@ -483,10 +476,14 @@ export default class Main extends Component {
                             onSwipe={() => this.setState({ isVisibleFilter: false })}
                             swipeDirection="right"
                         >
-                            <View style={{ flex: 1, justifyContent:'center'}}>
+                            <Filter 
+                                // aa={this.state.counrty}
+                                // changeCountry={this._changeCountry()}
+                            />
+                            {/* <View style={{ flex: 1, justifyContent:'center'}}>
                                 <Text style={{ textAlign:'center', color: 'white',}}>This is Filter Page</Text>
                                 <Text style={{ textAlign:'center', color: 'white',}}>Swipe right to close</Text>
-                            </View>
+                            </View> */}
                         </Modal>
                     </View>
 
@@ -549,13 +546,13 @@ const styles = StyleSheet.create({
 
   adBox: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: '#1E1E24',
     alignItems: 'flex-end'
     },
 
   cardBox: {
     flex: 6,
-    backgroundColor: '#F062A2',
+    backgroundColor: '#fdf0f0',
     position: 'relative',
     },
     cardBox2: {
@@ -572,7 +569,7 @@ const styles = StyleSheet.create({
             width: '100%',
             alignSelf: 'center',
             // marginTop: 5,
-            // backgroundColor: 'lightblue',
+            backgroundColor: '#fff9f9',
             borderWidth: 0.5,
             borderColor: 'transparent',
             borderRadius: 15,
@@ -587,7 +584,7 @@ const styles = StyleSheet.create({
             box1: {
                 flex: 2,
                 flexDirection: 'row',
-                backgroundColor: 'white',
+                backgroundColor: '#fff9f9',
                 // marginBottom: 5,
                 alignItems: 'center',
                 paddingBottom: 3,
@@ -606,7 +603,7 @@ const styles = StyleSheet.create({
                 },
             box2: {
                 flex: 1.3,
-                backgroundColor: 'white',
+                backgroundColor: '#fff9f9',
                 // marginBottom: 5,
                 flexDirection: 'row',
                 paddingLeft: 3,
@@ -620,7 +617,7 @@ const styles = StyleSheet.create({
                 },
             box3: {
                 flex: 5.5,
-                backgroundColor: 'white',
+                backgroundColor: '#fff9f9',
                 // marginBottom: 5,
                 flexDirection: 'column',
                 },
@@ -639,7 +636,7 @@ const styles = StyleSheet.create({
                 },
             box4: {
                 flex: 3,
-                backgroundColor: 'white',
+                backgroundColor: '#fff9f9',
                 paddingBottom: 3,
                 paddingLeft: 2,
                 paddingRight: 3,
@@ -650,7 +647,7 @@ const styles = StyleSheet.create({
             },
             box6: {
                 flex: 3,
-                backgroundColor: 'white',
+                backgroundColor: '#fff9f9',
                 // marginBottom: 5,
                 borderBottomRightRadius: 15,
                 borderBottomLeftRadius: 15,
@@ -663,8 +660,8 @@ const styles = StyleSheet.create({
                     flex: 3,
                     alignItems: 'center',
                     textAlign: 'center',
-                    backgroundColor: 'brown',
-                    borderColor: 'brown',
+                    backgroundColor: '#444140',
+                    borderColor: '#444140',
                     borderRadius: 10,
                     width: 80,
                     height: 40,
@@ -673,8 +670,8 @@ const styles = StyleSheet.create({
                     flex: 3,
                     alignItems: 'center',
                     textAlign: 'center',
-                    backgroundColor: 'brown',
-                    borderColor: 'brown',
+                    backgroundColor: '#444140',
+                    borderColor: '#444140',
                     borderRadius: 10,
                     width: 80,
                     height: 40,
@@ -683,7 +680,7 @@ const styles = StyleSheet.create({
 
   buttonBox: {
     flex: 1.3,
-    backgroundColor: '#F062A2',
+    backgroundColor: '#fdf0f0',
     // backgroundColor: '#0061ff',
     flexDirection: 'row',
     paddingLeft: 10,
@@ -692,8 +689,8 @@ const styles = StyleSheet.create({
     },
     buttonMix: {
         flex: 1,
-        backgroundColor: '#1abc9c',
-        borderColor: '#1abc9c',
+        backgroundColor: '#E54B4B',
+        borderColor: '#E54B4B',
         borderWidth: 2,
         borderRadius: 10,
         padding: 20,
@@ -720,7 +717,7 @@ const styles = StyleSheet.create({
     actionButtonIcon: {
         fontSize: 25.5,
         height: 23,
-        color: 'white',
+        color: '#fbf9fa',
         marginBottom: 5
       },
 
@@ -728,7 +725,7 @@ const styles = StyleSheet.create({
       actionButtonIcon2: {
         fontSize: 35,
         height: 32,
-        color: 'white',
+        color: '#fbf9fa',
         marginBottom: 5,
       },
 
