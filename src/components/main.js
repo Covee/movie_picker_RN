@@ -31,6 +31,7 @@ let seenRating = []
 export default class Main extends Component {
     constructor(props) {
         super(props);
+        this.changeCountry = this._changeCountry.bind(this)
         this.state = {
             isLoaded: false,
             category: null,
@@ -477,6 +478,7 @@ export default class Main extends Component {
                             swipeDirection="right"
                         >
                             <Filter 
+                                changeCountry={this.changeCountry}
                                 // aa={this.state.counrty}
                                 // changeCountry={this._changeCountry()}
                             />

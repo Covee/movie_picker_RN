@@ -43,13 +43,13 @@ export default class Filter extends Component {
                         <View style={{flexDirection: 'row',}}>
                             <TouchableOpacity 
                                 style={styles.countryChoice}
-                                onPress={() => {this._pickCountry()}}
+                                onPress={this.props.changeCountry}
                             >
                                 <Text style={{color: 'white', fontSize: 15}}>국내 영화</Text>
                             </TouchableOpacity>
                             <TouchableOpacity 
                                 style={styles.countryChoice}
-                                onPress={() => {this._pickCountry()}}
+                                onPress={this.props.changeCountry}
                             >
                                 <Text style={{color: 'white', fontSize: 15}}>해외 영화</Text>
                             </TouchableOpacity>
