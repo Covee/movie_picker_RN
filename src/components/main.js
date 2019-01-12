@@ -569,7 +569,7 @@ const styles = StyleSheet.create({
             width: '100%',
             alignSelf: 'center',
             // marginTop: 5,
-            backgroundColor: '#fff9f9',
+            // backgroundColor: '#fff9f9',
             borderWidth: 0.5,
             borderColor: 'transparent',
             borderRadius: 15,

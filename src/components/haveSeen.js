@@ -174,7 +174,7 @@ class HaveSeenDetail extends Component {
                         fontWeight:'600', 
                         marginLeft: 5, 
                         color: '#fbf9fa', 
-                        fontSize: 14
+                        fontSize: 15
                     }}>
                         {this.props.title} ({this.props.year})
                     </Text>
@@ -182,7 +182,7 @@ class HaveSeenDetail extends Component {
                 <View style={{flex:1, alignSelf: 'center'}}>
                     <Text style={{
                         color: '#fbf9fa',
-                        fontSize: 13,
+                        fontSize: 14,
                     }}>
                          평점: {this.props.rating}
                     </Text>
@@ -198,12 +198,12 @@ const styles = StyleSheet.create({
         flex: 1,
         },
         flex_1: {
-            flex: 1,
+            flex: 2,
             justifyContent: 'flex-end',
             paddingBottom: 5,
         },
         flex_2: {
-            flex: 10,
+            flex: 12,
             // borderRadius: 5,
             // borderColor: 'black',
             // borderWidth: 2,

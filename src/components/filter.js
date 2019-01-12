@@ -9,6 +9,7 @@ import MultiSelectView from 'react-native-multiselect-view'
 // const 
 
 const country = ['국내 영화', '해외 영화']
+const genre = ['액션', '어드벤처', '애니메이션', '코미디', '범죄', '다큐멘터리', '드라마', '가족', '판타지', '역사', '공포', '음악', '미스테리', '멜로', 'SF', 'TV 영화', '스릴러', '전쟁', '서부']
 
 export default class Filter extends Component {
     constructor(props) {
@@ -20,13 +21,13 @@ export default class Filter extends Component {
     }
 
     _pickCountry = () => {
-        let a = this.refs.list.selectedItems()
+        let a = this.props.country
         // console.log(this.refs.list.selectedItems())
-        console.log("now state: " + a[0])
+        console.log("now state: " + a)
         this.setState({
-            abc: true
+            country: 'en'
         })
-        console.log("AFTER state: " + this.state.abc)
+        console.log("AFTER state: " + this.state.country)
     }
 
 
@@ -34,36 +35,55 @@ export default class Filter extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.box}>
-                    <Text style={{color: 'white',}}>Filter</Text>
+                    <Text style={{color: 'white', fontSize: 20,}}>Filter</Text>
                 </View>
                 <View style={styles.box2}>
                     <View style={styles.countries}>
+                        <Text style={{textAlign: 'center',}}>국가</Text>
+                        <View style={{flexDirection: 'row',}}>
+                            <TouchableOpacity 
+                                style={styles.countryChoice}
+                                onPress={() => {this._pickCountry()}}
+                            >
+                                <Text style={{color: 'white', fontSize: 15}}>국내 영화</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                style={styles.countryChoice}
+                                onPress={() => {this._pickCountry()}}
+                            >
+                                <Text style={{color: 'white', fontSize: 15}}>해외 영화</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity 
+                            // onPress={()=> }
+                        >
+                            <View>
+                                <Text style={{textAlign: 'center',}}>Confirm</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.ratingGT}>
+                        <Text style={{textAlign: 'center',}}>평점</Text>
+                    
+                    </View>
+                    <View style={styles.genres}>
+                        <Text style={{textAlign: 'center',}}>장르</Text>
                         <MultiSelectView
                             ref='list'
                             onSelectionStatusChange={this.onSelectionStatusChange}
-                            data={country}
+                            data={genre}
                             activeContainerStyle={styles.activeCom}
                             inactiveContainerStyle={styles.inactiveCom}
                             activeTextStyle={styles.activeText}
                             inactiveTextStyle={styles.inactiveText}
                         />
                         <TouchableOpacity 
-                            onPress={()=> {
-                                this.setState({
-                                    country: this.props.aa
-                                })
-                                console.log(this.state.country)
-                            }}
+                            // onPress={()=> }
                         >
                             <View>
-                                <Text>Confirm</Text>
+                                <Text style={{textAlign: 'center',}}>적용</Text>
                             </View>
                         </TouchableOpacity>
-                    </View>
-                    <View style={styles.ratingGT}>
-                    
-                    </View>
-                    <View style={styles.genres}>
                     
                     </View>
                     <TouchableOpacity style={styles.buttonConfirm}>
@@ -94,7 +114,18 @@ const styles = StyleSheet.create({
             },
             countries: {
                 flex: 2
-            },
+                },
+                countryChoice: {
+                    backgroundColor: 'gray',
+                    borderColor: 'gray',
+                    borderRadius: 25,
+                    width: 120,
+                    height: 30,
+                    alignSelf: 'center',
+                    alignItems: 'center',
+                    padding: 5,
+                    margin: 5,
+                },
             ratingGT: {
                 flex: 2
             },
@@ -111,6 +142,7 @@ const styles = StyleSheet.create({
                 // padding: 20,
                 alignSelf: 'center',
                 alignItems: 'center',
+                justifyContent: 'center',
                 },
                 buttonText: {
                     flex:1, 
@@ -118,7 +150,6 @@ const styles = StyleSheet.create({
                     color:'white', 
                     fontWeight:'600', 
                     alignSelf: 'center',
-                    justifyContent: 'center',
                 }
   
    
