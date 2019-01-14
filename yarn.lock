@@ -1573,7 +1573,7 @@ chalk@^1.1.1, chalk@^1.1.3:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-chalk@^2.0.0:
+chalk@^2.0.0, chalk@^2.4.1:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   integrity sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
@@ -1921,6 +1921,13 @@ dom-walk@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
   integrity sha1-ZyIm3HTI95mtNTB9+TaroRrNYBg=
+
+dooboolab-welcome@^1.0.5:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/dooboolab-welcome/-/dooboolab-welcome-1.1.0.tgz#4a0aa9d2cbc4e2b1008bf7683bc056b41caa3d0d"
+  integrity sha512-K9TKEeefzDXZiUyLZG+bIr8cy9UoYIfFMseowp/o3czVl7TfkVm3gQpeB85w+TO8xeqzWHiIcEelZbBgt5WUwQ==
+  dependencies:
+    chalk "^2.4.1"
 
 duplexer2@^0.1.4:
   version "0.1.4"
@@ -4595,7 +4602,7 @@ react-native-gesture-handler@1.0.9:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
-"react-native-maps@github:expo/react-native-maps#v0.22.1-exp.0":
+react-native-maps@expo/react-native-maps#v0.22.1-exp.0:
   version "0.22.1"
   resolved "https://codeload.github.com/expo/react-native-maps/tar.gz/e6f98ff7272e5d0a7fe974a41f28593af2d77bb2"
 
@@ -4647,6 +4654,13 @@ react-native-swipeable@^0.6.0:
   integrity sha512-OJUmOtPAZ3s6OHdbmGdGBq3oNZaUFOV81UMQfO2fvIF2cUOMbjUKQCRU7EhijEyufiaMAlSu/VguCRAdLRLk3w==
   dependencies:
     prop-types "^15.5.10"
+
+react-native-switch-toggle@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-switch-toggle/-/react-native-switch-toggle-1.0.7.tgz#972e1a2a918fe8cfaeb3960301e3b11c455bf4a2"
+  integrity sha512-CMHhXH3UHwTKK79bPYlTGHgEL2IE9Gz1kEGsfQ+sasfgL0cWvdS3GagZ910r2NAsy0YNl+5t4lZ7w+V5sLADfQ==
+  dependencies:
+    dooboolab-welcome "^1.0.5"
 
 react-native-vector-icons@6.0.0:
   version "6.0.0"
@@ -4966,6 +4980,11 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+
+rn-slider-switch@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/rn-slider-switch/-/rn-slider-switch-0.0.3.tgz#fc71ac77872943cb4bf72aacfec46dc64f57c9f7"
+  integrity sha1-/HGsd4cpQ8tL9yqs/sRtxk9Xyfc=
 
 rsvp@^3.3.3:
   version "3.6.2"

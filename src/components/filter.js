@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
 import Modal from "react-native-modal";
 import MultiSelectView from 'react-native-multiselect-view'
+import SwitchToggle from 'react-native-switch-toggle';
+
 
 
 // const genreID = [{"id":28,"name":"Action"},{"id":12,"name":"Adventure"},{"id":16,"name":"Animation"},{"id":35,"name":"Comedy"},{"id":80,"name":"Crime"},{"id":99,"name":"Documentary"},{"id":18,"name":"Drama"},{"id":10751,"name":"Family"},{"id":14,"name":"Fantasy"},{"id":36,"name":"History"},{"id":27,"name":"Horror"},{"id":10402,"name":"Music"},{"id":9648,"name":"Mystery"},{"id":10749,"name":"Romance"},{"id":878,"name":"Science Fiction"},{"id":10770,"name":"TV Movie"},{"id":53,"name":"Thriller"},{"id":10752,"name":"War"},{"id":37,"name":"Western"}]
@@ -17,19 +19,9 @@ export default class Filter extends Component {
 		this.state = {
             country: this.props.country,
             abc: false,
+            switch: this.props.switch,
         };
     }
-
-    _pickCountry = () => {
-        let a = this.props.country
-        // console.log(this.refs.list.selectedItems())
-        console.log("now state: " + a)
-        this.setState({
-            country: 'en'
-        })
-        console.log("AFTER state: " + this.state.country)
-    }
-
 
     render() {
         return (
@@ -41,6 +33,28 @@ export default class Filter extends Component {
                     <View style={styles.countries}>
                         <Text style={{textAlign: 'center',}}>국가</Text>
                         <View style={{flexDirection: 'row',}}>
+
+                            <SwitchToggle
+                                containerStyle={{
+                                    marginTop: 16,
+                                    width: 108,
+                                    height: 48,
+                                    borderRadius: 25,
+                                    backgroundColor: '#ccc',
+                                    padding: 5,
+                                }}
+                                circleStyle={{
+                                    width: 38,
+                                    height: 38,
+                                    borderRadius: 19,
+                                    backgroundColor: 'red', // rgb(102,134,205)
+                                }}
+                                switchOn={this.props.switch}
+                                onPress={this.props.changeCountry}
+                                circleColorOff='white'
+                                circleColorOn='red'
+                                duration={500}
+                            />
                             <TouchableOpacity 
                                 style={styles.countryChoice}
                                 onPress={this.props.changeCountry}

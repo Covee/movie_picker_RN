@@ -55,6 +55,7 @@ export default class Main extends Component {
             castChar: [],
             HaveSeenId:[],
             WishListId:[],
+            switch: false,
         }
     }
 
@@ -164,13 +165,13 @@ export default class Main extends Component {
 
     _changeCountry = (e) => {
         if (this.state.country == 'ko') {
-            this.setState({country: 'en', randNumA: Math.floor(Math.random() * 1000)+1})
+            this.setState({country: 'en', randNumA: Math.floor(Math.random() * 1000)+1, switch: true})
         } 
         // else if (this.state.country == '') {
         //     this.setState({country: 'en', randNumA: Math.floor(Math.random() * 1000)+1})
         // }
         else {
-            this.setState({country: 'ko', randNumA: Math.floor(Math.random() * 217)+1})
+            this.setState({country: 'ko', randNumA: Math.floor(Math.random() * 217)+1, switch: false})
         }
     }
 
@@ -479,6 +480,7 @@ export default class Main extends Component {
                         >
                             <Filter 
                                 changeCountry={this.changeCountry}
+                                switch={this.state.switch}
                                 // aa={this.state.counrty}
                                 // changeCountry={this._changeCountry()}
                             />
