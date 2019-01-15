@@ -27,11 +27,18 @@ let seenTitle = []
 let seenYear = []
 let seenRating = []
 
+// FILTER GENRES
+let action1 = ''
+let adventure1 = null
+
+
 
 export default class Main extends Component {
     constructor(props) {
         super(props);
         this.changeCountry = this._changeCountry.bind(this)
+        this.action = this._action.bind(this)
+        
         this.state = {
             isLoaded: false,
             category: null,
@@ -56,9 +63,12 @@ export default class Main extends Component {
             HaveSeenId:[],
             WishListId:[],
             switch: false,
+            action0: '',
+            adventure0: '',
         }
     }
 
+// EXECUTION   
     _filter = () => {
         console.log("-----filter함수 시작됩니다----")
         this.setState({
@@ -133,28 +143,14 @@ export default class Main extends Component {
                     for (let i = 0; i < json.cast.length; i++) {
                         arr1.push([json.cast[i].name, json.cast[i].profile_path, json.cast[i].character])
                     }
+                    let newArr = []
+                    for (i=0; i < json.cast.length; i++){
+                        newArr.push(arr1[i])
+                    }
                     
-                    // if (json.cast[0] == null) {
-                    //     this.setState({
-                    //         cast: ['없음'],
-                    //         // castImage: [arr2[0], arr2[1]],
-                    //     })
-                    // } else {
-                        let newArr = []
-                        for (i=0; i < json.cast.length; i++){
-                            newArr.push(arr1[i])
-                        }
-                        
-                        this.setState({
-                            cast: newArr
-                        })
-                        // this.setState({
-                        //     cast: [arr1[i]],
-                            // cast: [arr1[0], arr1[1], arr1[2], arr1[3], arr1[4]],
-                            // castImage: [arr2[0], arr2[1], arr2[2], arr2[3], arr2[4]],
-                            // castChar: [arr3[0], arr3[1], arr3[2], arr3[3], arr3[4]], 
-                        // })
-                    // }
+                    this.setState({
+                        cast: newArr
+                    })
                 } else {
                     console.log("cast가 null임")
                 }
@@ -163,6 +159,10 @@ export default class Main extends Component {
         )
     }
 
+
+
+
+// FILTER OPTIONS
     _changeCountry = (e) => {
         if (this.state.country == 'ko') {
             this.setState({country: 'en', randNumA: Math.floor(Math.random() * 1000)+1, switch: true})
@@ -174,6 +174,26 @@ export default class Main extends Component {
             this.setState({country: 'ko', randNumA: Math.floor(Math.random() * 217)+1, switch: false})
         }
     }
+
+    _action = () => {
+        console.log("this is action")
+        if(action1 == ''){
+            action1 = 'action'
+        } else {
+            action1 = ''
+        }
+        console.log("action>>>" + action1)
+        // 이제 글자 'action'이 들어가는게 아니고 실제 fetch url에 들어갈 genre id로 바꿔주고... 그 뒤 실행함수 만들고...
+    }
+
+    _adventure = () => {
+        // console.log("this is adventure")
+        // adventure1 = '' ? 'adventure' : ''
+        // console.log("adventure>>>" + adventure1)
+    }
+
+
+
 
     _wishList() {
         let a = true
@@ -481,8 +501,8 @@ export default class Main extends Component {
                             <Filter 
                                 changeCountry={this.changeCountry}
                                 switch={this.state.switch}
-                                // aa={this.state.counrty}
-                                // changeCountry={this._changeCountry()}
+                                action={this.action}
+                                adventure={this._adventure()}
                             />
                             {/* <View style={{ flex: 1, justifyContent:'center'}}>
                                 <Text style={{ textAlign:'center', color: 'white',}}>This is Filter Page</Text>
