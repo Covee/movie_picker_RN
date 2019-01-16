@@ -28,8 +28,9 @@ let seenYear = []
 let seenRating = []
 
 // FILTER GENRES
-let action1 = ''
-let adventure1 = null
+let genArr = []
+let action1 = false
+let adventure1 = false
 
 
 
@@ -38,6 +39,7 @@ export default class Main extends Component {
         super(props);
         this.changeCountry = this._changeCountry.bind(this)
         this.action = this._action.bind(this)
+        this.adventure = this._adventure.bind(this)
         
         this.state = {
             isLoaded: false,
@@ -65,18 +67,21 @@ export default class Main extends Component {
             switch: false,
             action0: '',
             adventure0: '',
+            genArr: null,
         }
     }
 
 // EXECUTION   
-    _filter = () => {
+    _filter = async () => {
         console.log("-----filter함수 시작됩니다----")
         this.setState({
             randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
             randNumB: Math.floor(Math.random() * 20),
-            cast: []
+            cast: [],
         })
-        fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA).then(response => response.json())
+        // await this._changeGenre()
+        console.log("MAX ?? >>> " + this.state.randNumA + "genArr => " + this.state.genArr)
+        await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + '&with_genres=' ).then(response => response.json())
             .then(json => {
                 let id = json.results[this.state.randNumB].id
                 this.setState({
@@ -123,11 +128,11 @@ export default class Main extends Component {
                         }
                         
                     }
-                    if (this.state.country == 'ko') {
-                        this.setState({randNumA: Math.floor(Math.random() * 217)+1})
-                    } else {
-                        this.setState({randNumA: Math.floor(Math.random() * 1000)+1})
-                    }
+                    // if (this.state.country == 'ko') {
+                    //     this.setState({randNumA: Math.floor(Math.random() * 217)+1})
+                    // } else {
+                    //     this.setState({randNumA: Math.floor(Math.random() * 1000)+1})
+                    // }
                 })
             })
         
@@ -163,6 +168,15 @@ export default class Main extends Component {
 
 
 // FILTER OPTIONS
+    // _getMaxPage = (genres) => {
+    //     fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + '&with_genres=' + genres).then(response => response.json())
+    //     .then(json => {
+    //         this.setState({
+    //             randNumA: Math.floor(Math.random() * json.total_pages+1)
+    //         })
+    //     })
+    // }
+
     _changeCountry = (e) => {
         if (this.state.country == 'ko') {
             this.setState({country: 'en', randNumA: Math.floor(Math.random() * 1000)+1, switch: true})
@@ -175,21 +189,48 @@ export default class Main extends Component {
         }
     }
 
+    _changeGenre = async () => {
+        let arrange;
+        for(i=0; i<genArr.length; i++){
+            arrange.push(genArr[i])
+        }
+        arrange.join('')
+        this.setState({
+            genArr: arrange
+        })
+        await fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + '&with_genres=' + this.state.genArr).then(response => response.json())
+        .then(json => {
+            this.setState({
+                randNumA: Math.floor(Math.random() * json.total_pages+1)
+            })
+        })
+        
+    }
+
     _action = () => {
         console.log("this is action")
-        if(action1 == ''){
-            action1 = 'action'
+        if(action1 == false){
+            action1 = true
+            genArr.push('28%7C')
         } else {
-            action1 = ''
+            action1 = false
+            let index = genArr.indexOf('28%7C')
+            genArr.splice(index, 1)
         }
-        console.log("action>>>" + action1)
-        // 이제 글자 'action'이 들어가는게 아니고 실제 fetch url에 들어갈 genre id로 바꿔주고... 그 뒤 실행함수 만들고...
+        console.log("genArr >>> " + genArr)
     }
 
     _adventure = () => {
-        // console.log("this is adventure")
-        // adventure1 = '' ? 'adventure' : ''
-        // console.log("adventure>>>" + adventure1)
+        console.log("this is adventure")
+        if(adventure1 == false){
+            adventure1 = true
+            genArr.push('12%7C')
+        } else {
+            adventure1 = false
+            let index = genArr.indexOf('12%7C')
+            genArr.splice(index, 1)
+        }
+        console.log("genArr >>> " + genArr)
     }
 
 
@@ -502,7 +543,7 @@ export default class Main extends Component {
                                 changeCountry={this.changeCountry}
                                 switch={this.state.switch}
                                 action={this.action}
-                                adventure={this._adventure()}
+                                adventure={this._adventure}
                             />
                             {/* <View style={{ flex: 1, justifyContent:'center'}}>
                                 <Text style={{ textAlign:'center', color: 'white',}}>This is Filter Page</Text>

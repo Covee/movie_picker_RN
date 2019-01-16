@@ -75,7 +75,7 @@ export default class Filter extends Component {
                             <Text style={{textAlign: 'center',}}>액션</Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
-                            onPress={() => this.props.adventure}
+                            onPress={this.props.adventure}
                         >
                             <Text style={{textAlign: 'center',}}>어드벤처</Text>
                         </TouchableOpacity>
