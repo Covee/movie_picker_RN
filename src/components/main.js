@@ -56,7 +56,7 @@ export default class Main extends Component {
             isVisibleWishList: false,
             isVisibleHaveSeen: false,
             pickedId: null,
-            randNumA: 217,
+            randNumA: 220,
             randNumB: null,
             genre: null,
             cast: [],
@@ -65,8 +65,6 @@ export default class Main extends Component {
             HaveSeenId:[],
             WishListId:[],
             switch: false,
-            action0: '',
-            adventure0: '',
             genArr: null,
         }
     }
@@ -74,15 +72,17 @@ export default class Main extends Component {
 // EXECUTION   
     _filter = async () => {
         console.log("-----filter함수 시작됩니다----")
-        this.setState({
-            randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
+        
+        await this.setState({
+            // randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
             randNumB: Math.floor(Math.random() * 20),
             cast: [],
         })
-        // await this._changeGenre()
-        console.log("MAX ?? >>> " + this.state.randNumA + "genArr => " + this.state.genArr)
-        await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + '&with_genres=' ).then(response => response.json())
+        await this._changeGenre()
+        console.log("MAX pages >>> " + this.state.randNumA + "  genArr => " + this.state.genArr)
+        await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + '&with_genres=' + this.state.genArr ).then(response => response.json())
             .then(json => {
+                // console.log(json.results[this.state.randNumB])
                 let id = json.results[this.state.randNumB].id
                 this.setState({
                     pickedId: id,
@@ -190,19 +190,17 @@ export default class Main extends Component {
     }
 
     _changeGenre = async () => {
-        let arrange;
-        for(i=0; i<genArr.length; i++){
-            arrange.push(genArr[i])
-        }
-        arrange.join('')
+        let arrange = genArr.join('')
         this.setState({
             genArr: arrange
         })
-        await fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + '&with_genres=' + this.state.genArr).then(response => response.json())
+        fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + '&with_genres=' + this.state.genArr).then(response => response.json())
         .then(json => {
+            console.log("토탈페이지>>>> " + json.total_pages)
             this.setState({
                 randNumA: Math.floor(Math.random() * json.total_pages+1)
             })
+            console.log("랜덤으로뽑은페이지>>>> " + this.state.randNumA)
         })
         
     }
@@ -217,6 +215,7 @@ export default class Main extends Component {
             let index = genArr.indexOf('28%7C')
             genArr.splice(index, 1)
         }
+        this.setState({ randNumA: 1})
         console.log("genArr >>> " + genArr)
     }
 
@@ -230,6 +229,7 @@ export default class Main extends Component {
             let index = genArr.indexOf('12%7C')
             genArr.splice(index, 1)
         }
+        this.setState({ randNumA: 1})
         console.log("genArr >>> " + genArr)
     }
 
