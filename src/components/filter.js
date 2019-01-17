@@ -31,7 +31,9 @@ export default class Filter extends Component {
                     <View style={styles.countries}>
                         <Text style={{textAlign: 'center',}}>국가</Text>
                         <View style={{flexDirection: 'row', alignSelf: 'center',}}>
-
+                            <View>
+                                <Text>한국 영화</Text>
+                            </View>
                             <SwitchToggle
                                 containerStyle={{
                                     marginTop: 16,
@@ -49,18 +51,14 @@ export default class Filter extends Component {
                                 }}
                                 switchOn={this.props.switch}
                                 onPress={this.props.changeCountry}
-                                circleColorOff='white'
+                                circleColorOff='blue'
                                 circleColorOn='red'
                                 duration={500}
                             />
-                        </View>
-                        <TouchableOpacity 
-                            // onPress={()=> }
-                        >
                             <View>
-                                <Text style={{textAlign: 'center',}}>Confirm</Text>
+                                <Text>외국 영화</Text>
                             </View>
-                        </TouchableOpacity>
+                        </View>
                     </View>
                     <View style={styles.ratingGT}>
                         <Text style={{textAlign: 'center',}}>평점</Text>
