@@ -33,141 +33,162 @@ export default class Filter extends Component {
                 </View>
                 <View style={styles.box2}>
                     <View style={styles.countries}>
-                        <Text style={{textAlign: 'center',}}>국가</Text>
+                        <Text style={{textAlign: 'center', fontSize: 20}}>국가</Text>
                         <View style={{flexDirection: 'row', alignSelf: 'center',}}>
-                            <View>
-                                <Text>한국 영화</Text>
+                            <View style={{flex:1, justifyContent: 'center'}}>
+                                <Text style={{textAlign: 'center', fontSize: 18}}>한국 영화</Text>
                             </View>
-                            <SwitchToggle
-                                containerStyle={{
-                                    marginTop: 16,
-                                    width: 108,
-                                    height: 48,
-                                    borderRadius: 25,
-                                    backgroundColor: '#ccc',
-                                    padding: 5,
-                                }}
-                                circleStyle={{
-                                    width: 38,
-                                    height: 38,
-                                    borderRadius: 19,
-                                    backgroundColor: 'red', // rgb(102,134,205)
-                                }}
-                                switchOn={this.props.switch}
-                                onPress={this.props.changeCountry}
-                                circleColorOff='blue'
-                                circleColorOn='red'
-                                duration={500}
-                            />
-                            <View>
-                                <Text>외국 영화</Text>
+                            <View style={{flex:2, alignItems:'center'}}>
+                                <SwitchToggle
+                                    containerStyle={{
+                                        marginTop: 16,
+                                        width: 140,
+                                        height: 48,
+                                        borderRadius: 25,
+                                        backgroundColor: '#ccc',
+                                        padding: 5,
+                                    }}
+                                    circleStyle={{
+                                        width: 38,
+                                        height: 38,
+                                        borderRadius: 19,
+                                        backgroundColor: 'red', // rgb(102,134,205)
+                                    }}
+                                    switchOn={this.props.switch}
+                                    onPress={this.props.changeCountry}
+                                    circleColorOff='lightblue'
+                                    circleColorOn='pink'
+                                    duration={500}
+                                />
+                            </View>
+                            <View style={{flex:1, justifyContent: 'center'}}>
+                                <Text style={{textAlign: 'center', fontSize: 18}}>외국 영화</Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.ratingGT}>
-                        <Text style={{textAlign: 'center',}}>평점</Text>
+                        <Text style={{textAlign: 'center', fontSize: 20}}>평점</Text>
                     
                     </View>
                     <View style={styles.genres}>
-                        <Text style={{textAlign: 'center',}}>장르</Text>
+                        <Text style={{textAlign: 'center', fontSize: 20}}>장르</Text>
                         
-                        <TouchableOpacity 
-                            onPress={this.props.action}
-                            style={styles.genreButton}
-                        >
-                            <Text style={styles.genreButtonText}>액션</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.adventure}
-                        >
-                            <Text style={{textAlign: 'center',}}>어드벤처</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.animation}
-                        >
-                            <Text style={{textAlign: 'center',}}>애니메이션</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.comedy}
-                        >
-                            <Text style={{textAlign: 'center',}}>코미디</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.crime}
-                        >
-                            <Text style={{textAlign: 'center',}}>범죄</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.documentary}
-                        >
-                            <Text style={{textAlign: 'center',}}>다큐멘터리</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.drama}
-                        >
-                            <Text style={{textAlign: 'center',}}>드라마</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.family}
-                        >
-                            <Text style={{textAlign: 'center',}}>가족</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.fantasy}
-                        >
-                            <Text style={{textAlign: 'center',}}>판타지</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.history}
-                        >
-                            <Text style={{textAlign: 'center',}}>역사</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.horror}
-                        >
-                            <Text style={{textAlign: 'center',}}>공포</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.music}
-                        >
-                            <Text style={{textAlign: 'center',}}>음악</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.mystery}
-                        >
-                            <Text style={{textAlign: 'center',}}>미스테리</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.romance}
-                        >
-                            <Text style={{textAlign: 'center',}}>멜로</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.sf}
-                        >
-                            <Text style={{textAlign: 'center',}}>SF</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.tvMovie}
-                        >
-                            <Text style={{textAlign: 'center',}}>TV 영화</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.thriller}
-                        >
-                            <Text style={{textAlign: 'center',}}>스릴러</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.war}
-                        >
-                            <Text style={{textAlign: 'center',}}>전쟁</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            onPress={this.props.western}
-                        >
-                            <Text style={{textAlign: 'center',}}>서부</Text>
-                        </TouchableOpacity>
-                    
+                        <View style={{flexDirection:'row', flexWrap: 'wrap', padding: 10,}}>
+                            <TouchableOpacity 
+                                onPress={this.props.action}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>액션</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.adventure}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>어드벤처</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.animation}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>애니메이션</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.comedy}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>코미디</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.crime}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>범죄</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.documentary}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>다큐멘터리</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.drama}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>드라마</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.family}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>가족</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.fantasy}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>판타지</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.history}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>역사</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.horror}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>공포</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.music}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>음악</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.mystery}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>미스테리</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.romance}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>멜로</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.sf}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>SF</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.tvMovie}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>TV 영화</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.thriller}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>스릴러</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.war}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>전쟁</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                onPress={this.props.western}
+                                style={styles.genreButton}
+                            >
+                                <Text style={styles.genreButtonText}>서부</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <TouchableOpacity style={styles.buttonConfirm}>
                         <Text style={styles.buttonText}>업데이트</Text>
@@ -196,7 +217,8 @@ const styles = StyleSheet.create({
             backgroundColor: 'lightgreen',
             },
             countries: {
-                flex: 2
+                flex: 2,
+                padding: 5,
                 },
                 countryChoice: {
                     backgroundColor: 'gray',
@@ -213,22 +235,27 @@ const styles = StyleSheet.create({
                 flex: 2
             },
             genres: {
-                flex: 6,
-                flexDirection: 'row',
+                flex: 5,
                 },
                 genreButton: {
+                    // flex: 1,
+                    position: 'relative',
                     backgroundColor: 'yellow',
                     borderColor: 'yellow',
-                    borderRadius: 20,
-                    width: 100,
-                    height: 40,
-                    padding: 10,
+                    borderRadius: 7,
+                    width: 'auto',
+                    height: 35,
+                    padding: 5,
+                    paddingRight: 10,
+                    paddingLeft: 10,
                     alignSelf: 'center',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    margin: 5,
                 },
                 genreButtonText: {
                     textAlign: 'center',
+                    fontSize: 17,
                 },
             buttonConfirm: {
                 flex: 1,
