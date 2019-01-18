@@ -19,9 +19,13 @@ export default class Filter extends Component {
             abc: false,
             switch: this.props.switch,
         };
+        
     }
 
     render() {
+        const action = 'action'
+        const adventure = 'adventure'
+
         return (
             <View style={styles.container}>
                 <View style={styles.box}>
@@ -69,13 +73,99 @@ export default class Filter extends Component {
                         
                         <TouchableOpacity 
                             onPress={this.props.action}
+                            style={styles.genreButton}
                         >
-                            <Text style={{textAlign: 'center',}}>액션</Text>
+                            <Text style={styles.genreButtonText}>액션</Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
                             onPress={this.props.adventure}
                         >
                             <Text style={{textAlign: 'center',}}>어드벤처</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.animation}
+                        >
+                            <Text style={{textAlign: 'center',}}>애니메이션</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.comedy}
+                        >
+                            <Text style={{textAlign: 'center',}}>코미디</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.crime}
+                        >
+                            <Text style={{textAlign: 'center',}}>범죄</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.documentary}
+                        >
+                            <Text style={{textAlign: 'center',}}>다큐멘터리</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.drama}
+                        >
+                            <Text style={{textAlign: 'center',}}>드라마</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.family}
+                        >
+                            <Text style={{textAlign: 'center',}}>가족</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.fantasy}
+                        >
+                            <Text style={{textAlign: 'center',}}>판타지</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.history}
+                        >
+                            <Text style={{textAlign: 'center',}}>역사</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.horror}
+                        >
+                            <Text style={{textAlign: 'center',}}>공포</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.music}
+                        >
+                            <Text style={{textAlign: 'center',}}>음악</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.mystery}
+                        >
+                            <Text style={{textAlign: 'center',}}>미스테리</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.romance}
+                        >
+                            <Text style={{textAlign: 'center',}}>멜로</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.sf}
+                        >
+                            <Text style={{textAlign: 'center',}}>SF</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.tvMovie}
+                        >
+                            <Text style={{textAlign: 'center',}}>TV 영화</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.thriller}
+                        >
+                            <Text style={{textAlign: 'center',}}>스릴러</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.war}
+                        >
+                            <Text style={{textAlign: 'center',}}>전쟁</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            onPress={this.props.western}
+                        >
+                            <Text style={{textAlign: 'center',}}>서부</Text>
                         </TouchableOpacity>
                     
                     </View>
@@ -123,8 +213,23 @@ const styles = StyleSheet.create({
                 flex: 2
             },
             genres: {
-                flex: 6
-            },
+                flex: 6,
+                flexDirection: 'row',
+                },
+                genreButton: {
+                    backgroundColor: 'yellow',
+                    borderColor: 'yellow',
+                    borderRadius: 20,
+                    width: 100,
+                    height: 40,
+                    padding: 10,
+                    alignSelf: 'center',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                },
+                genreButtonText: {
+                    textAlign: 'center',
+                },
             buttonConfirm: {
                 flex: 1,
                 backgroundColor: '#1abc9c',

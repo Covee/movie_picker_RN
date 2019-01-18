@@ -31,7 +31,23 @@ let seenRating = []
 let genArr = []
 let action1 = false
 let adventure1 = false
-
+let animation1 = false
+let comedy1 = false
+let crime1 = false
+let documentary1 = false
+let drama1 = false
+let family1 = false
+let fantasy1 = false
+let history1 = false
+let horror1 = false
+let music1 = false
+let mystery1 = false
+let romance1 = false
+let sf1 = false
+let tvMovie1 = false
+let thriller1 = false
+let war1 = false
+let western1 = false
 
 
 export default class Main extends Component {
@@ -40,11 +56,29 @@ export default class Main extends Component {
         this.changeCountry = this._changeCountry.bind(this)
         this.action = this._action.bind(this)
         this.adventure = this._adventure.bind(this)
+        this.animation = this._animation.bind(this)
+        this.comedy = this._comedy.bind(this)
+        this.crime = this._crime.bind(this)
+        this.documentary = this._documentary.bind(this)
+        this.drama = this._drama.bind(this)
+        this.family = this._family.bind(this)
+        this.fantasy = this._fantasy.bind(this)
+        this.history = this._history.bind(this)
+        this.horror = this._horror.bind(this)
+        this.music = this._music.bind(this)
+        this.mystery = this._mystery.bind(this)
+        this.romance = this._romance.bind(this)
+        this.sf = this._sf.bind(this)
+        this.tvMovie = this._tvMovie.bind(this)
+        this.thriller = this._thriller.bind(this)
+        this.war = this._war.bind(this)
+        this.western = this._western.bind(this)
+
         
         this.state = {
             isLoaded: false,
             category: null,
-            random: 434119,
+            // random: 434119,
             title: null,
             year: null,
             rating: null,
@@ -74,12 +108,12 @@ export default class Main extends Component {
         console.log("-----filter함수 시작됩니다----")
         
         await this.setState({
-            // randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
+            randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
             randNumB: Math.floor(Math.random() * 20),
             cast: [],
         })
         await this._changeGenre()
-        console.log("MAX pages >>> " + this.state.randNumA + "  genArr => " + this.state.genArr)
+        // console.log("MAX pages >>> " + this.state.randNumA + "  genArr => " + this.state.genArr)
         await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + '&with_genres=' + this.state.genArr ).then(response => response.json())
             .then(json => {
                 // console.log(json.results[this.state.randNumB])
@@ -166,16 +200,7 @@ export default class Main extends Component {
 
 
 
-
 // FILTER OPTIONS
-    // _getMaxPage = (genres) => {
-    //     fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + '&with_genres=' + genres).then(response => response.json())
-    //     .then(json => {
-    //         this.setState({
-    //             randNumA: Math.floor(Math.random() * json.total_pages+1)
-    //         })
-    //     })
-    // }
 
     _changeCountry = (e) => {
         if (this.state.country == 'ko') {
@@ -205,6 +230,7 @@ export default class Main extends Component {
         
     }
 
+
     _action = () => {
         console.log("this is action")
         if(action1 == false){
@@ -233,7 +259,243 @@ export default class Main extends Component {
         console.log("genArr >>> " + genArr)
     }
 
+    _animation = () => {
+        console.log("this is animation")
+        if(animation1 == false){
+            animation1 = true
+            genArr.push('16%7C')
+        } else {
+            animation1 = false
+            let index = genArr.indexOf('16%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
 
+    _comedy = () => {
+        console.log("this is comedy")
+        if(comedy1 == false){
+            comedy1 = true
+            genArr.push('35%7C')
+        } else {
+            comedy1 = false
+            let index = genArr.indexOf('35%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _crime = () => {
+        console.log("this is crime")
+        if(crime1 == false){
+            crime1 = true
+            genArr.push('80%7C')
+        } else {
+            crime1 = false
+            let index = genArr.indexOf('80%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _documentary = () => {
+        console.log("this is documentary")
+        if(documentary1 == false){
+            documentary1 = true
+            genArr.push('99%7C')
+        } else {
+            documentary1 = false
+            let index = genArr.indexOf('99%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _drama = () => {
+        console.log("this is drama")
+        if(drama1 == false){
+            drama1 = true
+            genArr.push('18%7C')
+        } else {
+            drama1 = false
+            let index = genArr.indexOf('18%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _family = () => {
+        console.log("this is family")
+        if(family1 == false){
+            family1 = true
+            genArr.push('10751%7C')
+        } else {
+            family1 = false
+            let index = genArr.indexOf('10751%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _fantasy = () => {
+        console.log("this is fantasy")
+        if(fantasy1 == false){
+            fantasy1 = true
+            genArr.push('14%7C')
+        } else {
+            fantasy1 = false
+            let index = genArr.indexOf('14%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _history = () => {
+        console.log("this is history")
+        if(history1 == false){
+            history1 = true
+            genArr.push('36%7C')
+        } else {
+            history1 = false
+            let index = genArr.indexOf('36%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _horror = () => {
+        console.log("this is horror")
+        if(horror1 == false){
+            horror1 = true
+            genArr.push('27%7C')
+        } else {
+            horror1 = false
+            let index = genArr.indexOf('27%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _music = () => {
+        console.log("this is music")
+        if(music1 == false){
+            music1 = true
+            genArr.push('10402%7C')
+        } else {
+            music1 = false
+            let index = genArr.indexOf('10402%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _mystery = () => {
+        console.log("this is mystery")
+        if(mystery1 == false){
+            mystery1 = true
+            genArr.push('9648%7C')
+        } else {
+            mystery1 = false
+            let index = genArr.indexOf('9648%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _romance = () => {
+        console.log("this is romance")
+        if(romance1 == false){
+            romance1 = true
+            genArr.push('10749%7C')
+        } else {
+            romance1 = false
+            let index = genArr.indexOf('10749%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _sf = () => {
+        console.log("this is sf")
+        if(sf1 == false){
+            sf1 = true
+            genArr.push('878%7C')
+        } else {
+            sf1 = false
+            let index = genArr.indexOf('878%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _tvMovie = () => {
+        console.log("this is tvMovie")
+        if(tvMovie1 == false){
+            tvMovie1 = true
+            genArr.push('10770%7C')
+        } else {
+            tvMovie1 = false
+            let index = genArr.indexOf('10770%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _thriller = () => {
+        console.log("this is thriller")
+        if(thriller1 == false){
+            thriller1 = true
+            genArr.push('53%7C')
+        } else {
+            thriller1 = false
+            let index = genArr.indexOf('53%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _war = () => {
+        console.log("this is war")
+        if(war1 == false){
+            war1 = true
+            genArr.push('10752%7C')
+        } else {
+            war1 = false
+            let index = genArr.indexOf('10752%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
+
+    _western = () => {
+        console.log("this is western")
+        if(western1 == false){
+            western1 = true
+            genArr.push('37%7C')
+        } else {
+            western1 = false
+            let index = genArr.indexOf('37%7C')
+            genArr.splice(index, 1)
+        }
+        this.setState({ randNumA: 1})
+        console.log("genArr >>> " + genArr)
+    }
 
 
     _wishList() {
@@ -543,7 +805,24 @@ export default class Main extends Component {
                                 changeCountry={this.changeCountry}
                                 switch={this.state.switch}
                                 action={this.action}
-                                adventure={this._adventure}
+                                adventure={this.adventure}
+                                animation={this.animation}
+                                comedy={this.comedy}
+                                crime={this.crime}
+                                documentary={this.documentary}
+                                drama={this.drama}
+                                family={this.family}
+                                fantasy={this.fantasy}
+                                history={this.history}
+                                horror={this.horror}
+                                music={this.music}
+                                mystery={this.mystery}
+                                romance={this.romance}
+                                sf={this.sf}
+                                tvMovie={this.tvMovie}
+                                thriller={this.thriller}
+                                war={this.war}
+                                western={this.western}
                             />
                             {/* <View style={{ flex: 1, justifyContent:'center'}}>
                                 <Text style={{ textAlign:'center', color: 'white',}}>This is Filter Page</Text>
