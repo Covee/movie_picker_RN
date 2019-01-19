@@ -9,11 +9,12 @@ import Cards from './card';
 import WishList from './wishList';
 import HaveSeen from './haveSeen';
 
-
 import CardFlip from 'react-native-card-flip';
 import ActionButton from 'react-native-circular-action-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
+
+import { Font } from 'expo';
 
 const API_KEY = '61ffab023e612aa11ca364354a4c0e6b';
 const mainURL = "https://api.themoviedb.org/3/"
@@ -48,7 +49,6 @@ let tvMovie1 = false
 let thriller1 = false
 let war1 = false
 let western1 = false
-
 
 export default class Main extends Component {
     constructor(props) {
@@ -100,7 +100,18 @@ export default class Main extends Component {
             WishListId:[],
             switch: false,
             genArr: null,
+            isReady: false,
         }
+    }
+
+    async componentDidMount() {
+        await Font.loadAsync({
+            'HM': require('../../assets/fonts/BM.ttf'),
+            'Nixgon': require('../../assets/fonts/NIXGON.ttf'),
+            'Nanum': require('../../assets/fonts/NanumBarunGothic.ttf'),
+            'UhBee': require('../../assets/fonts/UhBee.ttf'),
+        });
+        this.setState({ isReady: true });
     }
 
 // EXECUTION   
@@ -615,7 +626,7 @@ export default class Main extends Component {
 
     
     render() {
-        
+        if (this.state.isReady == true) {
         const { 
             title, year, rating, runtime, income, story, poster, genre, cast, pickedId 
         } = this.state;
@@ -652,28 +663,28 @@ export default class Main extends Component {
                         >
                             <View style={styles.box1}>
                                 <View style={styles.box1_in1}>
-                                    <Text style={{fontSize:25, fontWeight:'700'}}>{title}</Text>
+                                    <Text style={{fontSize:25, fontWeight:'700', fontFamily: 'Nixgon'}}>{title}</Text>
                                 </View>
                                 <View style={styles.box1_in2}>
                                         <Image 
                                             source={require('../images/star.png')} style={{width:30, height:30,}}>
                                         </Image>
-                                    <Text style={{fontSize: 21, fontWeight:'600', alignSelf: 'center', marginTop: 1,}}> {rating}</Text>
+                                    <Text style={{fontSize: 21, fontWeight:'600', alignSelf: 'center', marginTop: 1, fontFamily: 'Nixgon'}}> {rating}</Text>
                                 </View>
                             </View>
                             <View style={styles.box2}>
                                 <View style={styles.box2_in1}>
-                                    <Text style={{}}>개봉일: [{year}]</Text>
-                                    <Text>상영시간: {runtime}분</Text>
+                                    <Text style={{fontFamily: 'Nixgon'}}>개봉일: [{year}]</Text>
+                                    <Text style={{fontFamily: 'Nixgon'}}>상영시간: {runtime}분</Text>
                                 </View>
                                 <View style={styles.box2_in2}>
-                                    <Text>장르: {genre}</Text>
-                                    <Text>수입: $ {income}</Text>
+                                    <Text style={{fontFamily: 'Nixgon'}}>장르: {genre}</Text>
+                                    <Text style={{fontFamily: 'Nixgon'}}>수입: $ {income}</Text>
                                 </View>
                             </View>
                             <View style={styles.box3}>
                                 <View style={styles.box3_in1}>
-                                    <Text style={{fontSize:17, fontWeight:'600'}}>출연진</Text>
+                                    <Text style={{fontSize:17, fontWeight:'600', fontFamily: 'Nixgon'}}>출연진</Text>
                                 </View>
 
                                 <ScrollView 
@@ -702,12 +713,12 @@ export default class Main extends Component {
 
                             <View style={styles.box4}>
                                 <ScrollView style={styles.box4}>
-                                    <Text style={{fontSize:17, fontWeight:'600', marginBottom: -2,}}>줄거리</Text>
+                                    <Text style={{fontSize:17, fontWeight:'600', marginBottom: -2, fontFamily: 'Nixgon'}}>줄거리</Text>
                                     <TouchableOpacity 
                                         style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}
                                         activeOpacity= {1}
                                     >
-                                        <Text style={{height: '100%', width: '100%', paddingLeft: -1, paddingRight: 2, paddingTop: 4,}}>{story}</Text>
+                                        <Text style={{height: '100%', width: '100%', paddingLeft: -1, paddingRight: 2, paddingTop: 4, fontFamily: 'UhBee', fontSize: 20, fontWeight:'800'}}>{story}</Text>
                                     </TouchableOpacity>     
                                 </ScrollView>
                             </View>
@@ -859,6 +870,9 @@ export default class Main extends Component {
 
             </View>
         );
+    } else {
+        return <View><Text>Loding...</Text></View>;
+      }
     }
 }
 
@@ -870,17 +884,16 @@ class CardInfo extends Component {
                 image={{uri: ImageURL + '/' + this.props.image}}
                 imageStyle={{height:'72%'}}
             >
-                <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7}}>
+                <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7, fontFamily: 'Nixgon'}}>
                     [{this.props.char}] 역
                 </Text>
-                <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center', marginTop: -2}}>
+                <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center', marginTop: -2, fontFamily: 'Nixgon'}}>
                     {this.props.name}
                 </Text>
             </Card>
         )
     }
 }
-
 
 
 const styles = StyleSheet.create({

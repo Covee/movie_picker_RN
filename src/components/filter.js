@@ -5,6 +5,8 @@ import Modal from "react-native-modal";
 import MultiSelectView from 'react-native-multiselect-view'
 import SwitchToggle from 'react-native-switch-toggle';
 
+import { Font } from 'expo';
+
 // const genreID = [{"id":28,"name":"Action"},{"id":12,"name":"Adventure"},{"id":16,"name":"Animation"},{"id":35,"name":"Comedy"},{"id":80,"name":"Crime"},{"id":99,"name":"Documentary"},{"id":18,"name":"Drama"},{"id":10751,"name":"Family"},{"id":14,"name":"Fantasy"},{"id":36,"name":"History"},{"id":27,"name":"Horror"},{"id":10402,"name":"Music"},{"id":9648,"name":"Mystery"},{"id":10749,"name":"Romance"},{"id":878,"name":"Science Fiction"},{"id":10770,"name":"TV Movie"},{"id":53,"name":"Thriller"},{"id":10752,"name":"War"},{"id":37,"name":"Western"}]
 
 // const genre = ['액션', '어드벤처', '애니메이션', '코미디', '범죄', '다큐멘터리', '드라마', '가족', '판타지', '역사', '공포', '음악', '미스테리', '멜로', 'SF', 'TV 영화', '스릴러', '전쟁', '서부']
@@ -34,6 +36,7 @@ export default class Filter extends Component {
         super(props);
 		this.state = {
             abc: false,
+            isReady: false,
             switch: this.props.switch,
             actionS: actionS,
             adventureS: adventureS,
@@ -55,6 +58,16 @@ export default class Filter extends Component {
             warS: warS,
             westernS: westernS,
         };
+    }
+
+    async componentDidMount() {
+        await Font.loadAsync({
+            'HM': require('../../assets/fonts/BM.ttf'),
+            'Nixgon': require('../../assets/fonts/NIXGON.ttf'),
+            'Nanum': require('../../assets/fonts/NanumBarunGothic.ttf'),
+            'UhBee': require('../../assets/fonts/UhBee.ttf'),
+        });
+        this.setState({ isReady: true });
     }
 
     _changeAction = () => {
@@ -135,17 +148,18 @@ export default class Filter extends Component {
     }
 
     render() {
+        if (this.state.isReady == true) {
         return (
             <View style={styles.container}>
                 <View style={styles.box}>
-                    <Text style={{color: 'white', fontSize: 20,}}>Filter</Text>
+                    <Text style={{color: '#ebebe3', fontSize: 32, fontWeight: '900', fontFamily: 'Nixgon'}}>필터</Text>
                 </View>
                 <View style={styles.box2}>
                     <View style={styles.countries}>
-                        <Text style={{textAlign: 'center', fontSize: 20}}>국가</Text>
+                        {/* <Text style={{textAlign: 'center', fontSize: 20}}>국가</Text> */}
                         <View style={{flexDirection: 'row', alignSelf: 'center',}}>
-                            <View style={{flex:1, justifyContent: 'center'}}>
-                                <Text style={{textAlign: 'center', fontSize: 18}}>한국 영화</Text>
+                            <View style={{flex:1, justifyContent: 'center', marginTop: 10}}>
+                                <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontWeight: '700', fontFamily: 'Nixgon'}}>한국 영화</Text>
                             </View>
                             <View style={{flex:2, alignItems:'center'}}>
                                 <SwitchToggle
@@ -154,35 +168,36 @@ export default class Filter extends Component {
                                         width: 140,
                                         height: 48,
                                         borderRadius: 25,
-                                        backgroundColor: '#ccc',
+                                        backgroundColor: 'rgba(52, 52, 52, 0.1)',
                                         padding: 5,
                                     }}
                                     circleStyle={{
-                                        width: 38,
-                                        height: 38,
-                                        borderRadius: 19,
-                                        backgroundColor: 'red', // rgb(102,134,205)
+                                        width: 40,
+                                        height: 40,
+                                        borderRadius: 20,
+                                        backgroundColor: 'gray', // rgb(102,134,205)
                                     }}
                                     switchOn={this.props.switch}
                                     onPress={this.props.changeCountry}
-                                    circleColorOff='lightblue'
-                                    circleColorOn='pink'
+                                    circleColorOff='#e61c5d'
+                                    circleColorOn='#e61c5d'
                                     duration={500}
                                 />
                             </View>
-                            <View style={{flex:1, justifyContent: 'center'}}>
-                                <Text style={{textAlign: 'center', fontSize: 18}}>외국 영화</Text>
+                            <View style={{flex:1, justifyContent: 'center', marginTop: 10}}>
+                                <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontWeight: '700', fontFamily: 'Nixgon'}}>외국 영화</Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.ratingGT}>
-                        <Text style={{textAlign: 'center', fontSize: 20}}>평점</Text>
+                        <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontWeight: '800', fontFamily: 'Nixgon'}}>평점</Text>
                     
                     </View>
                     <View style={styles.genres}>
-                        <Text style={{textAlign: 'center', fontSize: 20}}>장르</Text>
-                        
-                        <View style={{flexDirection:'row', flexWrap: 'wrap', padding: 10,}}>
+                        <View style={{marginBottom:15}}>
+                            <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontWeight: '800', fontFamily: 'Nixgon'}}>장르</Text>
+                        </View>
+                        <View style={{flexDirection:'row', flexWrap: 'wrap', padding: 5,}}>
                             <TouchableOpacity 
                                 onPress={this.props.action}
                                 onPressOut={this._changeAction}
@@ -319,12 +334,12 @@ export default class Filter extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.buttonConfirm}>
-                        <Text style={styles.buttonText}>업데이트</Text>
-                    </TouchableOpacity>
                 </View>
             </View>
         )
+    } else {
+        return <View><Text>Loding...</Text></View>;
+      }
     }
 }
 
@@ -368,18 +383,19 @@ const styles = StyleSheet.create({
                 },
                 genreButtonOn: {
                     position: 'relative',
-                    backgroundColor: 'red',
-                    borderColor: 'red',
+                    backgroundColor: '#fa0559',
+                    borderColor: '#fa0559',
                     borderRadius: 7,
                     width: 'auto',
-                    height: 35,
+                    height: 40,
                     padding: 5,
-                    paddingRight: 10,
-                    paddingLeft: 10,
+                    paddingRight: 15,
+                    paddingLeft: 15,
                     alignSelf: 'center',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: 5,
+                    color: 'white'
                 },
                 genreButtonOff: {
                     position: 'relative',
@@ -399,6 +415,7 @@ const styles = StyleSheet.create({
                 genreButtonText: {
                     textAlign: 'center',
                     fontSize: 17,
+                    fontFamily: 'Nixgon',
                 },
             buttonConfirm: {
                 flex: 1,

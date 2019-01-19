@@ -6,6 +6,11 @@
     "ios": "expo start --ios",
     "eject": "expo eject"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  },
   "dependencies": {
     "expo": "^31.0.2",
     "package.json": "^2.0.1",
@@ -14,6 +19,7 @@
     "react-native-card-flip": "^1.0.4",
     "react-native-circular-action-menu": "^0.5.0",
     "react-native-elements": "^1.0.0-beta7",
+    "react-native-git-upgrade": "^0.2.7",
     "react-native-modal": "^7.0.2",
     "react-native-multiselect-view": "^1.0.5",
     "react-native-swipeable": "^0.6.0",
