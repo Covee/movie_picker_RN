@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, AsyncStorage, Alert } from 'react-native';
-import { Card, ListItem} from 'react-native-elements'
-
-import Modal from "react-native-modal";
 
 const API_KEY = '61ffab023e612aa11ca364354a4c0e6b';
 const mainURL = "https://api.themoviedb.org/3/"
@@ -56,7 +53,6 @@ export default class HaveSeen extends Component {
                     abc.push(num[i][0])
                 }
                 let findIndex = abc.indexOf(id)
-                // console.log(findIndex)
         
                 let ids = await AsyncStorage.getItem('id')
                 let titles = await AsyncStorage.getItem('title')
@@ -204,15 +200,10 @@ const styles = StyleSheet.create({
         },
         flex_2: {
             flex: 12,
-            // borderRadius: 5,
-            // borderColor: 'black',
-            // borderWidth: 2,
             backgroundColor: 'transparent',
-
             },
             flex_2_scroll: {
                 flex: 1,
-                // backgroundColor: 'white',
                 },
                 items: {
                     flexDirection:'row',
@@ -222,11 +213,8 @@ const styles = StyleSheet.create({
                     height: 40,
                     alignSelf: 'center',
                     marginTop: 5,
-
                 },
         flex_3: {
             flex: 1,
         },
-        
-
 })

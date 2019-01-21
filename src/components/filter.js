@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image } f
 import Modal from "react-native-modal";
 import MultiSelectView from 'react-native-multiselect-view'
 import SwitchToggle from 'react-native-switch-toggle';
+import MotionSlider from 'react-native-motion-slider';
 
 import { Font } from 'expo';
 
@@ -190,8 +191,24 @@ export default class Filter extends Component {
                         </View>
                     </View>
                     <View style={styles.ratingGT}>
-                        <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontWeight: '800', fontFamily: 'Nixgon'}}>평점</Text>
-                    
+                        <View style={{marginBottom:15}}>
+                            <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontWeight: '800', fontFamily: 'Nixgon'}}>평점</Text>
+                        </View>
+                        <View style={{flex:1}}>
+                            <MotionSlider
+                                // title={'Choose the desired temperature'} 
+                                min={0} 
+                                max={100}
+                                value={50} 
+                                decimalPlaces={0}
+                                units={'점'}
+                                backgroundColor={['rgb(3, 169, 244)', 'rgb(255, 152, 0)', 'rgb(255, 87, 34)']}
+                                onValueChanged={(value) => console.log(value)}
+                                onPressIn={() => console.log('Pressed in')}
+                                onPressOut={() => console.log('Pressed out')}
+                                onDrag={() => console.log('Dragging')}
+                            />
+                        </View>
                     </View>
                     <View style={styles.genres}>
                         <View style={{marginBottom:15}}>
@@ -338,7 +355,7 @@ export default class Filter extends Component {
             </View>
         )
     } else {
-        return <View><Text>Loding...</Text></View>;
+        return <View><Text>Loading...</Text></View>;
       }
     }
 }

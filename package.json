@@ -21,6 +21,7 @@
     "react-native-elements": "^1.0.0-beta7",
     "react-native-git-upgrade": "^0.2.7",
     "react-native-modal": "^7.0.2",
+    "react-native-motion-slider": "^1.0.3",
     "react-native-multiselect-view": "^1.0.5",
     "react-native-swipeable": "^0.6.0",
     "react-native-switch-toggle": "^1.0.7",

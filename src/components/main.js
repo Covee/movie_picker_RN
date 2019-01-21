@@ -21,7 +21,11 @@ const mainURL = "https://api.themoviedb.org/3/"
 const ImageURL = "https://image.tmdb.org/t/p/w500"
 const discoverURL = "https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b"
 
-const arrWishlist = []
+// WISHLIST & HAVESEEN Function
+let arrWishList = []
+let seenTitlew = []
+let seenYearw = []
+let seenRatingw = []
 
 let arrHaveSeen = []
 let seenTitle = []
@@ -78,7 +82,6 @@ export default class Main extends Component {
         this.state = {
             isLoaded: false,
             category: null,
-            // random: 434119,
             title: null,
             year: null,
             rating: null,
@@ -147,7 +150,7 @@ export default class Main extends Component {
                                 isLoaded: true,
                                 title: json.title,
                                 year: json.release_date,
-                                rating: json.vote_average,
+                                rating: json.vote_average * 10,
                                 runtime: json.runtime,
                                 income: json.revenue,
                                 story: json.overview,
@@ -161,7 +164,7 @@ export default class Main extends Component {
                                 isLoaded: true,
                                 title: json.title,
                                 year: json.release_date,
-                                rating: json.vote_average,
+                                rating: json.vote_average * 10,
                                 runtime: json.runtime,
                                 income: json.revenue,
                                 story: json.overview,
@@ -180,7 +183,7 @@ export default class Main extends Component {
                     // }
                 })
             })
-        
+
     }
 
     _cast = () => {
@@ -509,49 +512,123 @@ export default class Main extends Component {
     }
 
 
-    _wishList() {
-        let a = true
-        // pickedId를 로컬에 array로 save해뒀다가 modal버튼(wishlist) onPress 시 로컬array에 있는 아이디들을 차례로 fetch해서 넣고 보여준다.
-        
-        for(i=0; i<arrWishlist.length; i++){
-            if (this.state.pickedId == arrWishlist[i]) {
-                Alert.alert("This movie is already in your WishList!")
-                a = false
-                break;
+// WishList & HaveSeen
+    async _wishList() {
+        arrWishList = await AsyncStorage.getItem('idW')
+        seenTitlew = await AsyncStorage.getItem('titleW')
+        seenYearw = await AsyncStorage.getItem('yearW')
+        seenRatingw = await AsyncStorage.getItem('ratingW')
+
+        if(arrWishList == null){
+            arrWishList = [];
+            seenTitlew = [];
+            seenYearw = [];
+            seenRatingw = [];
+
+            arrWishList.push(this.state.pickedId)
+            seenTitlew.push(this.state.title)
+            seenYearw.push(this.state.year)
+            seenRatingw.push(this.state.rating)
+
+            Alert.alert("위시리스트에 추가되었습니다!")
+            this._saveWishList()
+        } else {
+            arrWishList = JSON.parse(arrWishList)
+            seenTitlew = JSON.parse(seenTitlew)
+            seenYearw = JSON.parse(seenYearw)
+            seenRatingw = JSON.parse(seenRatingw)
+
+            let a = true
+
+            if (arrWishList !== null){
+                for(i=0; i<arrWishList.length; i++){
+                    if (this.state.pickedId == arrWishList[i]) {
+                        Alert.alert("이미 리스트에 추가되어 있습니다!")
+                        a = false
+                        break;
+                    }
+                }
+            }
+            
+            if (a == true){
+                arrWishList.push(this.state.pickedId)
+                seenTitlew.push(this.state.title)
+                seenYearw.push(this.state.year)
+                seenRatingw.push(this.state.rating)
+    
+                Alert.alert("위시리스트에 추가되었습니다!")
+                this._saveWishList()
             }
         }
-        
-        if (a == true){
-            arrWishlist.push(this.state.pickedId)
-            Alert.alert("added in your WishList")
-        }
-        
-        console.log(arrWishlist)
-        
     }
+
+    _saveWishList = async () => {
+        await AsyncStorage.setItem('idW', JSON.stringify(arrWishList))
+        await AsyncStorage.setItem('titleW', JSON.stringify(seenTitlew))
+        await AsyncStorage.setItem('yearW', JSON.stringify(seenYearw))
+        await AsyncStorage.setItem('ratingW', JSON.stringify(seenRatingw))
+    }
+
+    _actionWishList = () => {
+        this.setState({isVisibleWishList: true})
+    }
+
+    _selectWishList = (id) => {
+        console.log("선택한 영화 나옵니다~~!! >> " + id)
+        this.setState({
+            pickedId: id
+        })
+        fetch(mainURL + 'movie/' + id + '?api_key=' + API_KEY + '&language=ko-KR').then(response => response.json())
+        .then(json => {
+            if (json.genres[1]) {
+                this.setState({
+                    isLoaded: true,
+                    title: json.title,
+                    year: json.release_date,
+                    rating: json.vote_average,
+                    runtime: json.runtime,
+                    income: json.revenue,
+                    story: json.overview,
+                    poster: json.poster_path,
+                    genre: [json.genres[0].name + ", " + json.genres[1].name],
+                    // pickedId: id
+                    isVisibleWishList: false,
+                })
+                this._cast()
+            } else {
+                this.setState({
+                    isLoaded: true,
+                    title: json.title,
+                    year: json.release_date,
+                    rating: json.vote_average,
+                    runtime: json.runtime,
+                    income: json.revenue,
+                    story: json.overview,
+                    poster: json.poster_path,
+                    genre: json.genres[0].name,
+                    // pickedId: id
+                    isVisibleWishList: false,
+                })
+                this._cast()
+            }
+        })
+    }
+
+
+
 
     async _haveSeen() {
         arrHaveSeen = await AsyncStorage.getItem('id')
-        arrHaveSeen = JSON.parse(arrHaveSeen)
         seenTitle = await AsyncStorage.getItem('title')
-        seenTitle = JSON.parse(seenTitle)
         seenYear = await AsyncStorage.getItem('year')
-        seenYear = JSON.parse(seenYear)
         seenRating = await AsyncStorage.getItem('rating')
-        seenRating = JSON.parse(seenRating)
 
-        let a = true
-        // pickedId를 로컬에 array로 save해뒀다가 modal버튼(haveSeen) onPress 시 로컬array에 있는 아이디들을 차례로 fetch해서 넣고 보여준다.
-        
-        for(i=0; i<arrHaveSeen.length; i++){
-            if (this.state.pickedId == arrHaveSeen[i]) {
-                Alert.alert("이미 리스트에 추가되어 있습니다!")
-                a = false
-                break;
-            }
-        }
-        
-        if (a == true){
+        if(arrHaveSeen == null){
+            arrHaveSeen = [];
+            seenTitle = [];
+            seenYear = [];
+            seenRating = [];
+
             arrHaveSeen.push(this.state.pickedId)
             seenTitle.push(this.state.title)
             seenYear.push(this.state.year)
@@ -559,8 +636,34 @@ export default class Main extends Component {
 
             Alert.alert("이미 본 영화 리스트에 추가되었습니다!")
             this._saveHaveSeen()
+        } else {
+            arrHaveSeen = JSON.parse(arrHaveSeen)
+            seenTitle = JSON.parse(seenTitle)
+            seenYear = JSON.parse(seenYear)
+            seenRating = JSON.parse(seenRating)
+
+            let a = true
+
+            if (arrHaveSeen !== null){
+                for(i=0; i<arrHaveSeen.length; i++){
+                    if (this.state.pickedId == arrHaveSeen[i]) {
+                        Alert.alert("이미 리스트에 추가되어 있습니다!")
+                        a = false
+                        break;
+                    }
+                }
+            }
+            
+            if (a == true){
+                arrHaveSeen.push(this.state.pickedId)
+                seenTitle.push(this.state.title)
+                seenYear.push(this.state.year)
+                seenRating.push(this.state.rating)
+    
+                Alert.alert("이미 본 영화 리스트에 추가되었습니다!")
+                this._saveHaveSeen()
+            }
         }
-        
     }
 
     _saveHaveSeen = async () => {
@@ -572,10 +675,6 @@ export default class Main extends Component {
 
     _actionHaveSeen = () => {
         this.setState({isVisibleHaveSeen: true})
-    }
-
-    _actionWishList = () => {
-        this.setState({isVisibleWishList: true})
     }
 
     _selectHaveSeen = (id) => {
@@ -623,7 +722,6 @@ export default class Main extends Component {
     componentWillMount() {
         this._filter()
     }
-
     
     render() {
         if (this.state.isReady == true) {
@@ -669,22 +767,22 @@ export default class Main extends Component {
                                         <Image 
                                             source={require('../images/star.png')} style={{width:30, height:30,}}>
                                         </Image>
-                                    <Text style={{fontSize: 21, fontWeight:'600', alignSelf: 'center', marginTop: 1, fontFamily: 'Nixgon'}}> {rating}</Text>
+                                    <Text style={{fontSize: 21, fontWeight:'600', alignSelf: 'center', marginTop: 1, fontFamily: 'Nixgon'}}> {rating}점 </Text>
                                 </View>
                             </View>
                             <View style={styles.box2}>
                                 <View style={styles.box2_in1}>
-                                    <Text style={{fontFamily: 'Nixgon'}}>개봉일: [{year}]</Text>
+                                    <Text style={{marginBottom: 7, fontFamily: 'Nixgon'}}>개봉일: {year}</Text>
                                     <Text style={{fontFamily: 'Nixgon'}}>상영시간: {runtime}분</Text>
                                 </View>
                                 <View style={styles.box2_in2}>
-                                    <Text style={{fontFamily: 'Nixgon'}}>장르: {genre}</Text>
+                                    <Text style={{marginBottom: 7, fontFamily: 'Nixgon'}}>장르: {genre}</Text>
                                     <Text style={{fontFamily: 'Nixgon'}}>수입: $ {income}</Text>
                                 </View>
                             </View>
                             <View style={styles.box3}>
                                 <View style={styles.box3_in1}>
-                                    <Text style={{fontSize:17, fontWeight:'600', fontFamily: 'Nixgon'}}>출연진</Text>
+                                    <Text style={{fontSize:18, fontWeight:'700', fontFamily: 'Nixgon'}}>출연진</Text>
                                 </View>
 
                                 <ScrollView 
@@ -713,7 +811,7 @@ export default class Main extends Component {
 
                             <View style={styles.box4}>
                                 <ScrollView style={styles.box4}>
-                                    <Text style={{fontSize:17, fontWeight:'600', marginBottom: -2, fontFamily: 'Nixgon'}}>줄거리</Text>
+                                    <Text style={{fontSize:18, fontWeight:'700', marginBottom: -2, fontFamily: 'Nixgon'}}>줄거리</Text>
                                     <TouchableOpacity 
                                         style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}
                                         activeOpacity= {1}
@@ -795,7 +893,9 @@ export default class Main extends Component {
                             <ActionButton.Item 
                                 buttonColor='gray' 
                                 title="All Tasks" 
-                                onPress={(e) => this._changeCountry()}
+                                // onPress={() => 
+                                    
+                                // }
                             >
                                 <Icon name="ios-settings" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
@@ -848,7 +948,10 @@ export default class Main extends Component {
                             onSwipe={() => this.setState({ isVisibleWishList: false })}
                             swipeDirection="right"
                         >
-                            <WishList />
+                            <WishList 
+                                wishListId={[this.state.WishListId]}
+                                select={this._selectWishList.bind(this)} 
+                            />
                         </Modal>
                     </View>
 
@@ -871,7 +974,7 @@ export default class Main extends Component {
             </View>
         );
     } else {
-        return <View><Text>Loding...</Text></View>;
+        return <View><Text>Loading...</Text></View>;
       }
     }
 }
