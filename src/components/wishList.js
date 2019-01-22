@@ -137,7 +137,7 @@ export default class WishList extends Component {
 
                 </View>
                 
-                <Text style={{ textAlign:'center', color: 'white',}}>Swipe right to close</Text>
+                <Text style={{ textAlign:'center', color: 'white',}}>Swipe down to close</Text>
             </View>
         )
     }

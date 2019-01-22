@@ -58,6 +58,7 @@ export default class Filter extends Component {
             thrillerS: thrillerS,
             warS: warS,
             westernS: westernS,
+            cRate: this.props.cRate
         };
     }
 
@@ -199,11 +200,13 @@ export default class Filter extends Component {
                                 // title={'Choose the desired temperature'} 
                                 min={0} 
                                 max={100}
-                                value={50} 
+                                value={(this.props.cRate=='' ) ? 50 : this.props.cRate} 
                                 decimalPlaces={0}
                                 units={'점'}
                                 backgroundColor={['rgb(3, 169, 244)', 'rgb(255, 152, 0)', 'rgb(255, 87, 34)']}
-                                onValueChanged={(value) => console.log(value)}
+                                onValueChanged={(value) => {
+                                    this.props.changeRating(value)
+                                }}
                                 onPressIn={() => console.log('Pressed in')}
                                 onPressOut={() => console.log('Pressed out')}
                                 onDrag={() => console.log('Dragging')}

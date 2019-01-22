@@ -104,6 +104,7 @@ export default class Main extends Component {
             switch: false,
             genArr: null,
             isReady: false,
+            upRating: '',
         }
     }
 
@@ -120,17 +121,17 @@ export default class Main extends Component {
 // EXECUTION   
     _filter = async () => {
         console.log("-----filter함수 시작됩니다----")
-        
         await this.setState({
             randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
             randNumB: Math.floor(Math.random() * 20),
             cast: [],
         })
+        // await this._changeRating()
         await this._changeGenre()
         // console.log("MAX pages >>> " + this.state.randNumA + "  genArr => " + this.state.genArr)
-        await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + '&with_genres=' + this.state.genArr ).then(response => response.json())
+        await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + (this.state.upRating* (1/10)) + '&with_genres=' + this.state.genArr ).then(response => response.json())
             .then(json => {
-                // console.log(json.results[this.state.randNumB])
+                console.log(json.results[this.state.randNumB])
                 let id = json.results[this.state.randNumB].id
                 this.setState({
                     pickedId: id,
@@ -228,12 +229,20 @@ export default class Main extends Component {
         }
     }
 
+    _changeRating = async (cRate) => {
+        await this.setState({
+            upRating: cRate
+        })
+        console.log("바뀐 Rating>>> " + this.state.upRating)
+        // 일단 바뀐 점수 main으로 받아오는건 성공. 여기서 데이타 핸들링.... 근데 너무 컴퓨터가 느려지네...
+    }
+
     _changeGenre = async () => {
         let arrange = genArr.join('')
         this.setState({
             genArr: arrange
         })
-        fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + '&with_genres=' + this.state.genArr).then(response => response.json())
+        fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + (this.state.upRating* (1/10)) + '&with_genres=' + this.state.genArr).then(response => response.json())
         .then(json => {
             console.log("토탈페이지>>>> " + json.total_pages)
             this.setState({
@@ -910,10 +919,11 @@ export default class Main extends Component {
                         <Modal 
                             isVisible={this.state.isVisibleFilter}
                             onSwipe={() => this.setState({ isVisibleFilter: false })}
-                            swipeDirection="right"
+                            swipeDirection="down"
                         >
                             <Filter 
                                 changeCountry={this.changeCountry}
+                                changeRating={this._changeRating}
                                 switch={this.state.switch}
                                 action={this.action}
                                 adventure={this.adventure}
@@ -934,6 +944,7 @@ export default class Main extends Component {
                                 thriller={this.thriller}
                                 war={this.war}
                                 western={this.western}
+                                cRate={this.state.upRating}
                             />
                             {/* <View style={{ flex: 1, justifyContent:'center'}}>
                                 <Text style={{ textAlign:'center', color: 'white',}}>This is Filter Page</Text>
@@ -946,7 +957,7 @@ export default class Main extends Component {
                         <Modal 
                             isVisible={this.state.isVisibleWishList}
                             onSwipe={() => this.setState({ isVisibleWishList: false })}
-                            swipeDirection="right"
+                            swipeDirection="down"
                         >
                             <WishList 
                                 wishListId={[this.state.WishListId]}
@@ -959,7 +970,7 @@ export default class Main extends Component {
                         <Modal 
                             isVisible={this.state.isVisibleHaveSeen}
                             onSwipe={() => this.setState({ isVisibleHaveSeen: false })}
-                            swipeDirection="right"
+                            swipeDirection="down"
                         >
                             <HaveSeen 
                                 haveSeenId={[this.state.HaveSeenId]}
