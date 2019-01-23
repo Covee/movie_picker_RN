@@ -8,6 +8,7 @@ import Filter from './filter';
 import Cards from './card';
 import WishList from './wishList';
 import HaveSeen from './haveSeen';
+import Settings from './settings';
 
 import CardFlip from 'react-native-card-flip';
 import ActionButton from 'react-native-circular-action-menu';
@@ -92,6 +93,7 @@ export default class Main extends Component {
             isVisibleFilter: false,
             isVisibleWishList: false,
             isVisibleHaveSeen: false,
+            isVisibleSettings: false,
             pickedId: null,
             randNumA: 220,
             randNumB: null,
@@ -131,7 +133,7 @@ export default class Main extends Component {
         // console.log("MAX pages >>> " + this.state.randNumA + "  genArr => " + this.state.genArr)
         await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + (this.state.upRating* (1/10)) + '&with_genres=' + this.state.genArr ).then(response => response.json())
             .then(json => {
-                console.log(json.results[this.state.randNumB])
+                // console.log(json.results[this.state.randNumB])
                 let id = json.results[this.state.randNumB].id
                 this.setState({
                     pickedId: id,
@@ -902,9 +904,9 @@ export default class Main extends Component {
                             <ActionButton.Item 
                                 buttonColor='gray' 
                                 title="All Tasks" 
-                                // onPress={() => 
-                                    
-                                // }
+                                onPress={() => 
+                                    this.setState({isVisibleSettings: true})
+                                }
                             >
                                 <Icon name="ios-settings" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
@@ -976,6 +978,16 @@ export default class Main extends Component {
                                 haveSeenId={[this.state.HaveSeenId]}
                                 select={this._selectHaveSeen.bind(this)} 
                             />
+                        </Modal>
+                    </View>
+
+                    <View>
+                        <Modal 
+                            isVisible={this.state.isVisibleSettings}
+                            onSwipe={() => this.setState({ isVisibleSettings: false })}
+                            swipeDirection="down"
+                        >
+                            <Settings />
                         </Modal>
                     </View>
                     
