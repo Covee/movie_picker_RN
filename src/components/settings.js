@@ -27,7 +27,7 @@ export default class Settings extends Component {
                         {/* 여기엔 button modal로 IMDB 쓴거에 대한 설명과 copyright */}
                     </View>
                     <View>
-                        <Text>Feedback</Text>
+                        <Text>Feedback </Text>
                     </View>
                 </View>
                 <View style={styles.flex_3}>
