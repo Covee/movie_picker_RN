@@ -21,8 +21,8 @@ export default class Settings extends Component {
                 <View style={styles.flex_2}>
                     <View style={styles.name}>
                         {/* <Image /> */}
-                        <Text style={{color:'#fcf8f3', fontSize:19, fontWeight:'400'}}>Movie Picker</Text>
-                        <Text style={{color:'#fcf8f3', fontSize:13}}>Version: 1.0</Text>
+                        <Text style={{color:'#fcf8f3', fontSize:19, fontWeight:'400', marginBottom:5,}}>Movie Picker</Text>
+                        <Text style={{color:'#fcf8f3', fontSize:13}}>Version: 1.0 (updated on 19.01.31)</Text>
                         <Text style={{color:'#fcf8f3', fontSize:13}}>Cobee Kwon</Text>
                         <Text style={{color:'#fcf8f3', fontSize:12}}>Copyright 2019</Text>
                     </View>
@@ -32,23 +32,32 @@ export default class Settings extends Component {
                     >
                         <Text style={{color:'#fcf8f3', fontSize:17}}>Licenses</Text>
                         <ScrollView 
-                            style={{flex:3, width:'95%', backgroundColor:'yellow'}} 
+                            style={{flex:3, width:'95%', marginTop:10,}} 
                             contentContainerStyle={{alignItems:'center'}}
                         >
+                            <Text style={{color:'#fcf8f3', fontSize:13}}>all the libraries...</Text>
+                            <Text style={{color:'#fcf8f3', fontSize:13}}>all the libraries...</Text>
+                            <Text style={{color:'#fcf8f3', fontSize:13}}>all the libraries...</Text>
+                            <Text style={{color:'#fcf8f3', fontSize:13}}>all the libraries...</Text>
+                            <Text style={{color:'#fcf8f3', fontSize:13}}>all the libraries...</Text>
+                            <Text style={{color:'#fcf8f3', fontSize:13}}>all the libraries...</Text>
+                            <Text style={{color:'#fcf8f3', fontSize:13}}>all the libraries...</Text>
+                            <Text style={{color:'#fcf8f3', fontSize:13}}>all the libraries...</Text>
+                            <Text style={{color:'#fcf8f3', fontSize:13}}>all the libraries...</Text>
                             <Text style={{color:'#fcf8f3', fontSize:13}}>all the libraries...</Text>
                         </ScrollView>
                         {/* 여기엔 button modal로 IMDB 쓴거에 대한 설명과 copyright */}
                         <View style={{flex:0.3}}>
                             <Image 
                                 source={require('../images/movieDB.png')} 
-                                resizeMode={'contain'} 
-                                style={{height:90, backgroundColor:'#21e6c1'}} 
+                                resizeMode={'center'} 
+                                style={{height:60, backgroundColor:'#21e6c1'}} 
                             />
                         </View>
                         
                     </View>
                     <View style={styles.feedback}>
-                        <Text style={{color:'#fcf8f3', fontSize:17}}>Helps & Feedback</Text>
+                        <Text style={{color:'#fcf8f3', fontSize:17, marginTop:10,}}>Helps & Feedback</Text>
                     </View>
                 </View>
                 <View style={styles.flex_3}>
@@ -80,31 +89,29 @@ const styles = StyleSheet.create({
         },
         flex_1: {
             flex: 2,
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
             paddingTop: 10,
         },
         flex_2: {
-            flex: 7,
+            flex: 9,
             backgroundColor: 'transparent',
             },
             name: {
                 flex: 1,
                 alignSelf: 'center',
                 alignItems: 'center',
-                marginBottom: 15,
+                marginBottom: 90,
             },
             license: {
-                flex: 4,
+                flex: 5,
                 alignSelf: 'center',
                 alignItems: 'center',
-                marginTop: 15,
                 width: '95%',
-                backgroundColor:'red'
+                marginBottom: 90,
             },
             feedback: {
                 flex: 2,
                 alignSelf: 'center',
-                marginTop: 15,
             },
         flex_3: {
             flex: 1,
