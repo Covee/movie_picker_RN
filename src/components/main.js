@@ -827,7 +827,7 @@ export default class Main extends Component {
                                         style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}
                                         activeOpacity= {1}
                                     >
-                                        <Text style={{height: '100%', width: '100%', paddingLeft: -1, paddingRight: 2, paddingTop: 4, fontFamily: 'UhBee', fontSize: 20, fontWeight:'800'}}>{story}</Text>
+                                        <Text style={{height: '100%', width: '100%', paddingLeft: -1, paddingRight: 2, paddingTop: 4, fontFamily: 'UhBee', fontSize: 13, fontWeight:'800'}}>{story}</Text>
                                     </TouchableOpacity>     
                                 </ScrollView>
                             </View>
@@ -985,7 +985,7 @@ export default class Main extends Component {
                         <Modal 
                             isVisible={this.state.isVisibleSettings}
                             onSwipe={() => this.setState({ isVisibleSettings: false })}
-                            swipeDirection="down"
+                            swipeDirection="right"
                         >
                             <Settings />
                         </Modal>
@@ -1172,8 +1172,8 @@ const styles = StyleSheet.create({
     },
     buttonMix: {
         flex: 1,
-        backgroundColor: '#E54B4B',
-        borderColor: '#E54B4B',
+        backgroundColor: '#C77FFB',
+        borderColor: '#C77FFB',
         borderWidth: 2,
         borderRadius: 10,
         padding: 20,
