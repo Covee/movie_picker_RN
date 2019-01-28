@@ -985,7 +985,7 @@ export default class Main extends Component {
                         <Modal 
                             isVisible={this.state.isVisibleSettings}
                             onSwipe={() => this.setState({ isVisibleSettings: false })}
-                            swipeDirection="right"
+                            swipeDirection="down"
                         >
                             <Settings />
                         </Modal>
