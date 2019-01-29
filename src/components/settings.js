@@ -103,7 +103,7 @@ export default class Settings extends Component {
                 <View style={styles.flex_2}>
                     <View style={styles.name}>
                         {/* <Image /> */}
-                        <Text style={{color:'#fcf8f3', fontSize:20, fontWeight:'500', marginBottom:5,}}>Movie Picker</Text>
+                        <Text style={{color:'#fcf8f3', fontSize:20, fontWeight:'500', marginBottom:5,}}>Feelm</Text>
                         <Text style={{color:'#fcf8f3', fontSize:13}}>Version 1.0 (updated on 19.01.31)</Text>
                         <Text style={{color:'#fcf8f3', fontSize:12}}>Copyright (c) 2019 Cobee Kwon</Text>
                     </View>

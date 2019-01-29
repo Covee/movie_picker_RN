@@ -772,13 +772,13 @@ export default class Main extends Component {
                         >
                             <View style={styles.box1}>
                                 <View style={styles.box1_in1}>
-                                    <Text style={{fontSize:25, fontWeight:'700', fontFamily: 'Nixgon'}}>{title}</Text>
+                                    <Text style={{fontSize:35, fontFamily: 'UhBee'}}>{title}</Text>
                                 </View>
                                 <View style={styles.box1_in2}>
                                         <Image 
                                             source={require('../images/star.png')} style={{width:30, height:30,}}>
                                         </Image>
-                                    <Text style={{fontSize: 21, fontWeight:'600', alignSelf: 'center', marginTop: 1, fontFamily: 'Nixgon'}}> {rating}점 </Text>
+                                    <Text style={{fontSize: 21, alignSelf: 'center', marginTop: 1, fontFamily: 'HM'}}> {rating}점 </Text>
                                 </View>
                             </View>
                             <View style={styles.box2}>
@@ -793,7 +793,7 @@ export default class Main extends Component {
                             </View>
                             <View style={styles.box3}>
                                 <View style={styles.box3_in1}>
-                                    <Text style={{fontSize:18, fontWeight:'700', fontFamily: 'Nixgon'}}>출연진</Text>
+                                    <Text style={{fontSize:18, fontFamily: 'Nixgon'}}>출연진</Text>
                                 </View>
 
                                 <ScrollView 
@@ -822,12 +822,12 @@ export default class Main extends Component {
 
                             <View style={styles.box4}>
                                 <ScrollView style={styles.box4}>
-                                    <Text style={{fontSize:18, fontWeight:'700', marginBottom: -2, fontFamily: 'Nixgon'}}>줄거리</Text>
+                                    <Text style={{fontSize:18, marginBottom: -2, fontFamily: 'Nixgon'}}>줄거리</Text>
                                     <TouchableOpacity 
                                         style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}
                                         activeOpacity= {1}
                                     >
-                                        <Text style={{height: '100%', width: '100%', paddingLeft: -1, paddingRight: 2, paddingTop: 4, fontFamily: 'UhBee', fontSize: 13, fontWeight:'800'}}>{story}</Text>
+                                        <Text style={{height: '100%', width: '100%', paddingLeft: -1, paddingRight: 2, paddingTop: 4, fontFamily: 'Nixgon', fontSize: 13, }}>{story}</Text>
                                     </TouchableOpacity>     
                                 </ScrollView>
                             </View>

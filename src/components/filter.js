@@ -154,14 +154,14 @@ export default class Filter extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.box}>
-                    <Text style={{color: '#ebebe3', fontSize: 32, fontWeight: '900', fontFamily: 'Nixgon'}}>필터</Text>
+                    <Text style={{color: '#ebebe3', fontSize: 32, fontFamily: 'Nixgon'}}>필터</Text>
                 </View>
                 <View style={styles.box2}>
                     <View style={styles.countries}>
                         {/* <Text style={{textAlign: 'center', fontSize: 20}}>국가</Text> */}
                         <View style={{flexDirection: 'row', alignSelf: 'center',}}>
                             <View style={{flex:1, justifyContent: 'center', marginTop: 10}}>
-                                <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontWeight: '700', fontFamily: 'Nixgon'}}>한국 영화</Text>
+                                <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontFamily: 'Nixgon'}}>한국 영화</Text>
                             </View>
                             <View style={{flex:2, alignItems:'center'}}>
                                 <SwitchToggle
@@ -187,13 +187,13 @@ export default class Filter extends Component {
                                 />
                             </View>
                             <View style={{flex:1, justifyContent: 'center', marginTop: 10}}>
-                                <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontWeight: '700', fontFamily: 'Nixgon'}}>외국 영화</Text>
+                                <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontFamily: 'Nixgon'}}>외국 영화</Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.ratingGT}>
                         <View style={{marginBottom:15}}>
-                            <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontWeight: '800', fontFamily: 'Nixgon'}}>평점</Text>
+                            <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontFamily: 'Nixgon'}}>평점</Text>
                         </View>
                         <View style={{flex:1}}>
                             <MotionSlider
@@ -215,7 +215,7 @@ export default class Filter extends Component {
                     </View>
                     <View style={styles.genres}>
                         <View style={{marginBottom:15}}>
-                            <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontWeight: '800', fontFamily: 'Nixgon'}}>장르</Text>
+                            <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontFamily: 'Nixgon'}}>장르</Text>
                         </View>
                         <View style={{flexDirection:'row', flexWrap: 'wrap', padding: 5,}}>
                             <TouchableOpacity 
