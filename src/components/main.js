@@ -116,6 +116,9 @@ export default class Main extends Component {
             'Nixgon': require('../../assets/fonts/NIXGON.ttf'),
             'Nanum': require('../../assets/fonts/NanumBarunGothic.ttf'),
             'UhBee': require('../../assets/fonts/UhBee.ttf'),
+            'Jeju': require('../../assets/fonts/JejuM.ttf'),
+            'NB': require('../../assets/fonts/NB.ttf'),
+            'NR': require('../../assets/fonts/NR.ttf'),
         });
         this.setState({ isReady: true });
     }
@@ -772,28 +775,28 @@ export default class Main extends Component {
                         >
                             <View style={styles.box1}>
                                 <View style={styles.box1_in1}>
-                                    <Text style={{fontSize:35, fontFamily: 'UhBee'}}>{title}</Text>
+                                    <Text style={{fontSize:25, fontFamily: 'NB'}}>{title}</Text>
                                 </View>
                                 <View style={styles.box1_in2}>
                                         <Image 
                                             source={require('../images/star.png')} style={{width:30, height:30,}}>
                                         </Image>
-                                    <Text style={{fontSize: 21, alignSelf: 'center', marginTop: 1, fontFamily: 'HM'}}> {rating}점 </Text>
+                                    <Text style={{fontSize: 21, alignSelf: 'center', marginTop: 1, fontFamily: 'NR'}}> {rating}점 </Text>
                                 </View>
                             </View>
                             <View style={styles.box2}>
                                 <View style={styles.box2_in1}>
-                                    <Text style={{marginBottom: 7, fontFamily: 'Nixgon'}}>개봉일: {year}</Text>
-                                    <Text style={{fontFamily: 'Nixgon'}}>상영시간: {runtime}분</Text>
+                                    <Text style={{marginBottom: 7, fontFamily: 'NR'}}>개봉일: {year}</Text>
+                                    <Text style={{fontFamily: 'NR'}}>상영시간: {runtime}분</Text>
                                 </View>
                                 <View style={styles.box2_in2}>
-                                    <Text style={{marginBottom: 7, fontFamily: 'Nixgon'}}>장르: {genre}</Text>
-                                    <Text style={{fontFamily: 'Nixgon'}}>수입: $ {income}</Text>
+                                    <Text style={{marginBottom: 7, fontFamily: 'NR'}}>장르: {genre}</Text>
+                                    <Text style={{fontFamily: 'NR'}}>수입: $ {income}</Text>
                                 </View>
                             </View>
                             <View style={styles.box3}>
                                 <View style={styles.box3_in1}>
-                                    <Text style={{fontSize:18, fontFamily: 'Nixgon'}}>출연진</Text>
+                                    <Text style={{fontSize:18, fontFamily: 'NR'}}>출연진</Text>
                                 </View>
 
                                 <ScrollView 
@@ -822,12 +825,12 @@ export default class Main extends Component {
 
                             <View style={styles.box4}>
                                 <ScrollView style={styles.box4}>
-                                    <Text style={{fontSize:18, marginBottom: -2, fontFamily: 'Nixgon'}}>줄거리</Text>
+                                    <Text style={{fontSize:18, marginBottom: -2, fontFamily: 'NR'}}>줄거리</Text>
                                     <TouchableOpacity 
                                         style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}
                                         activeOpacity= {1}
                                     >
-                                        <Text style={{height: '100%', width: '100%', paddingLeft: -1, paddingRight: 2, paddingTop: 4, fontFamily: 'Nixgon', fontSize: 13, }}>{story}</Text>
+                                        <Text style={{height: '100%', width: '100%', paddingLeft: -1, paddingRight: 2, paddingTop: 4, fontFamily: 'NR', fontSize: 14, }}>{story}</Text>
                                     </TouchableOpacity>     
                                 </ScrollView>
                             </View>
@@ -1078,6 +1081,7 @@ const styles = StyleSheet.create({
                 },
                 box1_in1: {
                     flex: 4,
+                    paddingLeft: 5,
                 },
                 box1_in2: {
                     flex: 1,
@@ -1094,15 +1098,18 @@ const styles = StyleSheet.create({
                 },
                 box2_in1: {
                     flex: 1,
+                    paddingLeft: 5,
                 },
                 box2_in2: {
                     flex: 1,
+                    paddingLeft: 5,
                 },
             box3: {
                 flex: 5.5,
                 backgroundColor: '#fff9f9',
                 // marginBottom: 5,
                 flexDirection: 'column',
+                paddingLeft: 5,
                 },
                 box3_in1: {
                     paddingLeft: 3,
@@ -1127,6 +1134,7 @@ const styles = StyleSheet.create({
                 // elevation: 1,
                 // zIndex: 2000,
                 marginBottom: -0.5,
+                paddingLeft: 5,
             },
             box6: {
                 flex: 3,

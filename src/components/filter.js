@@ -68,6 +68,8 @@ export default class Filter extends Component {
             'Nixgon': require('../../assets/fonts/NIXGON.ttf'),
             'Nanum': require('../../assets/fonts/NanumBarunGothic.ttf'),
             'UhBee': require('../../assets/fonts/UhBee.ttf'),
+            'NB': require('../../assets/fonts/NB.ttf'),
+            'NR': require('../../assets/fonts/NR.ttf'),
         });
         this.setState({ isReady: true });
     }
@@ -154,14 +156,14 @@ export default class Filter extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.box}>
-                    <Text style={{color: '#ebebe3', fontSize: 32, fontFamily: 'Nixgon'}}>필터</Text>
+                    <Text style={{color: '#ebebe3', fontSize: 32, fontFamily: 'NB'}}>필터</Text>
                 </View>
                 <View style={styles.box2}>
                     <View style={styles.countries}>
                         {/* <Text style={{textAlign: 'center', fontSize: 20}}>국가</Text> */}
                         <View style={{flexDirection: 'row', alignSelf: 'center',}}>
                             <View style={{flex:1, justifyContent: 'center', marginTop: 10}}>
-                                <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontFamily: 'Nixgon'}}>한국 영화</Text>
+                                <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontFamily: 'NB'}}>한국 영화</Text>
                             </View>
                             <View style={{flex:2, alignItems:'center'}}>
                                 <SwitchToggle
@@ -187,13 +189,13 @@ export default class Filter extends Component {
                                 />
                             </View>
                             <View style={{flex:1, justifyContent: 'center', marginTop: 10}}>
-                                <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontFamily: 'Nixgon'}}>외국 영화</Text>
+                                <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontFamily: 'NB'}}>외국 영화</Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.ratingGT}>
                         <View style={{marginBottom:15}}>
-                            <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontFamily: 'Nixgon'}}>평점</Text>
+                            <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontFamily: 'NB'}}>평점</Text>
                         </View>
                         <View style={{flex:1}}>
                             <MotionSlider
@@ -215,7 +217,7 @@ export default class Filter extends Component {
                     </View>
                     <View style={styles.genres}>
                         <View style={{marginBottom:15}}>
-                            <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontFamily: 'Nixgon'}}>장르</Text>
+                            <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontFamily: 'NB'}}>장르</Text>
                         </View>
                         <View style={{flexDirection:'row', flexWrap: 'wrap', padding: 5,}}>
                             <TouchableOpacity 
@@ -435,7 +437,7 @@ const styles = StyleSheet.create({
                 genreButtonText: {
                     textAlign: 'center',
                     fontSize: 17,
-                    fontFamily: 'Nixgon',
+                    fontFamily: 'NR',
                 },
             buttonConfirm: {
                 flex: 1,
