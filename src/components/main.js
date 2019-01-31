@@ -786,12 +786,12 @@ export default class Main extends Component {
                             </View>
                             <View style={styles.box2}>
                                 <View style={styles.box2_in1}>
-                                    <Text style={{marginBottom: 7, fontFamily: 'NR'}}>개봉일: {year}</Text>
+                                    <Text style={{marginBottom: 5, fontFamily: 'NR'}}>개봉일: {year}</Text>
                                     <Text style={{fontFamily: 'NR'}}>상영시간: {runtime}분</Text>
                                 </View>
                                 <View style={styles.box2_in2}>
-                                    <Text style={{marginBottom: 7, fontFamily: 'NR'}}>장르: {genre}</Text>
-                                    <Text style={{fontFamily: 'NR'}}>수입: $ {income}</Text>
+                                    <Text style={{marginBottom: 5, fontFamily: 'NR'}}>장르: {genre}</Text>
+                                    <Text style={{fontFamily: 'NR'}}>수입: {income=='0' ? '집계되지 않음' : '$ '+income}</Text>
                                 </View>
                             </View>
                             <View style={styles.box3}>
@@ -841,14 +841,14 @@ export default class Main extends Component {
                                     style={styles.box6_wishlist}
                                     onPress={()=>this._wishList()}
                                 >
-                                    <Icon name="ios-heart" style={{fontSize:30, color:'#fbf9fa', fontWeight:'700', paddingTop: 5}} />
+                                    <Icon name="ios-heart" style={{fontSize:30, color:'red', fontWeight:'700', paddingTop: 5}} />
                                 </TouchableOpacity>
                                     <View style={{flex:1}} />
                                 <TouchableOpacity 
                                     style={styles.box6_haveseen}
                                     onPress={()=>this._haveSeen()}
                                 >
-                                    <Icon name="ios-eye" style={{fontSize:30, color:'#fbf9fa', fontWeight:'700', paddingTop: 5}} />
+                                    <Icon name="ios-eye" style={{fontSize:30, color:'blue', fontWeight:'700', paddingTop: 5}} />
                                 </TouchableOpacity>
                                     <View style={{flex:1}} />
                             </View>
@@ -1082,6 +1082,7 @@ const styles = StyleSheet.create({
                 box1_in1: {
                     flex: 4,
                     paddingLeft: 5,
+                    paddingRight: 5,
                 },
                 box1_in2: {
                     flex: 1,
@@ -1091,7 +1092,6 @@ const styles = StyleSheet.create({
             box2: {
                 flex: 1.3,
                 backgroundColor: '#fff9f9',
-                // marginBottom: 5,
                 flexDirection: 'row',
                 paddingLeft: 3,
                 paddingRight: 3,
@@ -1099,10 +1099,14 @@ const styles = StyleSheet.create({
                 box2_in1: {
                     flex: 1,
                     paddingLeft: 5,
+                    paddingRight: 5,
+                    marginBottom: 5,
                 },
                 box2_in2: {
                     flex: 1,
                     paddingLeft: 5,
+                    paddingRight: 5,
+                    marginBottom: 5,
                 },
             box3: {
                 flex: 5.5,
@@ -1110,10 +1114,12 @@ const styles = StyleSheet.create({
                 // marginBottom: 5,
                 flexDirection: 'column',
                 paddingLeft: 5,
+                paddingRight: 5,
                 },
                 box3_in1: {
                     paddingLeft: 3,
                     paddingRight: 3,
+                    marginBottom: 3,
                 },
                 box3_in2: {
                     flexDirection: 'row', 
@@ -1128,16 +1134,15 @@ const styles = StyleSheet.create({
                 flex: 3,
                 backgroundColor: '#fff9f9',
                 paddingBottom: 3,
-                paddingLeft: 2,
-                paddingRight: 3,
+                paddingLeft: 5,
+                paddingRight: 5,
                 // marginBottom: 5,
                 // elevation: 1,
                 // zIndex: 2000,
                 marginBottom: -0.5,
-                paddingLeft: 5,
             },
             box6: {
-                flex: 3,
+                flex: 2,
                 backgroundColor: '#fff9f9',
                 // marginBottom: 5,
                 borderBottomRightRadius: 15,
