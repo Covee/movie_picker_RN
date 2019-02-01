@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, AsyncStorage, Alert } from 'react-native';
 
+import { Font } from 'expo';
+
 
 export default class WishList extends Component {
     constructor(props) {
 		super(props);
 		this.state = {
             arrM: [],
+            isReady: false,
         };
     }
+
+    async componentDidMount() {
+        await Font.loadAsync({
+            'HM': require('../../assets/fonts/BM.ttf'),
+            'Nixgon': require('../../assets/fonts/NIXGON.ttf'),
+            'Nanum': require('../../assets/fonts/NanumBarunGothic.ttf'),
+            'UhBee': require('../../assets/fonts/UhBee.ttf'),
+            'NB': require('../../assets/fonts/NB.ttf'),
+            'NR': require('../../assets/fonts/NR.ttf'),
+        });
+        this.setState({ isReady: true });
+    }
+
+    
 
     _showWishList = async () => {
         let ids = await AsyncStorage.getItem('idW')
@@ -106,11 +123,12 @@ export default class WishList extends Component {
 
 
     render() {
+        if (this.state.isReady == true) {
         this._showWishList()
         return (
             <View style={styles.container}>
                 <View style={styles.flex_1}>
-                    <Text style={{fontSize:24, textAlign:'center', color: 'white',}}>Wish List</Text>
+                    <Text style={{fontSize:24, textAlign:'center', color: 'white', fontFamily: 'NB'}}>Wish List</Text>
                 </View>
                 <View style={styles.flex_2}>
                     <ScrollView style={styles.flex_2_scroll}>
@@ -137,9 +155,12 @@ export default class WishList extends Component {
 
                 </View>
                 
-                <Text style={{ textAlign:'center', color: 'white',}}>Swipe down to close</Text>
+                <Text style={{ textAlign:'center', color: 'white', fontFamily: 'NR'}}>Swipe down to close</Text>
             </View>
         )
+    } else {
+        return <View><Text>Loading...</Text></View>;
+      }
     }
 }
 
@@ -161,10 +182,10 @@ class WishListDetail extends Component {
                 >
                 <View style={{flex:4, alignSelf: 'center'}}>
                     <Text style={{
-                        fontWeight:'600', 
                         marginLeft: 5, 
                         color: '#fbf9fa', 
-                        fontSize: 15
+                        fontSize: 15, 
+                        fontFamily: 'NB',
                     }}>
                         {this.props.title} ({this.props.year})
                     </Text>
@@ -172,7 +193,8 @@ class WishListDetail extends Component {
                 <View style={{flex:1, alignSelf: 'center'}}>
                     <Text style={{
                         color: '#fbf9fa',
-                        fontSize: 14,
+                        fontSize: 14, 
+                        fontFamily: 'NR',
                     }}>
                          평점: {this.props.rating}
                     </Text>

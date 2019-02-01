@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, AsyncStorage, Alert } from 'react-native';
 
-const API_KEY = '61ffab023e612aa11ca364354a4c0e6b';
-const mainURL = "https://api.themoviedb.org/3/"
-const ImageURL = "https://image.tmdb.org/t/p/w500"
-const discoverURL = "https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b"
+import { Font } from 'expo';
 
 
 export default class HaveSeen extends Component {
@@ -12,7 +9,20 @@ export default class HaveSeen extends Component {
 		super(props);
 		this.state = {
             arrM: [],
+            isReady: false,
         };
+    }
+
+    async componentDidMount() {
+        await Font.loadAsync({
+            'HM': require('../../assets/fonts/BM.ttf'),
+            'Nixgon': require('../../assets/fonts/NIXGON.ttf'),
+            'Nanum': require('../../assets/fonts/NanumBarunGothic.ttf'),
+            'UhBee': require('../../assets/fonts/UhBee.ttf'),
+            'NB': require('../../assets/fonts/NB.ttf'),
+            'NR': require('../../assets/fonts/NR.ttf'),
+        });
+        this.setState({ isReady: true });
     }
 
 
@@ -112,11 +122,12 @@ export default class HaveSeen extends Component {
 
 
     render() {
+        if (this.state.isReady == true) {
         this._showHaveSeen()
         return (
             <View style={styles.container}>
                 <View style={styles.flex_1}>
-                    <Text style={{fontSize:24, textAlign:'center', color: 'white',}}>HaveSeen List</Text>
+                    <Text style={{fontSize:24, textAlign:'center', color: 'white', fontFamily: 'NB'}}>HaveSeen List</Text>
                 </View>
                 <View style={styles.flex_2}>
                     <ScrollView style={styles.flex_2_scroll}>
@@ -143,9 +154,12 @@ export default class HaveSeen extends Component {
 
                 </View>
                 
-                <Text style={{ textAlign:'center', color: 'white',}}>Swipe down to close</Text>
+                <Text style={{ textAlign:'center', color: 'white', fontFamily: 'NR'}}>Swipe down to close</Text>
             </View>
         )
+    } else {
+        return <View><Text>Loading...</Text></View>;
+      }
     }
 }
 
@@ -167,10 +181,10 @@ class HaveSeenDetail extends Component {
                 >
                 <View style={{flex:4, alignSelf: 'center'}}>
                     <Text style={{
-                        fontWeight:'600', 
                         marginLeft: 5, 
                         color: '#fbf9fa', 
-                        fontSize: 15
+                        fontSize: 15,
+                        fontFamily: 'NB',
                     }}>
                         {this.props.title} ({this.props.year})
                     </Text>
@@ -179,6 +193,7 @@ class HaveSeenDetail extends Component {
                     <Text style={{
                         color: '#fbf9fa',
                         fontSize: 14,
+                        fontFamily: 'NR',
                     }}>
                          평점: {this.props.rating}
                     </Text>
