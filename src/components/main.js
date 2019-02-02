@@ -841,14 +841,14 @@ export default class Main extends Component {
                                     style={styles.box6_wishlist}
                                     onPress={()=>this._wishList()}
                                 >
-                                    <Icon name="ios-heart" style={{fontSize:30, color:'red', fontWeight:'700', paddingTop: 5}} />
+                                    <Icon name="ios-heart" style={{fontSize:30, color:'#ff6473', fontWeight:'700', paddingTop: 5}} />
                                 </TouchableOpacity>
                                     <View style={{flex:1}} />
                                 <TouchableOpacity 
                                     style={styles.box6_haveseen}
                                     onPress={()=>this._haveSeen()}
                                 >
-                                    <Icon name="ios-eye" style={{fontSize:30, color:'blue', fontWeight:'700', paddingTop: 5}} />
+                                    <Icon name="ios-eye" style={{fontSize:30, color:'#20c1bd', fontWeight:'700', paddingTop: 5}} />
                                 </TouchableOpacity>
                                     <View style={{flex:1}} />
                             </View>
