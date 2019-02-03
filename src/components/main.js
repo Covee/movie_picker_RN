@@ -16,6 +16,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
 
 import { Font } from 'expo';
+import {
+    AdMobBanner,
+    AdMobInterstitial,
+    PublisherBanner,
+    AdMobRewarded
+  } from 'expo';
 
 const API_KEY = '61ffab023e612aa11ca364354a4c0e6b';
 const mainURL = "https://api.themoviedb.org/3/"
@@ -748,7 +754,15 @@ export default class Main extends Component {
                 {/* AD */}
                 <View style={styles.adBox}>
                     <View style={{flex:1, alignItems:'center', justifyContent: 'center'}}>
-                        <Text>pickedId: {pickedId}</Text>
+                        {/* <Text>pickedId: {pickedId}</Text> */}
+                        <AdMobBanner
+                            style={{}}
+                            bannerSize="smartBanner"
+                            adUnitID="ca-app-pub-3940256099942544/2934735716"
+                            // Test ID, Replace with your-admob-unit-id
+                            testDeviceID="EMULATOR"
+                            didFailToReceiveAdWithError={this.bannerError}
+                        />
                     </View>
                 </View>
 

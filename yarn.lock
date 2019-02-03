@@ -4840,6 +4840,13 @@ react-devtools-core@3.3.4:
     shell-quote "^1.6.1"
     ws "^3.3.1"
 
+react-native-admob@^2.0.0-beta.5:
+  version "2.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/react-native-admob/-/react-native-admob-2.0.0-beta.5.tgz#f83fd6144c5dd3e708e937793f41c0c50db86682"
+  integrity sha512-nESuBHqCgXZmR7yfwHB0nmsZUgjyWEkR4gsPx7hB2vB+pba+2MHUWD0nk4K85zsHxgJ9yNcJNGoQbqY8A1T9ow==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-animatable@^1.2.4:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.1.tgz#f004a7e9de6838d0fbf210d642593cff7affd9ef"
@@ -4875,6 +4882,14 @@ react-native-elements@^1.0.0-beta7:
     lodash.times "^4.3.2"
     opencollective-postinstall "^2.0.0"
     prop-types "^15.5.8"
+
+react-native-firebase@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-5.2.1.tgz#2904ccc80880930ea72fa152eae3c7f53a0d5e1c"
+  integrity sha512-fwr4P7Bm0c2bHSwYnSyKZNW9BxXLqswff0yS5Fl6hzIf7hbGD85m06qzD/6JAFpX3Jk8r4PGtYintWm26LiZ/Q==
+  dependencies:
+    opencollective-postinstall "^2.0.0"
+    prop-types "^15.6.2"
 
 react-native-gesture-handler@1.0.9:
   version "1.0.9"
@@ -6288,6 +6303,11 @@ yargs@^9.0.0:
     which-module "^2.0.0"
     y18n "^3.2.1"
     yargs-parser "^7.0.0"
+
+yarn.lock@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/yarn.lock/-/yarn.lock-0.0.1-security.tgz#8e7117924bfe916671b21f14212ba1bb49dfe0c7"
+  integrity sha512-ZRX6v5zGCJMI1T2aO+BQxJggy1vvorXEwonQhWXIC+brO7lkDB3zWelVNAti183ddH6FmJP8z4UDCJnJlioK4Q==
 
 yeoman-environment@1.5.3:
   version "1.5.3"

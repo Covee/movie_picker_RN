@@ -16,9 +16,11 @@
     "package.json": "^2.0.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-admob": "^2.0.0-beta.5",
     "react-native-card-flip": "^1.0.4",
     "react-native-circular-action-menu": "^0.5.0",
     "react-native-elements": "^1.0.0-beta7",
+    "react-native-firebase": "^5.2.1",
     "react-native-git-upgrade": "^0.2.7",
     "react-native-modal": "^7.0.2",
     "react-native-motion-slider": "^1.0.3",
@@ -26,7 +28,8 @@
     "react-native-swipeable": "^0.6.0",
     "react-native-switch-toggle": "^1.0.7",
     "react-native-vector-icons": "^6.1.0",
-    "rn-slider-switch": "^0.0.3"
+    "rn-slider-switch": "^0.0.3",
+    "yarn.lock": "^0.0.1-security"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
