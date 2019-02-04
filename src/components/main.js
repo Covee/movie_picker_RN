@@ -756,7 +756,7 @@ export default class Main extends Component {
                     <View style={{flex:1, alignItems:'center', justifyContent: 'center'}}>
                         {/* <Text>pickedId: {pickedId}</Text> */}
                         <AdMobBanner
-                            style={{}}
+                            style={{alignSelf: 'center'}}
                             bannerSize="smartBanner"
                             adUnitID="ca-app-pub-3940256099942544/2934735716"
                             // Test ID, Replace with your-admob-unit-id
@@ -1046,7 +1046,7 @@ const styles = StyleSheet.create({
 
   adBox: {
     flex: 1,
-    backgroundColor: '#1E1E24',
+    // backgroundColor: '#1E1E24',
     alignItems: 'flex-end'
     },
 
