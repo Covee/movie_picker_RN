@@ -202,7 +202,8 @@ export default class Filter extends Component {
                                 // title={'Choose the desired temperature'} 
                                 min={0} 
                                 max={100}
-                                value={(this.props.cRate=='' ) ? 50 : this.props.cRate} 
+                                value={(this.props.cRate=='') ? 50 : this.props.cRate} 
+                                // value 원래 library 내 코드 수정함(114번째 줄, value뒤 toFixed~ 다 삭제)
                                 decimalPlaces={0}
                                 units={'점'}
                                 backgroundColor={['rgb(3, 169, 244)', 'rgb(255, 152, 0)', 'rgb(255, 87, 34)']}

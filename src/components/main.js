@@ -137,12 +137,11 @@ export default class Main extends Component {
             randNumB: Math.floor(Math.random() * 20),
             cast: [],
         })
-        // await this._changeRating()
         await this._changeGenre()
         // console.log("MAX pages >>> " + this.state.randNumA + "  genArr => " + this.state.genArr)
-        await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + (this.state.upRating* (1/10)) + '&with_genres=' + this.state.genArr ).then(response => response.json())
+        console.log("rating>> " + this.state.upRating*0.1)
+        await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + (this.state.upRating*0.1) + '&with_genres=' + this.state.genArr).then(response => response.json())
             .then(json => {
-                // console.log(json.results[this.state.randNumB])
                 let id = json.results[this.state.randNumB].id
                 this.setState({
                     pickedId: id,
@@ -188,11 +187,11 @@ export default class Main extends Component {
                         }
                         
                     }
-                    // if (this.state.country == 'ko') {
-                    //     this.setState({randNumA: Math.floor(Math.random() * 217)+1})
-                    // } else {
-                    //     this.setState({randNumA: Math.floor(Math.random() * 1000)+1})
-                    // }
+                    if (this.state.country == 'ko') {
+                        this.setState({randNumA: Math.floor(Math.random() * 217)+1})
+                    } else {
+                        this.setState({randNumA: Math.floor(Math.random() * 1000)+1})
+                    }
                 })
             })
 
