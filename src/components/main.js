@@ -752,10 +752,10 @@ export default class Main extends Component {
 
                 {/* AD */}
                 <View style={styles.adBox}>
-                    <View style={{flex:1, alignItems:'center', justifyContent: 'center'}}>
+                    <View style={{}}>
                         {/* <Text>pickedId: {pickedId}</Text> */}
                         <AdMobBanner
-                            style={{alignSelf: 'center'}}
+                            style={{}}
                             bannerSize="smartBanner"
                             adUnitID="ca-app-pub-3940256099942544/2934735716"
                             // Test ID, Replace with your-admob-unit-id
@@ -890,18 +890,15 @@ export default class Main extends Component {
                                 buttonColor='#9b59b6' 
                                 title="New Task" 
                                 onPress={() => this.setState({isVisibleFilter: true}) }
-                            >
-                                
+                            >  
                                 <Icon name="ios-funnel" style={styles.actionButtonIcon} />
                                 
                             </ActionButton.Item>
 
                             <ActionButton.Item 
-                                buttonColor='#ff3881' 
+                                buttonColor='#ff3881'
                                 title="All Tasks" 
-                                onPress={() =>
-                                    this._actionWishList()
-                                }
+                                onPress={() =>this._actionWishList()}
                             >
                                 <Icon name="ios-heart" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
@@ -964,10 +961,7 @@ export default class Main extends Component {
                                 western={this.western}
                                 cRate={this.state.upRating}
                             />
-                            {/* <View style={{ flex: 1, justifyContent:'center'}}>
-                                <Text style={{ textAlign:'center', color: 'white',}}>This is Filter Page</Text>
-                                <Text style={{ textAlign:'center', color: 'white',}}>Swipe right to close</Text>
-                            </View> */}
+                            <Text style={{ textAlign:'center', color: 'white', fontFamily: 'NR'}}>Swipe down to close</Text>
                         </Modal>
                     </View>
 
@@ -1044,9 +1038,9 @@ const styles = StyleSheet.create({
   },
 
   adBox: {
-    flex: 1,
+    flex: 0.9,
     // backgroundColor: '#1E1E24',
-    alignItems: 'flex-end'
+    // alignItems: 'flex-end'
     },
 
   cardBox: {
