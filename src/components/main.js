@@ -170,6 +170,7 @@ export default class Main extends Component {
                                 pickedId: json.id,
                             })
                             this._cast()
+                            this._scroll()
                         } else {
                             this.setState({
                                 isLoaded: true,
@@ -184,8 +185,8 @@ export default class Main extends Component {
                                 pickedId: json.id,
                             })
                             this._cast()
+                            this._scroll()
                         }
-                        
                     }
                     if (this.state.country == 'ko') {
                         this.setState({randNumA: Math.floor(Math.random() * 217)+1})
@@ -737,6 +738,12 @@ export default class Main extends Component {
         })
     }
 
+    // 카드 바뀔때 이미 스크롤 한 인물, 줄거리 처음으로 되돌리기
+    _scroll = () => {
+        this.refs.cardScroll.scrollTo({x:0,y:0, animated:true})
+        this.refs.storyScroll.scrollTo({x:0,y:0, animated:true})
+    }
+
 
     componentWillMount() {
         this._filter()
@@ -814,7 +821,8 @@ export default class Main extends Component {
 
                                 <ScrollView 
                                     horizontal={true} style={styles.box3_in2}
-                                    contentContainerStyle={{alignItems: 'center'}}    
+                                    contentContainerStyle={{alignItems: 'center'}}
+                                    ref="cardScroll" 
                                 >
                                     <TouchableOpacity activeOpacity= {1}>
                                         <View style={{flex:1, flexDirection:'row'}}>
@@ -837,7 +845,7 @@ export default class Main extends Component {
                             </View>
 
                             <View style={styles.box4}>
-                                <ScrollView style={styles.box4}>
+                                <ScrollView style={styles.box4} ref="storyScroll">
                                     <Text style={{fontSize:18, marginBottom: -2, fontFamily: 'NR'}}>줄거리</Text>
                                     <TouchableOpacity 
                                         style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}
@@ -1016,9 +1024,9 @@ class CardInfo extends Component {
     render () {
         return (
             <Card
-                containerStyle={{height:'91%', marginLeft: -1}}
+                containerStyle={{height:'92%', marginLeft: -1}}
                 image={{uri: ImageURL + '/' + this.props.image}}
-                imageStyle={{height:'72%'}}
+                imageStyle={{height:'77%'}}
             >
                 <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7, fontFamily: 'Nixgon'}}>
                     [{this.props.char}] 역
@@ -1116,7 +1124,7 @@ const styles = StyleSheet.create({
                     marginBottom: 5,
                 },
             box3: {
-                flex: 5.5,
+                flex: 6,
                 backgroundColor: '#fff9f9',
                 // marginBottom: 5,
                 flexDirection: 'column',
@@ -1132,7 +1140,7 @@ const styles = StyleSheet.create({
                     flexDirection: 'row', 
                     marginBottom: 5, 
                     // marginLeft: -13,
-                    // backgroundColor: 'green',
+                    // backgroundColor: 'lightblue',
                     marginTop: -13,
                     paddingLeft: 3,
 
