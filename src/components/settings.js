@@ -36,7 +36,7 @@ export default class Settings extends Component {
                     <View style={styles.name}>
                         {/* <Image /> */}
                         <Text style={{color:'#fcf8f3', fontSize:20, fontWeight:'500', marginBottom:5, fontFamily: 'NB'}}>Feelm</Text>
-                        <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>Version 1.0 (updated on 19.01.31)</Text>
+                        <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>Version 1.0.0 (updated on 19.02.16)</Text>
                         <Text style={{color:'#fcf8f3', fontSize:12, fontFamily: 'NR'}}>Copyright (c) 2019 Cobee Kwon</Text>
                     </View>
                     <View style={styles.license}>
