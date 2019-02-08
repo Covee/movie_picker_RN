@@ -169,8 +169,8 @@ export default class Main extends Component {
                                 genre: [json.genres[0].name + ", " + json.genres[1].name],
                                 pickedId: json.id,
                             })
+                            this._scrollStory()
                             this._cast()
-                            this._scroll()
                         } else {
                             this.setState({
                                 isLoaded: true,
@@ -184,8 +184,8 @@ export default class Main extends Component {
                                 genre: json.genres[0].name,
                                 pickedId: json.id,
                             })
+                            this._scrollStory()
                             this._cast()
-                            this._scroll()
                         }
                     }
                     if (this.state.country == 'ko') {
@@ -219,7 +219,7 @@ export default class Main extends Component {
                 } else {
                     console.log("cast가 null임")
                 }
-                        
+                this._scrollCard()        
             })
         )
     }
@@ -739,9 +739,11 @@ export default class Main extends Component {
     }
 
     // 카드 바뀔때 이미 스크롤 한 인물, 줄거리 처음으로 되돌리기
-    _scroll = () => {
-        this.refs.cardScroll.scrollTo({x:0,y:0, animated:true})
-        this.refs.storyScroll.scrollTo({x:0,y:0, animated:true})
+    _scrollStory = () => {
+        this.refs.storyScroll.scrollTo({x: 0, y: 0, animated: false})
+    }
+    _scrollCard = () => {
+        this.refs.cardScroll.scrollTo({x: 0, y: 0, animated: false})
     }
 
 
@@ -821,7 +823,7 @@ export default class Main extends Component {
 
                                 <ScrollView 
                                     horizontal={true} style={styles.box3_in2}
-                                    contentContainerStyle={{alignItems: 'center'}}
+                                    // contentContainerStyle={{alignItems: 'center'}}
                                     ref="cardScroll" 
                                 >
                                     <TouchableOpacity activeOpacity= {1}>
