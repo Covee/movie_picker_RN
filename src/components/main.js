@@ -1017,7 +1017,7 @@ export default class Main extends Component {
             </View>
         );
     } else {
-        return <View><Text>Loading...</Text></View>;
+        return <View><Text style={{fontSize:20, textAlign:'center'}}>LOADING...</Text></View>;
       }
     }
 }
@@ -1030,10 +1030,10 @@ class CardInfo extends Component {
                 image={{uri: ImageURL + '/' + this.props.image}}
                 imageStyle={{height:'77%'}}
             >
-                <Text style={{fontSize: 12, textAlign: 'center', marginTop: -7, fontFamily: 'Nixgon'}}>
+                <Text style={{fontSize: 12, textAlign: 'center', marginTop: -8, fontFamily: 'NR'}}>
                     [{this.props.char}] 역
                 </Text>
-                <Text style={{fontSize: 14, fontWeight: '500', textAlign: 'center', marginTop: -2, fontFamily: 'Nixgon'}}>
+                <Text style={{fontSize: 14, textAlign: 'center', marginTop: -3, fontFamily: 'NB'}}>
                     {this.props.name}
                 </Text>
             </Card>
