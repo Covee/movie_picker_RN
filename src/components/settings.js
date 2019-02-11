@@ -35,13 +35,13 @@ export default class Settings extends Component {
                 <View style={styles.flex_2}>
                     <View style={styles.name}>
                         {/* <Image /> */}
-                        <Text style={{color:'#fcf8f3', fontSize:20, fontWeight:'500', marginBottom:5, fontFamily: 'NB'}}>Feelm</Text>
+                        <Text style={{color:'#fcf8f3', fontSize:20, marginBottom:5, fontFamily: 'NB'}}>Feelm</Text>
                         <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>Version 1.0.0 (updated on 19.02.16)</Text>
                         <Text style={{color:'#fcf8f3', fontSize:12, fontFamily: 'NR'}}>Copyright (c) 2019 Cobee Kwon</Text>
                     </View>
                     <View style={styles.license}>
                         <View style={{marginBottom: 15,}}>
-                            <Text style={{color:'#fcf8f3', fontSize:19, fontWeight:'500', fontFamily: 'NB'}}>Licenses</Text>
+                            <Text style={{color:'#fcf8f3', fontSize:19, fontFamily: 'NB'}}>Licenses</Text>
                         </View>
                         <ScrollView 
                             style={{flexGrow:1,}}
@@ -52,7 +52,7 @@ export default class Settings extends Component {
                                 activeOpacity= {1}
                             >
                                 <View style={{alignSelf: 'flex-start'}} >
-                                    <Text style={{color:'#fcf8f3', fontSize:14, fontWeight:'500', fontFamily: 'NB'}}>
+                                    <Text style={{color:'#fcf8f3', fontSize:14, fontFamily: 'NB'}}>
                                         Expo
                                     </Text>
                                     <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
@@ -63,7 +63,7 @@ export default class Settings extends Component {
                                     </Text>
                                 </View>
                                 <View style={{marginTop:10,}}>
-                                    <Text style={{color:'#fcf8f3', fontSize:14, fontWeight:'500', fontFamily: 'NB'}}>
+                                    <Text style={{color:'#fcf8f3', fontSize:14, fontFamily: 'NB'}}>
                                         react-native
                                     </Text>
                                     <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
@@ -74,7 +74,7 @@ export default class Settings extends Component {
                                     </Text>
                                 </View>
                                 <View style={{marginTop:10}}>
-                                    <Text style={{color:'#fcf8f3', fontSize:14, fontWeight:'500', fontFamily: 'NB'}}>
+                                    <Text style={{color:'#fcf8f3', fontSize:14, fontFamily: 'NB'}}>
                                         react-native-card-flip
                                     </Text>
                                     <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
@@ -82,7 +82,7 @@ export default class Settings extends Component {
                                     </Text>
                                 </View>
                                 <View style={{marginTop:10}}>
-                                    <Text style={{color:'#fcf8f3', fontSize:14, fontWeight:'500', fontFamily: 'NB'}}>
+                                    <Text style={{color:'#fcf8f3', fontSize:14, fontFamily: 'NB'}}>
                                         react-native-circular-action-menu
                                     </Text>
                                     <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
@@ -96,7 +96,7 @@ export default class Settings extends Component {
                                     </Text>
                                 </View>
                                 <View style={{marginTop:10}}>
-                                    <Text style={{color:'#fcf8f3', fontSize:14, fontWeight:'500', fontFamily: 'NB'}}>
+                                    <Text style={{color:'#fcf8f3', fontSize:14, fontFamily: 'NB'}}>
                                         react-native-vector-icons/Ionicons
                                     </Text>
                                     <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
@@ -107,7 +107,7 @@ export default class Settings extends Component {
                                     </Text>
                                 </View>
                                 <View style={{marginTop:10}}>
-                                    <Text style={{color:'#fcf8f3', fontSize:14, fontWeight:'500', fontFamily: 'NB'}}>
+                                    <Text style={{color:'#fcf8f3', fontSize:14, fontFamily: 'NB'}}>
                                         react-native-modal
                                     </Text>
                                     <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
@@ -118,7 +118,7 @@ export default class Settings extends Component {
                                     </Text>
                                 </View>
                                 <View style={{marginTop:10}}>
-                                    <Text style={{color:'#fcf8f3', fontSize:14, fontWeight:'500', fontFamily: 'NB'}}>
+                                    <Text style={{color:'#fcf8f3', fontSize:14, fontFamily: 'NB'}}>
                                         react-native-motion-slider
                                     </Text>
                                     <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
@@ -129,7 +129,7 @@ export default class Settings extends Component {
                                     </Text>
                                 </View>
                                 <View style={{marginTop:10}}>
-                                    <Text style={{color:'#fcf8f3', fontSize:14, fontWeight:'500', fontFamily: 'NB'}}>
+                                    <Text style={{color:'#fcf8f3', fontSize:14, fontFamily: 'NB'}}>
                                         react-native-switch-toggle
                                     </Text>
                                     <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
@@ -148,12 +148,12 @@ export default class Settings extends Component {
                         />
                     </View>
                     <View style={styles.feedback}>
-                        <Text style={{color:'#fcf8f3', fontSize:19, fontWeight:'500', fontFamily: 'NB'}}>Helps & Feedback</Text>          
+                        <Text style={{color:'#fcf8f3', fontSize:19, fontFamily: 'NB'}}>Helps & Feedback</Text>          
                     </View>
                 </View>
                 <View style={styles.flex_3}>
                     <Image 
-                        source={require('../images/feelm_logo1.png')} 
+                        source={require('../images/feelm_logo1.png')}
                         resizeMode={'center'} 
                         style={{height:90, width:'100%', marginTop: -10, borderRadius: 15,}} 
                     />

@@ -797,7 +797,7 @@ export default class Main extends Component {
                         >
                             <View style={styles.box1}>
                                 <View style={styles.box1_in1}>
-                                    <Text style={{fontSize:25, fontFamily: 'NB'}}>{title}</Text>
+                                    <Text style={{fontSize:24, fontFamily: 'NB'}}>{title}</Text>
                                 </View>
                                 <View style={styles.box1_in2}>
                                         <Image 
@@ -894,7 +894,7 @@ export default class Main extends Component {
                     {/* </View> */}
                     <View style={styles.buttonFilter}>
                         {/*Rest of App come ABOVE the action button component!*/}
-                        <ActionButton buttonColor="#a80038" radius={88} outRangeScale={0.74} degrees={405} position={'right'}>
+                        <ActionButton buttonColor="#ffd933" radius={88} outRangeScale={0.74} degrees={405} position={'right'}>
 
                             <ActionButton.Item 
                                 buttonColor='#9b59b6' 
@@ -1085,7 +1085,7 @@ const styles = StyleSheet.create({
                 backgroundColor: 'white',
             },
             box1: {
-                flex: 2,
+                flex: 2.5,
                 flexDirection: 'row',
                 backgroundColor: '#fff9f9',
                 // marginBottom: 5,
@@ -1148,7 +1148,7 @@ const styles = StyleSheet.create({
 
                 },
             box4: {
-                flex: 3,
+                flex: 3.5,
                 backgroundColor: '#fff9f9',
                 paddingBottom: 3,
                 paddingLeft: 5,
@@ -1159,7 +1159,7 @@ const styles = StyleSheet.create({
                 marginBottom: -0.5,
             },
             box6: {
-                flex: 2,
+                flex: 1.5,
                 backgroundColor: '#fff9f9',
                 // marginBottom: 5,
                 borderBottomRightRadius: 15,
@@ -1202,8 +1202,8 @@ const styles = StyleSheet.create({
     },
     buttonMix: {
         flex: 1,
-        backgroundColor: '#C77FFB',
-        borderColor: '#C77FFB',
+        backgroundColor: '#e73a53',
+        borderColor: '#e73a53',
         borderWidth: 2,
         borderRadius: 10,
         padding: 20,
@@ -1233,8 +1233,6 @@ const styles = StyleSheet.create({
         color: '#fbf9fa',
         marginBottom: 5
       },
-
-
       actionButtonIcon2: {
         fontSize: 35,
         height: 32,
