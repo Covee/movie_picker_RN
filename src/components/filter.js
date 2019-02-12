@@ -166,6 +166,7 @@ export default class Filter extends Component {
                                 <Text style={{textAlign: 'center', fontSize: 18, color: '#fafafa', fontFamily: 'NB'}}>한국 영화</Text>
                             </View>
                             <View style={{flex:2, alignItems:'center'}}>
+                                {/* in the library, index.js line 104 needs to be changed(activeOpacity=1) */}
                                 <SwitchToggle
                                     containerStyle={{
                                         marginTop: 16,

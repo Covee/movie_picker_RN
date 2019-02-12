@@ -766,8 +766,9 @@ export default class Main extends Component {
                         <AdMobBanner
                             style={{}}
                             bannerSize="smartBanner"
-                            adUnitID="ca-app-pub-3940256099942544/2934735716"
+                            adUnitID="ca-app-pub-9375979908766782/8956085398"
                             // Test ID, Replace with your-admob-unit-id
+                            // ca-app-pub-3940256099942544/2934735716
                             testDeviceID="EMULATOR"
                             didFailToReceiveAdWithError={this.bannerError}
                         />
