@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { 
         StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput,
-        TouchableHighlight, Image, Alert, AsyncStorage 
+        TouchableHighlight, Image, Alert, AsyncStorage, StatusBar 
     } from 'react-native';
 import { Card, ListItem, Button} from 'react-native-elements'
 import Filter from './filter';
@@ -20,7 +20,7 @@ import {
     AdMobBanner,
     AdMobInterstitial,
     PublisherBanner,
-    AdMobRewarded
+    AdMobRewarded,
   } from 'expo';
 
 const API_KEY = '61ffab023e612aa11ca364354a4c0e6b';
@@ -758,7 +758,8 @@ export default class Main extends Component {
         } = this.state;
         return (
             <View style={styles.container}>
-
+                {/* Hide the status bar of your phone */}
+                <StatusBar hidden={true} />
                 {/* AD */}
                 <View style={styles.adBox}>
                     <View style={{}}>
