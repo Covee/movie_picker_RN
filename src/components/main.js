@@ -896,13 +896,13 @@ export default class Main extends Component {
                     {/* </View> */}
                     <View style={styles.buttonFilter}>
                         {/*Rest of App come ABOVE the action button component!*/}
-                        <ActionButton buttonColor="#ffd933" radius={88} outRangeScale={0.74} degrees={405} position={'right'}>
+                        <ActionButton buttonColor="#ffd933" radius={87} outRangeScale={0.60} degrees={405} position={'right'}>
 
                             <ActionButton.Item 
                                 buttonColor='#9b59b6' 
                                 title="New Task" 
                                 onPress={() => this.setState({isVisibleFilter: true}) }
-                            >  
+                            >
                                 <Icon name="ios-funnel" style={styles.actionButtonIcon} />
                                 
                             </ActionButton.Item>
@@ -1064,8 +1064,8 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '90%',
         alignSelf: 'center',
-        marginTop: 20,
-        marginBottom: 10,
+        marginTop: 5,
+        marginBottom: 20,
         paddingTop: 20,
         paddingBottom: 20,
         },
@@ -1194,9 +1194,8 @@ const styles = StyleSheet.create({
                 },
 
   buttonBox: {
-    flex: 1.3,
+    flex: 1.4,
     backgroundColor: '#fdf0f0',
-    // backgroundColor: '#0061ff',
     flexDirection: 'row',
     paddingLeft: 10,
     paddingRight: 10,
@@ -1213,21 +1212,15 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         position: 'relative',
         marginLeft: 20,
-        marginBottom: 15
+        marginBottom: 10,
+        height: '80%'
     },
     buttonFilter: {
         flex: 1,
         alignItems: 'center',
         backgroundColor: 'transparent',
-        marginBottom: 2,
-        marginRight: 5,
-        
-    },
-    buttonBurger: {
-        flex: 1,
-        alignSelf: 'center',
-        alignItems: 'center'
-
+        marginBottom: -7,
+        marginRight: 10,
     },
     actionButtonIcon: {
         fontSize: 25.5,
@@ -1236,10 +1229,10 @@ const styles = StyleSheet.create({
         marginBottom: 5
       },
       actionButtonIcon2: {
-        fontSize: 35,
-        height: 32,
+        fontSize: 40,
+        height: 50,
         color: '#fbf9fa',
-        marginBottom: 5,
+        marginTop: 10,
       },
 
 });

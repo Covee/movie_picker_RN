@@ -30,8 +30,8 @@ const alignMap = {
   right: {
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-    startDegree: 175,
-    endDegree: 275,
+    startDegree: 180,
+    endDegree: 280,
   },
 };
 
@@ -288,8 +288,8 @@ ActionButton.defaultProps = {
   onOverlayPress: () => {},
   backdrop: false,
   degrees: 135,
-  size: 83,
-  itemSize: 47,
+  size: 85,
+  itemSize: 46,
   radius: 100,
   btnOutRange: 'rgba(0,0,0,1)',
   btnOutRangeTxt: 'rgba(255,255,255,1)',
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     marginTop: -4,
-    fontSize: 40,
+    fontSize: 38,
     backgroundColor: 'transparent',
     position: 'relative',
   },
