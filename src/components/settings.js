@@ -159,7 +159,7 @@ export default class Settings extends Component {
                     />
                 </View>
                 
-                <Text style={{ textAlign:'center', color: '#fcf8f3', fontFamily: 'NR'}}>Swipe down to close</Text>
+                <Text style={{ textAlign:'center', color: '#fcf8f3', fontFamily: 'NR'}}>Swipe Right to close</Text>
             </View>
         )
     } else {

@@ -146,16 +146,19 @@ export default class Main extends Component {
                 this.setState({
                     pickedId: id,
                 })
-                console.log("randNumA=" + this.state.randNumA, "randNumB=" + this.state.randNumB, "pickedId=" + this.state.pickedId)
+                console.log("[결과]: randNumA=" + this.state.randNumA, "randNumB=" + this.state.randNumB, "pickedId=" + this.state.pickedId)
 
                 fetch(mainURL + 'movie/' + this.state.pickedId + '?api_key=' + API_KEY + '&language=ko-KR')
                 .then(response => response.json())
                 .then(json => {
-                    if (json.title==undefined || json.poster_path==undefined || json.genres[0]==undefined) {
-                        // console.log("5>>if문 실행됨, filter함수 다시 call")
+                    // 다시 뽑을 조건들
+                    if (json.title==undefined || 
+                        json.poster_path==undefined || 
+                        json.genres[0]==undefined
+                        ) {
+                        console.log("조건이 맞지않아 다시 실행됨: filter함수 다시 call")
                         this._filter()
                     } else {
-                        // console.log("6>>else문 실행됨")
                         if (json.genres[1]) {
                             this.setState({
                                 isLoaded: true,
@@ -198,15 +201,21 @@ export default class Main extends Component {
 
     }
 
-    _cast = () => {
+    _cast = async () => {
         let arr1 = [];
         // console.log("7>>_cast() 실행됨, pickedId" + this.state.pickedId)
-        fetch(mainURL + 'movie/' + this.state.pickedId + '/credits?api_key=' + API_KEY + '&language=ko-KR')
+        await fetch(mainURL + 'movie/' + this.state.pickedId + '/credits?api_key=' + API_KEY + '&language=ko-KR')
         .then(response => response.json()
             .then(json => {
                 if (json.cast[0].name != null) {
                     for (let i = 0; i < json.cast.length; i++) {
-                        arr1.push([json.cast[i].name, json.cast[i].profile_path, json.cast[i].character])
+                        let sub;
+                        if(json.cast[i].character.length >= 20) {
+                            sub = json.cast[i].character.substr(0, 20) + "..."
+                        } else {
+                            sub = json.cast[i].character
+                        }
+                        arr1.push([json.cast[i].name, json.cast[i].profile_path, sub])
                     }
                     let newArr = []
                     for (i=0; i < json.cast.length; i++){
@@ -253,7 +262,7 @@ export default class Main extends Component {
         this.setState({
             genArr: arrange
         })
-        fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + (this.state.upRating* (1/10)) + '&with_genres=' + this.state.genArr).then(response => response.json())
+        await fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + (this.state.upRating* (1/10)) + '&with_genres=' + this.state.genArr).then(response => response.json())
         .then(json => {
             console.log("토탈페이지>>>> " + json.total_pages)
             this.setState({
@@ -866,14 +875,14 @@ export default class Main extends Component {
                                     style={styles.box6_wishlist}
                                     onPress={()=>this._wishList()}
                                 >
-                                    <Icon name="ios-heart" style={{fontSize:30, color:'#ff6473', fontWeight:'700', paddingTop: 5}} />
+                                    <Icon name="ios-heart" style={{fontSize:30, color:'#fbf9fa', fontWeight:'700', paddingTop: 5}} />
                                 </TouchableOpacity>
                                     <View style={{flex:1}} />
                                 <TouchableOpacity 
                                     style={styles.box6_haveseen}
                                     onPress={()=>this._haveSeen()}
                                 >
-                                    <Icon name="ios-eye" style={{fontSize:30, color:'#20c1bd', fontWeight:'700', paddingTop: 5}} />
+                                    <Icon name="ios-eye" style={{fontSize:30, color:'#fbf9fa', fontWeight:'700', paddingTop: 5}} />
                                 </TouchableOpacity>
                                     <View style={{flex:1}} />
                             </View>
@@ -896,10 +905,10 @@ export default class Main extends Component {
                     {/* </View> */}
                     <View style={styles.buttonFilter}>
                         {/*Rest of App come ABOVE the action button component!*/}
-                        <ActionButton buttonColor="#ffd933" radius={87} outRangeScale={0.60} degrees={405} position={'right'}>
-
+                        <ActionButton buttonColor="#ffad5a" radius={83} outRangeScale={0.60} degrees={405} position={'right'}>
+                        
                             <ActionButton.Item 
-                                buttonColor='#9b59b6' 
+                                buttonColor='#ff5959' 
                                 title="New Task" 
                                 onPress={() => this.setState({isVisibleFilter: true}) }
                             >
@@ -908,7 +917,7 @@ export default class Main extends Component {
                             </ActionButton.Item>
 
                             <ActionButton.Item 
-                                buttonColor='#ff3881'
+                                buttonColor='#fc5185'
                                 title="All Tasks" 
                                 onPress={() =>this._actionWishList()}
                             >
@@ -916,7 +925,7 @@ export default class Main extends Component {
                             </ActionButton.Item>
 
                             <ActionButton.Item 
-                                buttonColor='#3498db' 
+                                buttonColor='#1abb9c' 
                                 title="Notifications" 
                                 onPress={() => 
                                     this._actionHaveSeen()
@@ -927,7 +936,7 @@ export default class Main extends Component {
                             </ActionButton.Item>    
 
                             <ActionButton.Item 
-                                buttonColor='gray' 
+                                buttonColor='#1a0841' 
                                 title="All Tasks" 
                                 onPress={() => 
                                     this.setState({isVisibleSettings: true})
@@ -946,7 +955,7 @@ export default class Main extends Component {
                         <Modal 
                             isVisible={this.state.isVisibleFilter}
                             onSwipe={() => this.setState({ isVisibleFilter: false })}
-                            swipeDirection="down"
+                            swipeDirection="right"
                         >
                             <Filter 
                                 changeCountry={this.changeCountry}
@@ -973,7 +982,7 @@ export default class Main extends Component {
                                 western={this.western}
                                 cRate={this.state.upRating}
                             />
-                            <Text style={{ textAlign:'center', color: 'white', fontFamily: 'NR'}}>Swipe down to close</Text>
+                            <Text style={{ textAlign:'center', color: 'white', fontFamily: 'NR'}}>Swipe Right to close</Text>
                         </Modal>
                     </View>
 
@@ -981,7 +990,7 @@ export default class Main extends Component {
                         <Modal 
                             isVisible={this.state.isVisibleWishList}
                             onSwipe={() => this.setState({ isVisibleWishList: false })}
-                            swipeDirection="down"
+                            swipeDirection="right"
                         >
                             <WishList 
                                 wishListId={[this.state.WishListId]}
@@ -994,7 +1003,7 @@ export default class Main extends Component {
                         <Modal 
                             isVisible={this.state.isVisibleHaveSeen}
                             onSwipe={() => this.setState({ isVisibleHaveSeen: false })}
-                            swipeDirection="down"
+                            swipeDirection="right"
                         >
                             <HaveSeen 
                                 haveSeenId={[this.state.HaveSeenId]}
@@ -1007,7 +1016,7 @@ export default class Main extends Component {
                         <Modal 
                             isVisible={this.state.isVisibleSettings}
                             onSwipe={() => this.setState({ isVisibleSettings: false })}
-                            swipeDirection="down"
+                            swipeDirection="right"
                         >
                             <Settings />
                         </Modal>
@@ -1057,7 +1066,7 @@ const styles = StyleSheet.create({
 
   cardBox: {
     flex: 6,
-    backgroundColor: '#fdf0f0',
+    backgroundColor: '#fef4e8',
     position: 'relative',
     },
     cardBox2: {
@@ -1175,8 +1184,8 @@ const styles = StyleSheet.create({
                     flex: 3,
                     alignItems: 'center',
                     textAlign: 'center',
-                    backgroundColor: '#444140',
-                    borderColor: '#444140',
+                    backgroundColor: '#fc5185',
+                    borderColor: '#fc5185',
                     borderRadius: 10,
                     width: 80,
                     height: 40,
@@ -1185,8 +1194,8 @@ const styles = StyleSheet.create({
                     flex: 3,
                     alignItems: 'center',
                     textAlign: 'center',
-                    backgroundColor: '#444140',
-                    borderColor: '#444140',
+                    backgroundColor: '#1abb9c',
+                    borderColor: '#1abb9c',
                     borderRadius: 10,
                     width: 80,
                     height: 40,
@@ -1195,7 +1204,7 @@ const styles = StyleSheet.create({
 
   buttonBox: {
     flex: 1.4,
-    backgroundColor: '#fdf0f0',
+    backgroundColor: '#fef4e8',
     flexDirection: 'row',
     paddingLeft: 10,
     paddingRight: 10,
@@ -1213,13 +1222,13 @@ const styles = StyleSheet.create({
         position: 'relative',
         marginLeft: 20,
         marginBottom: 10,
-        height: '80%'
+        // height: '70%'
     },
     buttonFilter: {
         flex: 1,
         alignItems: 'center',
         backgroundColor: 'transparent',
-        marginBottom: -7,
+        marginBottom: -2,
         marginRight: 10,
     },
     actionButtonIcon: {
@@ -1229,10 +1238,10 @@ const styles = StyleSheet.create({
         marginBottom: 5
       },
       actionButtonIcon2: {
-        fontSize: 40,
-        height: 50,
+        fontSize: 35,
+        height: 37,
         color: '#fbf9fa',
-        marginTop: 10,
+        marginTop: 4,
       },
 
 });

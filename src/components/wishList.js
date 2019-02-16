@@ -128,7 +128,7 @@ export default class WishList extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.flex_1}>
-                    <Text style={{fontSize:24, textAlign:'center', color: 'white', fontFamily: 'NB'}}>Wish List</Text>
+                    <Text style={{fontSize:24, textAlign:'center', color: 'white', fontFamily: 'NB'}}>위시리스트</Text>
                 </View>
                 <View style={styles.flex_2}>
                     <ScrollView style={styles.flex_2_scroll}>
@@ -151,11 +151,11 @@ export default class WishList extends Component {
 
                     </ScrollView>
                 </View>
-                <View style={styles.flex_3}>
 
+                <View style={styles.flex_3}>
+                    <Text style={{ textAlign:'center', color: 'white', fontFamily: 'NR'}}>Swipe Right to close</Text>
                 </View>
                 
-                <Text style={{ textAlign:'center', color: 'white', fontFamily: 'NR'}}>Swipe down to close</Text>
             </View>
         )
     } else {
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
         },
         flex_1: {
             flex: 2,
-            justifyContent: 'flex-end',
+            justifyContent: 'center',
             paddingBottom: 5,
         },
         flex_2: {
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
                 },
                 items: {
                     flexDirection:'row',
-                    backgroundColor: '#a80038',
+                    backgroundColor: '#fc5185',
                     borderRadius: 10,
                     width: '95%',
                     height: 40,
@@ -232,5 +232,7 @@ const styles = StyleSheet.create({
                 },
         flex_3: {
             flex: 1,
+            justifyContent: 'flex-end',
+            marginBottom: -5
         },
 })

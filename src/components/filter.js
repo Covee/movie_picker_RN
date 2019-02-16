@@ -400,7 +400,9 @@ const styles = StyleSheet.create({
                     margin: 5,
                 },
             ratingGT: {
-                flex: 2
+                flex: 2,
+                alignSelf: 'center',
+                alignItems: 'center',
             },
             genres: {
                 flex: 5,
