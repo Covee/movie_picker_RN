@@ -5,7 +5,6 @@ import {
     } from 'react-native';
 import { Card, ListItem, Button} from 'react-native-elements'
 import Filter from './filter';
-import Cards from './card';
 import WishList from './wishList';
 import HaveSeen from './haveSeen';
 import Settings from './settings';
@@ -220,8 +219,7 @@ export default class Main extends Component {
                     let newArr = []
                     for (i=0; i < json.cast.length; i++){
                         newArr.push(arr1[i])
-                    }
-                    
+                    }  
                     this.setState({
                         cast: newArr
                     })
@@ -254,9 +252,10 @@ export default class Main extends Component {
             upRating: cRate
         })
         console.log("바뀐 Rating>>> " + this.state.upRating)
-        // 일단 바뀐 점수 main으로 받아오는건 성공. 여기서 데이타 핸들링.... 근데 너무 컴퓨터가 느려지네...
     }
 
+
+// GENRE CHANGE
     _changeGenre = async () => {
         let arrange = genArr.join('')
         this.setState({
@@ -269,8 +268,7 @@ export default class Main extends Component {
                 randNumA: Math.floor(Math.random() * json.total_pages+1)
             })
             console.log("랜덤으로뽑은페이지>>>> " + this.state.randNumA)
-        })
-        
+        })   
     }
 
 
@@ -620,7 +618,6 @@ export default class Main extends Component {
                     story: json.overview,
                     poster: json.poster_path,
                     genre: [json.genres[0].name + ", " + json.genres[1].name],
-                    // pickedId: id
                     isVisibleWishList: false,
                 })
                 this._cast()
@@ -635,14 +632,12 @@ export default class Main extends Component {
                     story: json.overview,
                     poster: json.poster_path,
                     genre: json.genres[0].name,
-                    // pickedId: id
                     isVisibleWishList: false,
                 })
                 this._cast()
             }
         })
     }
-
 
 
 
@@ -724,7 +719,6 @@ export default class Main extends Component {
                     story: json.overview,
                     poster: json.poster_path,
                     genre: [json.genres[0].name + ", " + json.genres[1].name],
-                    // pickedId: id
                     isVisibleHaveSeen: false,
                 })
                 this._cast()
@@ -739,7 +733,6 @@ export default class Main extends Component {
                     story: json.overview,
                     poster: json.poster_path,
                     genre: json.genres[0].name,
-                    // pickedId: id
                     isVisibleHaveSeen: false,
                 })
                 this._cast()
@@ -747,7 +740,8 @@ export default class Main extends Component {
         })
     }
 
-    // 카드 바뀔때 이미 스크롤 한 인물, 줄거리 처음으로 되돌리기
+
+// 카드 바뀔때 이미 스크롤 한 인물, 줄거리 처음으로 되돌리기
     _scrollStory = () => {
         this.refs.storyScroll.scrollTo({x: 0, y: 0, animated: false})
     }
@@ -769,7 +763,7 @@ export default class Main extends Component {
             <View style={styles.container}>
                 {/* Hide the status bar of your phone */}
                 <StatusBar hidden={true} />
-                {/* AD */}
+{/* AD */}
                 <View style={styles.adBox}>
                     <View style={{}}>
                         {/* <Text>pickedId: {pickedId}</Text> */}
@@ -785,7 +779,7 @@ export default class Main extends Component {
                     </View>
                 </View>
 
-                {/* CARD */}
+{/* CARD */}
                 <View style={styles.cardBox}>
                     <CardFlip duration={800} style={styles.cardBox2} ref={(card) => this.card = card}>
                         
@@ -893,7 +887,7 @@ export default class Main extends Component {
                 
 
 
-                {/* BUTTONS */}
+{/* BUTTONS */}
                 <View style={styles.buttonBox}>
                     {/* <View style={{alignContent:'flex-end'}}> */}
                         <TouchableOpacity 
@@ -949,8 +943,7 @@ export default class Main extends Component {
                     </View>
 
 
-
-            {/* Modals */}
+{/* Modals */}
                     <View>
                         <Modal 
                             isVisible={this.state.isVisibleFilter}
@@ -1032,6 +1025,7 @@ export default class Main extends Component {
       }
     }
 }
+
 
 class CardInfo extends Component {
     render () {
@@ -1152,7 +1146,6 @@ const styles = StyleSheet.create({
                 box3_in2: {
                     flexDirection: 'row', 
                     marginBottom: 5, 
-                    // marginLeft: -13,
                     // backgroundColor: 'lightblue',
                     marginTop: -13,
                     paddingLeft: 3,
