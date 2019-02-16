@@ -35,7 +35,7 @@ export default class Settings extends Component {
                 <View style={styles.flex_2}>
                     <View style={styles.name}>
                         {/* <Image /> */}
-                        <Text style={{color:'#fcf8f3', fontSize:20, marginBottom:5, fontFamily: 'NB'}}>Feelm</Text>
+                        <Text style={{color:'#e73a53', fontSize:20, marginBottom:5, fontFamily: 'NB'}}>Feelm</Text>
                         <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>Version 1.0.0 (updated on 19.02.16)</Text>
                         <Text style={{color:'#fcf8f3', fontSize:12, fontFamily: 'NR'}}>Copyright (c) 2019 Cobee Kwon</Text>
                     </View>
@@ -139,6 +139,17 @@ export default class Settings extends Component {
                                         Copyright (c) 2018 dooboolab
                                     </Text>
                                 </View>
+                                <View style={{marginTop:10}}>
+                                    <Text style={{color:'#fcf8f3', fontSize:14, fontFamily: 'NB'}}>
+                                        react-native-indicators
+                                    </Text>
+                                    <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
+                                        https://github.com/n4kz/react-native-indicators/blob/master/license.txt
+                                    </Text>
+                                    <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
+                                    BSD License | Copyright 2017-2018 Alexander Nazarov. All rights reserved.
+                                    </Text>
+                                </View>
                             </TouchableOpacity>
                         </ScrollView>
                         <Image 
@@ -158,8 +169,9 @@ export default class Settings extends Component {
                         style={{height:90, width:'100%', marginTop: -10, borderRadius: 15,}} 
                     />
                 </View>
-                
-                <Text style={{ textAlign:'center', color: '#fcf8f3', fontFamily: 'NR'}}>Swipe Right to close</Text>
+                <View style={{flex:0.2, justifyContent: 'flex-end'}}>
+                    <Text style={{ textAlign:'center', color: '#fcf8f3', fontFamily: 'NR',}}>Swipe Right to close</Text>
+                </View>
             </View>
         )
     } else {

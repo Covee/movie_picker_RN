@@ -159,6 +159,8 @@ export default class Filter extends Component {
                     <Text style={{color: '#ebebe3', fontSize: 32, fontFamily: 'NB'}}>필터</Text>
                 </View>
                 <View style={styles.box2}>
+
+{/* COUNTRY */}
                     <View style={styles.countries}>
                         {/* <Text style={{textAlign: 'center', fontSize: 20}}>국가</Text> */}
                         <View style={{flexDirection: 'row', alignSelf: 'center',}}>
@@ -194,6 +196,18 @@ export default class Filter extends Component {
                             </View>
                         </View>
                     </View>
+
+{/* YEAR */}
+                    <View style={styles.years}>
+                        <View style={{marginBottom:15}}>
+                            <Text style={{textAlign: 'center', fontSize: 20, color: '#ebd5d5', fontFamily: 'NB'}}>최소 개봉년도</Text>
+                        </View>
+                        <View style={{flex:1}}>
+                            <Text style={{textAlign: 'center', fontSize: 16, color: '#fafafa', fontFamily: 'NB'}}>UPDATE SOON</Text>
+                        </View>
+                    </View>
+
+{/* RATING */}
                     <View style={styles.ratingGT}>
                         <View style={{marginBottom:15}}>
                             <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontFamily: 'NB'}}>평점</Text>
@@ -217,6 +231,8 @@ export default class Filter extends Component {
                             />
                         </View>
                     </View>
+
+{/* GENRE */}
                     <View style={styles.genres}>
                         <View style={{marginBottom:15}}>
                             <Text style={{textAlign: 'center', fontSize: 24, color: '#ebd5d5', fontFamily: 'NB'}}>장르</Text>
@@ -385,7 +401,7 @@ const styles = StyleSheet.create({
             backgroundColor: 'transparent',
             },
             countries: {
-                flex: 2,
+                flex: 1,
                 padding: 5,
                 },
                 countryChoice: {
@@ -399,6 +415,13 @@ const styles = StyleSheet.create({
                     padding: 5,
                     margin: 5,
                 },
+            years: {
+                flex: 2,
+                alignSelf: 'center',
+                alignItems: 'center',
+                marginTop: 15,
+                marginBottom: -10,
+            },
             ratingGT: {
                 flex: 2,
                 alignSelf: 'center',

@@ -14,6 +14,18 @@ import ActionButton from 'react-native-circular-action-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
 
+import {
+    BallIndicator,
+    BarIndicator,
+    DotIndicator,
+    MaterialIndicator,
+    PacmanIndicator,
+    PulseIndicator,
+    SkypeIndicator,
+    UIActivityIndicator,
+    WaveIndicator,
+  } from 'react-native-indicators';
+
 import { Font } from 'expo';
 import {
     AdMobBanner,
@@ -87,6 +99,7 @@ export default class Main extends Component {
         
         this.state = {
             isLoaded: false,
+            cardLoading: false,
             category: null,
             title: null,
             year: null,
@@ -135,6 +148,7 @@ export default class Main extends Component {
             randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
             randNumB: Math.floor(Math.random() * 20),
             cast: [],
+            cardLoading: false,
         })
         await this._changeGenre()
         // console.log("MAX pages >>> " + this.state.randNumA + "  genArr => " + this.state.genArr)
@@ -221,7 +235,8 @@ export default class Main extends Component {
                         newArr.push(arr1[i])
                     }  
                     this.setState({
-                        cast: newArr
+                        cast: newArr,
+                        cardLoading: true,
                     })
                 } else {
                     console.log("cast가 null임")
@@ -743,10 +758,14 @@ export default class Main extends Component {
 
 // 카드 바뀔때 이미 스크롤 한 인물, 줄거리 처음으로 되돌리기
     _scrollStory = () => {
-        this.refs.storyScroll.scrollTo({x: 0, y: 0, animated: false})
+        if(this.state.cardLoading == true){
+           this.refs.storyScroll.scrollTo({x: 0, y: 0, animated: false})
+        }
     }
     _scrollCard = () => {
-        this.refs.cardScroll.scrollTo({x: 0, y: 0, animated: false})
+        if(this.state.cardLoading == true){
+            this.refs.cardScroll.scrollTo({x: 0, y: 0, animated: false})
+        }
     }
 
 
@@ -782,24 +801,29 @@ export default class Main extends Component {
 {/* CARD */}
                 <View style={styles.cardBox}>
                     <CardFlip duration={800} style={styles.cardBox2} ref={(card) => this.card = card}>
-                        
                         <TouchableOpacity 
                             style={styles.cardBox3}
                             activeOpacity= {1}
                             onPress={() => this.card.flip()}
                         >
-                            {/* <View style={styles.posterBox}> */}
+                            {
+                                this.state.cardLoading == false ? 
+                                <DotIndicator color='#e73a53' /> :
                                 <Image
                                     source={{uri: ImageURL + poster}}
                                     style={{flex: 1, borderRadius: 15,}}
                                 />
-                            {/* </View> */}
+                            }
                         </TouchableOpacity>
                         <TouchableOpacity 
                             style={styles.cardBox3}
                             activeOpacity= {1}
                             onPress={() => this.card.flip()}
                         >
+                        {
+                            this.state.cardLoading == false ? 
+                            <DotIndicator color='#e73a53' /> :
+                        <View style={{flex:1}}>
                             <View style={styles.box1}>
                                 <View style={styles.box1_in1}>
                                     <Text style={{fontSize:24, fontFamily: 'NB'}}>{title}</Text>
@@ -880,7 +904,8 @@ export default class Main extends Component {
                                 </TouchableOpacity>
                                     <View style={{flex:1}} />
                             </View>
-
+                        </View>
+                        }
                         </TouchableOpacity>
                     </CardFlip>
                 </View>
