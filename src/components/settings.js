@@ -36,11 +36,48 @@ export default class Settings extends Component {
                     <View style={styles.name}>
                         {/* <Image /> */}
                         <Text style={{color:'#e73a53', fontSize:20, marginBottom:5, fontFamily: 'NB'}}>Feelm</Text>
-                        <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>Version 1.0.0 (updated on 19.02.16)</Text>
+                        <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>Version 1.0.1 (updated on 19.02.20)</Text>
                         <Text style={{color:'#fcf8f3', fontSize:12, fontFamily: 'NR'}}>Copyright (c) 2019 Cobee Kwon</Text>
                     </View>
-                    <View style={styles.license}>
+                    <View style={styles.howToUse}>
                         <View style={{marginBottom: 15,}}>
+                            <Text style={{color:'#fcf8f3', fontSize:19, fontFamily: 'NB'}}>공지사항</Text>
+                        </View>
+                        <ScrollView style={{flexGrow:1,}}> 
+                            <TouchableOpacity 
+                                style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}
+                                activeOpacity= {1}
+                            >
+                                <View style={{alignSelf: 'flex-start'}} >
+                                    <Text style={{color:'#fcf8f3', fontSize:14, fontFamily: 'NB'}}>
+                                        사용방법과 소감! [ 첫 버젼입니다! :) ]
+                                    </Text>
+                                    <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
+                                        안녕하세요, 개발자 Cobee입니다.
+                                        처음 만들어 본 앱이라 부족한 점이 많겠지만, 많은 피드백주시고 애용해주세요! :D
+                                    </Text>
+                                    <Text> </Text>
+                                    <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NB'}}>
+                                        Features
+                                    </Text>
+                                    <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
+                                        1. 간혹 무한 로딩하는 이미지가 보일 때가 있는데, 그럴 땐 한번만 더 믹스(mix) 버튼을 눌러주세요!
+                                    </Text>
+                                    <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
+                                        2. 현재 개발자인 제가 모든 디자인을 했더니 색상과 배치 등의 모든 앱디자인이 매우 구ㄹ.. 예쁘지 않네요. 다음 업데이트 때 좀 더 개선해 보도록 하겠습니다.
+                                    </Text>
+                                    <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
+                                        3. 제가 제일 처음 써보니 다 좋은데 년도 필터가 없는게 불편했어요. 근데 왜 그 기능이 없냐? 계속해서 하나씩 부족한 부분을 고치다보니 끝이 없어서... 일단 부족하지만 첫 번째 버젼을 내고 추후 자주 업데이트를 해야겠다 싶었다는 개발자의 고충입니다...ㅠ_ㅠ (그리고 가장 중요한 모든 기능은 잘 된다구요...쭈굴쭈굴)
+                                    </Text>
+                                    <Text style={{color:'#fcf8f3', fontSize:13, fontFamily: 'NR'}}>
+                                        4. (Upcoming)Helps & Feedback 밑에 로고 버튼을 누르시면 저에게 피드백을 주실 수 있게끔 기능을 연결 하겠습니다! 그 전까지는 번거로우시겠지만 uniqtop91@gmail.com 으로 피드백 주시면 감사하겠습니다 :D
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        </ScrollView>
+                    </View>
+                    <View style={styles.license}>
+                        <View style={{marginBottom: 10,}}>
                             <Text style={{color:'#fcf8f3', fontSize:19, fontFamily: 'NB'}}>Licenses</Text>
                         </View>
                         <ScrollView 
@@ -169,7 +206,7 @@ export default class Settings extends Component {
                         style={{height:90, width:'100%', marginTop: -10, borderRadius: 15,}} 
                     />
                 </View>
-                <View style={{flex:0.2, justifyContent: 'flex-end'}}>
+                <View style={{flex:0.2, justifyContent: 'flex-end', marginTop: 15,}}>
                     <Text style={{ textAlign:'center', color: '#fcf8f3', fontFamily: 'NR',}}>Swipe Right to close</Text>
                 </View>
             </View>
@@ -200,18 +237,27 @@ const styles = StyleSheet.create({
                 alignItems: 'center',
                 marginBottom: 30,
             },
-            license: {
-                flex: 6,                
+            howToUse: {
+                flex: 3.5,                
                 alignSelf: 'center',
                 alignItems: 'center',
                 width: '95%',
-                marginBottom: 30,
+                marginBottom: 15,
+                marginTop: 10,
+            },
+            license: {
+                flex: 4.5,                
+                alignSelf: 'center',
+                alignItems: 'center',
+                width: '95%',
+                marginBottom: 15,
             },
             feedback: {
-                flex: 1,
+                flex: 0.5,
                 alignSelf: 'center',
             },
         flex_3: {
             flex: 1.3,
+            marginTop: 20,
         },
 })
