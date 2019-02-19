@@ -10,9 +10,10 @@ import HaveSeen from './haveSeen';
 import Settings from './settings';
 
 import CardFlip from 'react-native-card-flip';
-import ActionButton from 'react-native-circular-action-menu';
+// import ActionButton from 'react-native-circular-action-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
+import ActionButton from 'react-native-action-button'
 
 import {
     BallIndicator,
@@ -915,12 +916,12 @@ export default class Main extends Component {
 {/* BUTTONS */}
                 <View style={styles.buttonBox}>
                     {/* <View style={{alignContent:'flex-end'}}> */}
-                        <TouchableOpacity 
-                            style={styles.buttonMix}
-                            onPress={() => {this._filter()}}    
-                        >
-                            <Icon name="ios-shuffle" style={styles.actionButtonIcon2} />
-                        </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={styles.buttonMix}
+                        onPress={() => {this._filter()}}    
+                    >
+                        <Icon name="ios-shuffle" style={styles.actionButtonIcon2} />
+                    </TouchableOpacity>
                     {/* </View> */}
                     <View style={styles.buttonFilter}>
                         {/*Rest of App come ABOVE the action button component!*/}
