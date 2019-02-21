@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { 
         StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput,
-        TouchableHighlight, Image, Alert, AsyncStorage, StatusBar 
+        TouchableHighlight, Image, Alert, AsyncStorage, StatusBar, Dimensions, 
     } from 'react-native';
 import { Card, ListItem, Button} from 'react-native-elements'
 import Filter from './filter';
@@ -10,10 +10,10 @@ import HaveSeen from './haveSeen';
 import Settings from './settings';
 
 import CardFlip from 'react-native-card-flip';
-// import ActionButton from 'react-native-circular-action-menu';
+import ActionButton from 'react-native-circular-action-menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
-import ActionButton from 'react-native-action-button'
+// import ActionButton from 'react-native-action-button'
 
 import {
     BallIndicator,
@@ -39,6 +39,9 @@ const API_KEY = '61ffab023e612aa11ca364354a4c0e6b';
 const mainURL = "https://api.themoviedb.org/3/"
 const ImageURL = "https://image.tmdb.org/t/p/w500"
 const discoverURL = "https://api.themoviedb.org/3/discover/movie?api_key=61ffab023e612aa11ca364354a4c0e6b"
+
+const {width, height} = Dimensions.get('window')
+
 
 // WISHLIST & HAVESEEN Function
 let arrWishList = []
@@ -1079,13 +1082,15 @@ const styles = StyleSheet.create({
   },
 
   adBox: {
-    flex: 0.9,
+    // flex: 0.9,
+    height: height/11
     // backgroundColor: '#1E1E24',
     // alignItems: 'flex-end'
     },
 
   cardBox: {
-    flex: 6,
+    // flex: 6,
+    height: (height*8)/11,
     backgroundColor: '#fef4e8',
     position: 'relative',
     },
@@ -1222,7 +1227,8 @@ const styles = StyleSheet.create({
                 },
 
   buttonBox: {
-    flex: 1.4,
+    // flex: 1.4,
+    height: (height*2)/11,
     backgroundColor: '#fef4e8',
     flexDirection: 'row',
     paddingLeft: 10,
