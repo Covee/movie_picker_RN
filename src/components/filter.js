@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Image, Dimensions } from 'react-native';
 
 import Modal from "react-native-modal";
 import MultiSelectView from 'react-native-multiselect-view'
@@ -7,6 +7,8 @@ import SwitchToggle from 'react-native-switch-toggle';
 import MotionSlider from 'react-native-motion-slider';
 
 import { Font } from 'expo';
+
+const {width, height} = Dimensions.get('window')
 
 // const genreID = [{"id":28,"name":"Action"},{"id":12,"name":"Adventure"},{"id":16,"name":"Animation"},{"id":35,"name":"Comedy"},{"id":80,"name":"Crime"},{"id":99,"name":"Documentary"},{"id":18,"name":"Drama"},{"id":10751,"name":"Family"},{"id":14,"name":"Fantasy"},{"id":36,"name":"History"},{"id":27,"name":"Horror"},{"id":10402,"name":"Music"},{"id":9648,"name":"Mystery"},{"id":10749,"name":"Romance"},{"id":878,"name":"Science Fiction"},{"id":10770,"name":"TV Movie"},{"id":53,"name":"Thriller"},{"id":10752,"name":"War"},{"id":37,"name":"Western"}]
 
@@ -173,14 +175,14 @@ export default class Filter extends Component {
                                     containerStyle={{
                                         marginTop: 16,
                                         width: 140,
-                                        height: 48,
+                                        height: 40,
                                         borderRadius: 25,
                                         backgroundColor: 'rgba(52, 52, 52, 0.1)',
                                         padding: 5,
                                     }}
                                     circleStyle={{
-                                        width: 40,
-                                        height: 40,
+                                        width: 35,
+                                        height: 35,
                                         borderRadius: 20,
                                         backgroundColor: 'gray', // rgb(102,134,205)
                                     }}
@@ -198,14 +200,14 @@ export default class Filter extends Component {
                     </View>
 
 {/* YEAR */}
-                    <View style={styles.years}>
+                    {/* <View style={styles.years}>
                         <View style={{marginBottom:15}}>
                             <Text style={{textAlign: 'center', fontSize: 20, color: '#ebd5d5', fontFamily: 'NB'}}>최소 개봉년도</Text>
                         </View>
                         <View style={{flex:1}}>
                             <Text style={{textAlign: 'center', fontSize: 16, color: '#fafafa', fontFamily: 'NB'}}>UPDATE SOON</Text>
                         </View>
-                    </View>
+                    </View> */}
 
 {/* RATING */}
                     <View style={styles.ratingGT}>
@@ -436,7 +438,7 @@ const styles = StyleSheet.create({
                     borderColor: '#fa0559',
                     borderRadius: 7,
                     width: 'auto',
-                    height: 40,
+                    height: (height*0.8)/15,
                     padding: 5,
                     paddingRight: 15,
                     paddingLeft: 15,
@@ -452,7 +454,7 @@ const styles = StyleSheet.create({
                     borderColor: '#fafafa',
                     borderRadius: 7,
                     width: 'auto',
-                    height: 35,
+                    height: (height*0.7)/15,
                     padding: 5,
                     paddingRight: 10,
                     paddingLeft: 10,

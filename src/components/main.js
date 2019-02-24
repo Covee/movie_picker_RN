@@ -42,6 +42,7 @@ const discoverURL = "https://api.themoviedb.org/3/discover/movie?api_key=61ffab0
 
 const {width, height} = Dimensions.get('window')
 
+let countmix = 0
 
 // WISHLIST & HAVESEEN Function
 let arrWishList = []
@@ -129,6 +130,7 @@ export default class Main extends Component {
             genArr: null,
             isReady: false,
             upRating: '',
+            countmix: 0,
         }
     }
 
@@ -148,6 +150,7 @@ export default class Main extends Component {
 // EXECUTION   
     _filter = async () => {
         console.log("-----filter함수 시작됩니다----")
+        
         await this.setState({
             randNumA: Math.ceil(Math.random() * (this.state.randNumA)),
             randNumB: Math.floor(Math.random() * 20),
@@ -219,6 +222,10 @@ export default class Main extends Component {
     }
 
     _cast = async () => {
+
+        // AdMobInterstitial
+        countmix += 1
+
         let arr1 = [];
         // console.log("7>>_cast() 실행됨, pickedId" + this.state.pickedId)
         await fetch(mainURL + 'movie/' + this.state.pickedId + '/credits?api_key=' + API_KEY + '&language=ko-KR')
@@ -241,11 +248,15 @@ export default class Main extends Component {
                     this.setState({
                         cast: newArr,
                         cardLoading: true,
+                        countmix: countmix,
                     })
                 } else {
                     console.log("cast가 null임")
                 }
-                this._scrollCard()        
+                this._scrollCard()
+                if (this.state.countmix % 9 == 0) {
+                    this.showInterstitial()
+                }
             })
         )
     }
@@ -772,6 +783,12 @@ export default class Main extends Component {
         }
     }
 
+    async showInterstitial() {
+        AdMobInterstitial.setAdUnitID('ca-app-pub-9375979908766782/7539027521'); // Test ID, Replace with your-admob-unit-id
+        AdMobInterstitial.setTestDeviceID('EMULATOR');
+        await AdMobInterstitial.requestAdAsync();
+        await AdMobInterstitial.showAdAsync();
+    }
 
     componentWillMount() {
         this._filter()
@@ -1060,9 +1077,9 @@ class CardInfo extends Component {
     render () {
         return (
             <Card
-                containerStyle={{height:'92%', marginLeft: -1}}
+                containerStyle={{height:(height*2.5)/11, marginLeft: -1}}
                 image={{uri: ImageURL + '/' + this.props.image}}
-                imageStyle={{height:'77%'}}
+                imageStyle={{height:(height*1.9)/11,}}
             >
                 <Text style={{fontSize: 12, textAlign: 'center', marginTop: -8, fontFamily: 'NR'}}>
                     [{this.props.char}] 역

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1021787152013",
+    "firebase_url": "https://feelm-65767.firebaseio.com",
+    "project_id": "feelm-65767",
+    "storage_bucket": "feelm-65767.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021787152013:android:93c3cc5c1e48515a",
+        "android_client_info": {
+          "package_name": "cobee.feelm.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1021787152013-rg9qhad6i10i28ip5c5e3m94fmr83naj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBePxGwcIkmlW2PZTn6piplYLK6lNfC8g0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
