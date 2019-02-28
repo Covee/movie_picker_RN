@@ -1100,8 +1100,8 @@ const styles = StyleSheet.create({
 
   adBox: {
     // flex: 0.9,
-    height: height/11
-    // backgroundColor: '#1E1E24',
+    height: height/11,
+    backgroundColor: '#fef4e8',
     // alignItems: 'flex-end'
     },
 
