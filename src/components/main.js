@@ -159,10 +159,14 @@ export default class Main extends Component {
         })
         await this._changeGenre()
         // console.log("MAX pages >>> " + this.state.randNumA + "  genArr => " + this.state.genArr)
-        console.log("rating>> " + this.state.upRating*0.1)
-        await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + (this.state.upRating*0.1) + '&with_genres=' + this.state.genArr).then(response => response.json())
+        // console.log("rating>> " + this.state.upRating*0.1)
+        await fetch (discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + this.state.randNumA + '&vote_average.gte=' + (this.state.upRating*0.1) + '&with_genres=' + this.state.genArr)
+        .then(response => response.json())
             .then(json => {
                 let id = json.results[this.state.randNumB].id
+                if (id == undefined) {
+                    this.filter()
+                }
                 this.setState({
                     pickedId: id,
                 })
@@ -231,7 +235,14 @@ export default class Main extends Component {
         await fetch(mainURL + 'movie/' + this.state.pickedId + '/credits?api_key=' + API_KEY + '&language=ko-KR')
         .then(response => response.json()
             .then(json => {
-                if (json.cast[0].name != null) {
+                // if (json.cast[0].name == null) {
+                //     console.log("cast가 null임")
+                //     this.filter()
+                // } else if (json.cast == undefined){
+                //     console.log("cast 자체가 undefined임!")
+                //     this.filter()
+                // } else {
+                    // console.log(json.cast)
                     for (let i = 0; i < json.cast.length; i++) {
                         let sub;
                         if(json.cast[i].character.length >= 20) {
@@ -250,9 +261,7 @@ export default class Main extends Component {
                         cardLoading: true,
                         countmix: countmix,
                     })
-                } else {
-                    console.log("cast가 null임")
-                }
+                // }
                 this._scrollCard()
                 if (this.state.countmix % 9 == 0) {
                     this.showInterstitial()
@@ -291,7 +300,8 @@ export default class Main extends Component {
         this.setState({
             genArr: arrange
         })
-        await fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + (this.state.upRating* (1/10)) + '&with_genres=' + this.state.genArr).then(response => response.json())
+        await fetch(discoverURL + '&language=ko-KR&with_original_language=' + this.state.country + '&page=' + '&vote_average.gte=' + (this.state.upRating* (1/10)) + '&with_genres=' + this.state.genArr)
+        .then(response => response.json())
         .then(json => {
             console.log("토탈페이지>>>> " + json.total_pages)
             this.setState({
