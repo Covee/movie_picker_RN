@@ -2,7 +2,7 @@
 Smart Movie Picker
 
 
-##Skills
+## Skills
 - JavaScript(ES6)
 - React Native 
 - Firebase
